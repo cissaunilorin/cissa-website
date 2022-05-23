@@ -7,10 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db": "prisma studio --experimental",
-    "db-save": "prisma migrate save --experimental",
-    "db-up": "prisma migrate up --experimental",
-    "generate": "prisma generate"
+    "studio": "prisma studio",
+    "pushDB": "prisma db push"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.7.0",
