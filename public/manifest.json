@@ -1,0 +1,36 @@
+{
+  "short_name": "CISSA unilorin",
+  "name": "CISSA unilorin",
+  "description": "Harnessing Exceptional potentials",
+  "icons": [
+    {
+      "src": "/images/icons/cissa32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/icons/cissa64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/icons/cissa144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/images/icons/cissa192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/icons/cissa512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/blog",
+  "display": "standalone",
+  "theme_color": "#212529",
+  "background_color": "#ffffff"
+}
