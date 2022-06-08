@@ -1,15 +1,44 @@
-import { Box } from '@chakra-ui/layout';
+import { Box, Flex } from '@chakra-ui/layout';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { FC, ReactNode } from 'react';
+import AdminHeader from '../components/Admin/Header/Header';
+import SideBar from '../components/Admin/SideBar/SideBar';
+import { adminBody, adminBox, authBody } from './styles';
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
+  const router = useRouter();
+
+  if (router.pathname.startsWith('/admin'))
+    return (
+      <Flex {...adminBox} alignItems="center" justifyContent="center">
+        <Flex {...adminBody}>
+          <SideBar />
+
+          <Flex flex={1} direction="column" backgroundColor="white">
+            <AdminHeader />
+            <Box flex={1} as="main">
+              {children}
+            </Box>
+          </Flex>
+        </Flex>
+      </Flex>
+    );
+
+  if (router.pathname.startsWith('/auth'))
+    return (
+      <Flex {...adminBox} alignItems="flex-start" justifyContent="center">
+        <Flex {...authBody}></Flex>
+      </Flex>
+    );
+
   return (
     <>
       <Head>
         <title>cissa</title>
       </Head>
 
-      <Box>{children}</Box>
+      <>{children}</>
     </>
   );
 };

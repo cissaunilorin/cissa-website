@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.8.1",
     "@prisma/client": "^3.13.0",
     "firebase": "^9.8.2",
+    "formik": "^2.2.9",
     "framer-motion": "^6.3.3",
     "gsap": "^3.10.4",
     "next": "12.1.5",
