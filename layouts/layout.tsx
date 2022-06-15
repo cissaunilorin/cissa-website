@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/layout';
+import { Box, Flex } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC, ReactNode } from 'react';
@@ -28,7 +28,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   if (router.pathname.startsWith('/auth'))
     return (
       <Flex {...adminBox} alignItems="flex-start" justifyContent="center">
-        <Flex {...authBody}></Flex>
+        <Flex {...authBody}>{children}</Flex>
       </Flex>
     );
 

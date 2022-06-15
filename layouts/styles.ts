@@ -17,9 +17,8 @@ export const adminBody: FlexProps = {
 export const authBody: FlexProps = {
   width: '500px',
   maxWidth: '100%',
-  maxHeight: '100%',
   padding: '20px',
   bg: 'white',
-  borderRadius: '20px',
+  borderRadius: '10px',
   mt: '200px',
 };

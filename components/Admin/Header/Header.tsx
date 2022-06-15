@@ -1,5 +1,4 @@
-import { Avatar } from '@chakra-ui/avatar';
-import { Box, Flex } from '@chakra-ui/layout';
+import { Avatar, Box, Flex } from '@chakra-ui/react';
 import { FC } from 'react';
 
 const Header: FC = () => {

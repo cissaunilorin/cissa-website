@@ -1,6 +1,4 @@
-import { Box as B } from '@chakra-ui/layout';
 import { FC } from 'react';
-
 import { Box, Image, List, ListItem, ListIcon } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
