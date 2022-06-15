@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
+import { Button } from './components/button';
 
 const colors = {
   brown: {
@@ -32,7 +33,7 @@ export const theme = extendTheme({
     global: {
       body: {
         backgroundColor: 'white',
-        '-webkit-tap-highlight-color': 'transparent',
+        WebkitTapHighlightColor: 'transparent',
       },
     },
   },
@@ -40,5 +41,8 @@ export const theme = extendTheme({
     body: "'Nunito', sans-serif",
     heading: "'Nunito', sans-serif",
     mono: "'Nunito', sans-serif",
+  },
+  components: {
+    Button,
   },
 });

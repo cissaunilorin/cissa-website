@@ -27,7 +27,13 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
 
   if (router.pathname.startsWith('/auth'))
     return (
-      <Flex {...adminBox} alignItems="flex-start" justifyContent="center">
+      <Flex
+        {...adminBox}
+        overflowY="auto"
+        pb={'50px'}
+        alignItems="flex-start"
+        justifyContent="center"
+      >
         <Flex {...authBody}>{children}</Flex>
       </Flex>
     );
