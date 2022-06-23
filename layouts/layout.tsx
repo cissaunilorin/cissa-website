@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { FC, ReactNode } from 'react';
 import AdminHeader from '../components/Admin/Header/Header';
 import SideBar from '../components/Admin/SideBar/SideBar';
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
 import { adminBody, adminBox, authBody } from './styles';
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
@@ -44,7 +46,9 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
         <title>cissa</title>
       </Head>
 
-      <>{children}</>
+      <Header />
+      <Box as="main">{children}</Box>
+      <Footer />
     </>
   );
 };

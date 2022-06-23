@@ -4,7 +4,7 @@ export const Button: ComponentStyleConfig = {
   // The styles all button have in common
   baseStyle: {
     fontWeight: 500,
-    borderRadius: '10px',
+    borderRadius: '5px',
     _hover: {
       shadow: 'none',
     },

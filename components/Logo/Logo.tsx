@@ -19,7 +19,7 @@ const Logo: FC = () => {
           alt="logo"
         />
         <Text fontSize={'20px'} fontWeight={700} color="brown.deep">
-          CISSA
+          CIS
         </Text>
       </Link>
     </NextLink>
