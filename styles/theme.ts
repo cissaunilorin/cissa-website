@@ -38,9 +38,9 @@ export const theme = extendTheme({
     },
   },
   fonts: {
-    body: "'Nunito', sans-serif",
-    heading: "'Nunito', sans-serif",
-    mono: "'Nunito', sans-serif",
+    body: "'Work Sans', sans-serif",
+    heading: "'Work Sans', sans-serif",
+    mono: "'Work Sans', sans-serif",
   },
   components: {
     Button,
