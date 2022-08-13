@@ -10,7 +10,7 @@ const links = [
     href: '/',
   },
   {
-    name: 'Departments',
+    name: 'About',
     href: '/',
   },
   {
@@ -18,11 +18,15 @@ const links = [
     href: '/',
   },
   {
+    name: 'Blog',
+    href: '/',
+  },
+  {
     name: 'News & Events',
     href: '/',
   },
   {
-    name: 'Map',
+    name: 'Contact Us',
     href: '/',
   },
 ];
@@ -32,7 +36,13 @@ const Header: FC = () => {
     <Box
       as="header"
       boxShadow="0px 0px 27px 1px rgba(120, 53, 24, 0.12)"
+      bg={'white'}
       py={'17px'}
+      position="fixed"
+      top={'0'}
+      left={'0'}
+      right={'0'}
+      zIndex={'100'}
     >
       <Box {...mainBoxStyle}>
         <Flex justify={'space-between'} align={'center'}>
@@ -47,8 +57,6 @@ const Header: FC = () => {
               </ListItem>
             ))}
           </List>
-
-          <Button display={{ base: 'none', lg: 'flex' }}>Contact us</Button>
         </Flex>
       </Box>
     </Box>

@@ -5,6 +5,7 @@ import { mainBoxStyle } from '../../../styles/common';
 const Overview: FC = () => {
   return (
     <Box as="section">
+      <Box></Box>
       <Box {...mainBoxStyle}></Box>
     </Box>
   );

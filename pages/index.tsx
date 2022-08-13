@@ -3,7 +3,7 @@ import { FC } from 'react';
 import Blog from '../components/Home/Blog/Blog';
 import ContactDetails from '../components/Home/ContactDetails/ContactDetails';
 import Event from '../components/Home/Event/Event';
-import Features from '../components/Home/Features/Features';
+import Facts from '../components/Home/Facts/Facts';
 import Gallery from '../components/Home/Gallery/Gallery';
 import Map from '../components/Home/Map/Map';
 import Overview from '../components/Home/Overview/Overview';
@@ -17,7 +17,7 @@ const Home: FC = () => {
       </Head>
 
       <Overview />
-      <Features />
+      <Facts />
       <Recourses />
       <ContactDetails />
       <Blog />
