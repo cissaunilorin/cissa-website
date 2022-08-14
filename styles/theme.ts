@@ -38,9 +38,9 @@ export const theme = extendTheme({
     },
   },
   fonts: {
-    body: "'Work Sans', sans-serif",
-    heading: "'Work Sans', sans-serif",
-    mono: "'Work Sans', sans-serif",
+    body: "'Inter', sans-serif",
+    heading: "'Inter', sans-serif",
+    mono: "'Inter', sans-serif",
   },
   components: {
     Button,

@@ -7,8 +7,8 @@ export const mainBoxStyle: BoxProps = {
 };
 
 export const heading2Style: HeadingProps = {
-  fontWeight: 600,
-  fontSize: '30px',
-  lineHeight: '30px',
+  fontWeight: 700,
+  fontSize: '40px',
+  lineHeight: '40px',
   color: 'brown.deep',
 };

@@ -45,6 +45,22 @@ export const Button: ComponentStyleConfig = {
         color: 'white',
       },
     },
+    light: {
+      bg: 'brown.trans',
+      color: 'brown.deep',
+      _hover: {
+        bg: 'brown.trans',
+        color: 'brown.deep',
+      },
+      _active: {
+        bg: 'brown.trans',
+        color: 'brown.deep',
+      },
+      _focus: {
+        bg: 'brown.trans',
+        color: 'brown.deep',
+      },
+    },
   },
 
   defaultProps: {

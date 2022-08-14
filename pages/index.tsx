@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { FC } from 'react';
+import About from '../components/Home/About/About';
 import Blog from '../components/Home/Blog/Blog';
 import ContactDetails from '../components/Home/ContactDetails/ContactDetails';
 import Event from '../components/Home/Event/Event';
@@ -18,6 +19,7 @@ const Home: FC = () => {
 
       <Overview />
       <Facts />
+      <About />
       <Recourses />
       <ContactDetails />
       <Blog />
