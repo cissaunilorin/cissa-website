@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { FC } from 'react';
 import { mainBoxStyle } from '../../../styles/common';
 
-const Recourses: FC = () => {
+const ContactDetails: FC = () => {
   return (
     <Box as="section">
       <Box {...mainBoxStyle}></Box>
@@ -10,4 +10,4 @@ const Recourses: FC = () => {
   );
 };
 
-export default Recourses;
+export default ContactDetails;
