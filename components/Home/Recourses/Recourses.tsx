@@ -12,8 +12,8 @@ import ChakraNextImage from '../../chakra-nextimage';
 import resourceImg from '../../../public/assets/resource.png';
 import { FC } from 'react';
 import { mainBoxStyle, heading2Style } from '../../../styles/common';
+import { resourceContainer, resourceText } from './style';
 
-import { resoruceBoxHeading, resourceContainer, resourceText } from './style';
 const Resource = [
   {
     img: 'resource.png',
