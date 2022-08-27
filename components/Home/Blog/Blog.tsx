@@ -90,10 +90,13 @@ const Blog: FC = () => {
                     marginBlock="6"
                     color="white"
                   >
-                    <Flex>
+                    <Flex justifyContent="space-between" alignItems="center">
                       <Text fontSize={["lg", "lg"]} fontWeight="bold">
                         {blog.title}
                       </Text>
+                      <div style={{width: "fit-content", marginInlineEnd: "10px"}}>
+                      <Image src="/assets/rightarrow.svg" width="20px" height="20px" alt="Read More" style={{filter: "invert(100)", marginBlockStart: "2px"}} />
+                      </div>
                     </Flex>
                     <Text fontSize={["sm"]} opacity=".8" mt="2">
                       {blog.description}
