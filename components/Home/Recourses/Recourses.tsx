@@ -23,7 +23,7 @@ const Recourses: FC = () => {
       <Box {...mainBoxStyle}>
         <Flex
           direction={{ base: 'column', lg: 'row' }}
-          align={'center'}
+          align="center"
           gap={{ base: '50px', md: '30px' }}
         >
           <Box flex={1}>
