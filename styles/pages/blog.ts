@@ -44,8 +44,9 @@ export const blogTrendingHeading: TextProps = {
   fontSize: '28px',
   mb: '12px',
   fontWeight: '600',
-  lineHeight: '140%',
-  maxW: '455px',
+  lineHeight: '39.2px',
+  w: { md: '100%', lg: '455px' },
+  maxW: { md: '100%', lg: '100%' },
 };
 export const blogTrendingDDText: TextProps = {
   fontSize: '20px',

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { IoMdOptions } from 'react-icons/io';
 import {
   Text,
   Box,
@@ -9,7 +10,9 @@ import {
   Button,
   Grid,
   GridItem,
+  IconButton,
 } from '@chakra-ui/react';
+
 import ChakraNextImage from '../../components/chakra-nextimage';
 import {
   blogHeaderContainer,
@@ -52,7 +55,7 @@ const blogTending = [
     heading: 'Trending',
     subHeading: 'Development',
     summary:
-      'How to do the right thingwithout stress in an environment filled with different people,with different attitude',
+      'How to do the right thing  without  stress in an environment filled with different people,with different attitude',
   },
 ];
 const blogPosts = [
@@ -118,20 +121,20 @@ const Blog: FC = () => {
               fashion
             </Text>
 
-            <Flex w={'435px'} mx="auto">
+            <Flex maxW={'435px'} mx="auto">
               <Input placeholder="Search" />
-              <Button variant={'dark'} marginLeft={'-55px'}>
-                <ChakraNextImage
-                  src={'assets/blogseV.png'}
-                  h={'24px'}
-                  w={'24px'}
-                />
-              </Button>
+              <IconButton
+                variant={'dark'}
+                aria-label="Search database"
+                marginLeft={'-40px'}
+                icon={<IoMdOptions size={24} />}
+              />
             </Flex>
             <Flex
               align={'center'}
               justifyContent={'center'}
               gap={'20px'}
+              flexWrap={'wrap'}
               mt={'50px'}
             >
               {blogBtns.map((blogBtn, i) => (
@@ -147,16 +150,21 @@ const Blog: FC = () => {
       <Box {...blogComponentsContainer}>
         <Box {...mainBoxStyle}>
           <Heading {...blogPrimaryHeading}>Trending</Heading>
-          <Flex gap={'23px'} mt={'50px'}>
+          <Flex
+            gap={{ md: '13px', lg: '23px' }}
+            mt={'50px'}
+            flex={1}
+            direction={{ base: 'column', md: 'column', lg: 'row' }}
+          >
             <Box>
               <ChakraNextImage
                 src={'/assets/trendingImg.png'}
                 h={'472.23px'}
-                w={'644px'}
+                w={{ base: '100%', md: '100%', lg: '664px' }}
                 borderRadius={'8px'}
               />
             </Box>
-            <Box pt={'100px'}>
+            <Box pt={{ base: '50px', md: '50px', lg: '100px' }} flex={2}>
               <Heading {...blogSecondaryHeading}>Development</Heading>
               <Text {...blogTrendingHeading}>{blogTending[0].summary}</Text>
               <Flex gap={'8px'} alignItems={'center'}>
@@ -187,7 +195,11 @@ const Blog: FC = () => {
           </Flex>
 
           <Grid
-            templateColumns="repeat(3, 1fr)"
+            templateColumns={{
+              base: 'repeat(1,1fr)',
+              md: 'repeat(2,1fr)',
+              lg: 'repeat(3,1fr)',
+            }}
             columnGap={'24px'}
             rowGap={'80px'}
           >
@@ -226,7 +238,11 @@ const Blog: FC = () => {
           </Flex>
 
           <Grid
-            templateColumns="repeat(3, 1fr)"
+            templateColumns={{
+              base: 'repeat(1,1fr)',
+              md: 'repeat(2,1fr)',
+              lg: 'repeat(3,1fr)',
+            }}
             columnGap={'24px'}
             rowGap={'80px'}
           >
