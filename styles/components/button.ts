@@ -28,6 +28,26 @@ export const Button: ComponentStyleConfig = {
       border: '1.5px solid',
       borderColor: 'brown.deep',
       color: '#793518',
+      _hover: {
+        bg: 'brown.light',
+        color: 'white',
+      },
+    },
+    dark: {
+      bg: '#793518',
+      color: 'white',
+      _hover: {
+        bg: 'brown.light',
+        color: 'white',
+      },
+      _active: {
+        bg: 'brown.deep',
+        color: 'white',
+      },
+      _focus: {
+        bg: 'brown.deep',
+        color: 'white',
+      },
     },
     solid: {
       bg: '#BB8872',
