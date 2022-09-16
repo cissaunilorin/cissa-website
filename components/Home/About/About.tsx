@@ -9,6 +9,7 @@ import {
 } from './style';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
+import ChakraNextImage from '../../chakra-nextimage';
 
 const about = [
   {
@@ -24,41 +25,76 @@ const about = [
 const About: FC = () => {
   return (
     <Box {...aboutContainer}>
-      <Box {...mainBoxStyle}>
-        <Flex align={'center'} direction={{ base: 'column', lg: 'row' }}>
-          <Box flex={1}></Box>
+      <Flex
+        {...mainBoxStyle}
+        align={'center'}
+        justify={{ base: 'center', lg: 'space-between' }}
+        direction={{ base: 'column', lg: 'row' }}
+        gap={{ base: '40px', lg: 'unset' }}
+      >
+        <Flex
+          flex={{ lg: '0 0 651px' }}
+          gap={{ base: '20px', lg: '40px' }}
+          justify={{ base: 'center', lg: 'flex-start' }}
+        >
+          <Flex
+            gap={{ base: '20px', lg: '40px' }}
+            direction={'column'}
+            align={'flex-end'}
+          >
+            <ChakraNextImage
+              h={{ base: '113px', md: '143px', lg: '193px' }}
+              w={{ base: '118px', md: '148px', lg: '198px' }}
+              borderRadius="14px"
+              src={`/assets/about-img-1.png`}
+            />
 
-          <Box flex={'0 0 429px'}>
-            <Heading {...heading2Style}>About Us</Heading>
-            <Text {...aboutText}>
-              The faculty of communication and information sciences was
-              established in the year 2002,It as 5 deartments with
-            </Text>
+            <ChakraNextImage
+              h={{ base: '136px', md: '176px', lg: '236px' }}
+              w={{ base: '153px', md: '193px', lg: '253px' }}
+              borderRadius="14px"
+              src={`/assets/about-img-2.png`}
+            />
+          </Flex>
 
-            {about.map((cur, i) => (
-              <Box mb="20px" key={i}>
-                <Flex mb={'15px'} gap={'11px'} align={'center'}>
-                  <Icon
-                    as={BsCheckCircleFill}
-                    fontSize={'22px'}
-                    color="#17C452"
-                  />
-                  <Heading {...aboutBoxHeading}>{cur.heading}</Heading>
-                </Flex>
-                <Text {...aboutSmText}>{cur.text}</Text>
-              </Box>
-            ))}
-
-            <Button
-              variant={'light'}
-              mt={'20px'}
-              rightIcon={<ArrowForwardIcon />}
-            >
-              Learn more
-            </Button>
-          </Box>
+          <ChakraNextImage
+            h={{ base: '317px', md: '377px', lg: '437px' }}
+            flex={{ base: '0 0 148px', md: '0 0 198px', lg: '0 0 258px' }}
+            borderRadius="14px"
+            src={`/assets/about-img-3.png`}
+          />
         </Flex>
-      </Box>
+
+        <Box w={'429px'} maxW="100%">
+          <Heading {...heading2Style}>About Us</Heading>
+          <Text {...aboutText}>
+            The faculty of communication and information sciences was
+            established in the year 2002,It as 5 deartments with
+          </Text>
+
+          {about.map((cur, i) => (
+            <Box mb="20px" key={i}>
+              <Flex mb={'15px'} gap={'11px'} align={'center'}>
+                <Icon
+                  as={BsCheckCircleFill}
+                  fontSize={'22px'}
+                  color="#17C452"
+                />
+                <Heading {...aboutBoxHeading}>{cur.heading}</Heading>
+              </Flex>
+              <Text {...aboutSmText}>{cur.text}</Text>
+            </Box>
+          ))}
+
+          <Button
+            variant={'light'}
+            mt={'20px'}
+            rightIcon={<ArrowForwardIcon />}
+          >
+            Learn more
+          </Button>
+        </Box>
+      </Flex>
     </Box>
   );
 };

@@ -2,7 +2,13 @@ import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 import { heading2Style, mainBoxStyle } from '../../../styles/common';
 import ChakraNextImage from '../../chakra-nextimage';
-import { factsBox, factsHeading, factsText, featureText } from './styles';
+import {
+  factsBox,
+  factsHeading,
+  factsInnerBox,
+  factsText,
+  featureText,
+} from './styles';
 
 const facts = [
   {
@@ -29,7 +35,11 @@ const facts = [
 
 const Facts: FC = () => {
   return (
-    <Box as="section" mt={'198px'} mb={'104px'}>
+    <Box
+      as="section"
+      mt={{ base: '100px', md: '198px' }}
+      mb={{ base: '54px', md: '104px' }}
+    >
       <Box {...mainBoxStyle}>
         <Heading as={'h2'} {...heading2Style} textAlign="center" mb={'8px'}>
           Amazing Facts
@@ -39,13 +49,7 @@ const Facts: FC = () => {
         </Text>
       </Box>
 
-      <Box
-        bg={'url(/assets/fact-curve.png),url(/assets/fact-dot.png)'}
-        backgroundRepeat={'no-repeat'}
-        backgroundSize={'100% 100%, initial'}
-        backgroundPosition={'0 0, 100% 0'}
-        py={'110px'}
-      >
+      <Box {...factsInnerBox}>
         <Box {...mainBoxStyle}>
           <Flex justify={'center'} gap="32px" wrap={'wrap'}>
             {facts.map((fact, i) => (

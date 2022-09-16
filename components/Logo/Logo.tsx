@@ -1,7 +1,7 @@
 import { Link, Text } from '@chakra-ui/react';
-import Image from 'next/image';
 import NextLink from 'next/link';
 import { FC } from 'react';
+import ChakraNextImage from '../chakra-nextimage';
 
 const Logo: FC = () => {
   return (
@@ -12,10 +12,10 @@ const Logo: FC = () => {
         _hover={{ textDecoration: 'none' }}
         alignItems="center"
       >
-        <Image
+        <ChakraNextImage
           src="/images/icons/cissa.png"
-          width={40}
-          height={40}
+          width={{ base: '30px', md: '40px' }}
+          height={{ base: '30px', md: '40px' }}
           alt="logo"
         />
         <Text fontSize={'20px'} fontWeight={700} color="brown.deep">

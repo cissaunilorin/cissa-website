@@ -19,7 +19,7 @@ const links = [
   },
   {
     name: 'Blog',
-    href: '/',
+    href: '/blog',
   },
   {
     name: 'News & Events',
@@ -49,7 +49,7 @@ const Header: FC = () => {
           <Logo />
 
           <List display={{ base: 'none', lg: 'flex' }} gap={'32px'}>
-            {links.map(link => (
+            {links.map((link) => (
               <ListItem key={link.name}>
                 <NextLink href={link.href} passHref>
                   <Link>{link.name}</Link>

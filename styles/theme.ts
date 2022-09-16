@@ -5,6 +5,7 @@ const colors = {
   brown: {
     trans: '#FFF2EC',
     light: '#CDA898',
+    lighter: '#A69898',
     brown: '#C0917C',
     deep: '#814226',
   },
