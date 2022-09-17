@@ -13,7 +13,8 @@ import {
   galleryImage,
   resourcedots1,
   resourceBoximg,
-  button
+  icon,
+  button,
 } from './styles';
 
 const Gallery: FC = () => {
@@ -26,7 +27,7 @@ const Gallery: FC = () => {
           h='72.02px'
           pos='absolute'
           {...resourcedots1}
-        />        
+        />
       </Box>
       <Box {...mainBoxStyle}>
         {' '}
@@ -37,9 +38,12 @@ const Gallery: FC = () => {
           Get directions to anywhere you are going within the faculty
         </Text>
         <Flex pt={'80px'} position='relative'>
-          <IconButton {...iconBtn} left={'2rem'}>
-            <ChevronLeftIcon color='#783518' w='2rem' h='1.6rem' />
-          </IconButton>
+          <IconButton
+            aria-label='Left icon'
+            {...iconBtn}
+            left={'2rem'}
+            icon={<ChevronLeftIcon {...icon} />}
+          />
 
           <Box bg={'url(/assets/gallery-1.png)'} {...galleryImage}></Box>
           <Box
@@ -51,16 +55,15 @@ const Gallery: FC = () => {
           ></Box>
           <Box bg={'url(/assets/gallery-3.png)'} {...galleryImage}></Box>
 
-          <IconButton {...iconBtn} right='2rem'>
-            <ChevronRightIcon color='#783518' w='2rem' h='1.6rem' />
-          </IconButton>
+          <IconButton
+            aria-label='Right icon'
+            {...iconBtn}
+            right={'2rem'}
+            icon={<ChevronRightIcon {...icon} />}
+          />          
         </Flex>
         <Flex>
-          <Button
-            variant={'light'}            
-            rightIcon={<ArrowForwardIcon />}
-            {...button}
-          >
+          <Button rightIcon={<ArrowForwardIcon />} {...button}>
             Explore Gallery
           </Button>
         </Flex>
