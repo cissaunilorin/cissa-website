@@ -21,11 +21,9 @@ import {
 } from '../styles/pages/about';
 
 const settings = {
-  // padding: 0,
   dots: true,
   infinite: true,
   speed: 500,
-  // variableWidth: true,
   slidesToShow: 3,
   slidesToScroll: 1,
 };
