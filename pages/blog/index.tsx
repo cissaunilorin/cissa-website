@@ -239,7 +239,7 @@ const Blog: FC = () => {
 
           <Grid
             templateColumns={{
-              base: 'repeat(1,1fr)',
+              base: '1fr',
               md: 'repeat(2,1fr)',
               lg: 'repeat(3,1fr)',
             }}

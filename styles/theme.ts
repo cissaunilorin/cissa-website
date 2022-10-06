@@ -4,6 +4,7 @@ import { Button } from './components/button';
 const colors = {
   brown: {
     trans: '#FFF2EC',
+    transDark: '#F7EFEb',
     light: '#CDA898',
     lighter: '#A69898',
     brown: '#C0917C',
