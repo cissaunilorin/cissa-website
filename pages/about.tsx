@@ -1,10 +1,10 @@
-import { Box, Flex, Text, Heading } from '@chakra-ui/react';
-import Slider from 'react-slick';
-import ChakraNextImage from '../components/chakra-nextimage';
-import { Button } from '@chakra-ui/react';
-import { FaShoppingBag, FaPlay } from 'react-icons/fa';
-import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { mainBoxStyle } from '../styles/common';
+import { Box, Flex, Text, Heading, Link } from "@chakra-ui/react";
+import Slider from "react-slick";
+import ChakraNextImage from "../components/chakra-nextimage";
+import { Button } from "@chakra-ui/react";
+import { FaPlay, FaTwitter, FaFacebook, FaLinkedin } from "react-icons/fa";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { mainBoxStyle } from "../styles/common";
 import {
   aboutSectionHero,
   iconDepartmentBoxProps,
@@ -18,51 +18,202 @@ import {
   departmentBoxSummary,
   aboutLgHeading,
   aboutHistoryPlayCircle,
-} from '../styles/pages/about';
+  mainTextWrapper,
+  mainTextBox,
+  mainTextHeading,
+  mainText,
+  leaderWrapper,
+  leaderImage,
+  leaderFlex,
+  leaderLink,
+  leaderButton,
+  studentBodyFlex,
+  studentBodyWrapper,
+  studentBodyImage,
+} from "../styles/pages/about";
 
 const settings = {
   dots: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 1,
+  variableWidth: true,
+  responsive: [
+    {
+      breakpoint: 900,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 1150,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 1300,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
+
+const settingsThree = {
+  dots: false,
+  variableWidth: true,
+  infinite: true,
+  autoplay: true,
+  speed: 20000,
+  autoplaySpeed: 0,
+  cssEase: "linear",
+  responsive: [
+    {
+      breakpoint: 900,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 1150,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 1300,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+  ],
+};
+
+const settingsTwo = {
+  dots: false,
+  infinite: true,
+  variableWidth: true,
+  autoplay: true,
+  speed: 20000,
+  autoplaySpeed: 0,
+  cssEase: "linear",
+  responsive: [
+    {
+      breakpoint: 900,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 1150,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 1300,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+  ],
+};
+
+const facultyLeaders = [
+  {
+    name: "Queen Hearts",
+    title: "H.O.D Information and Communication Science",
+    imageSrc: "/assets/woman.png",
+  },
+  {
+    name: "Adebayo Fawaz",
+    title: "Faculty Dean",
+    imageSrc: "/assets/man.png",
+  },
+  {
+    name: "Queen MyLove",
+    title: "Faculty Sub Dean",
+    imageSrc: "/assets/oldman.png",
+  },
+  {
+    name: "Queen Queen",
+    title: "Faculty Dean",
+    imageSrc: "/assets/woman.png",
+  },
+];
+
+const studentBody = [
+  {
+    name: "Olamilekan  Sodiq",
+    title: "Faculty President",
+    imageSrc: "/assets/man.png",
+  },
+  {
+    name: "Olamilekan Tesleemah",
+    title: "Faculty Vice President",
+    imageSrc: "/assets/man.png",
+  },
+  {
+    name: "Elijah Oyindamola",
+    title: "General Secretary",
+    imageSrc: "/assets/man.png",
+  },
+  {
+    name: "Adeleye Abigail",
+    title: "Welfare Secretary",
+    imageSrc: "/assets/man.png",
+  },
+  {
+    name: "Adeleye Abigail",
+    title: "Secretary",
+    imageSrc: "/assets/man.png",
+  },
+];
 const Departments = [
   {
     id: 1,
-    heading: 'Information and Communicaton Science',
+    heading: "Information and Communicaton Science",
     summary:
-      'Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....',
-    more: 'Learn more',
+      "Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....",
+    more: "Learn more",
   },
   {
     id: 2,
-    heading: 'Telecommunicaton Science',
+    heading: "Telecommunicaton Science",
     summary:
-      'Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....',
-    more: 'Learn more',
+      "Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....",
+    more: "Learn more",
   },
   {
     id: 3,
-    heading: 'Library & Information Science',
+    heading: "Library & Information Science",
     summary:
-      'Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....',
-    more: 'Learn more',
+      "Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....",
+    more: "Learn more",
   },
   {
     id: 4,
-    heading: 'Computer Science',
+    heading: "Computer Science",
     summary:
-      'Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....',
+      "Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....",
 
-    more: 'Learn more',
+    more: "Learn more",
   },
   {
     id: 5,
-    heading: 'Mass Communicaton ',
+    heading: "Mass Communicaton ",
     summary:
-      'Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....',
-    more: 'Learn more',
+      "Using Decision Trees,regression and neural networks, our team of experts develops ai models for recommendation systems, forecasting....",
+    more: "Learn more",
   },
 ];
 
@@ -71,14 +222,14 @@ const About = () => (
     <Flex {...aboutSectionHero}>
       <Text {...aboutSmHeading}>Here we are helping to</Text>
       <Text {...aboutLgHeading}>Nuture A Global Village.</Text>
-    </Flex>{' '}
+    </Flex>{" "}
     *
     <Box {...aboutSectionHistory}>
       <Box {...mainBoxStyle}>
         <Flex
-          direction={{ base: 'column', lg: 'row' }}
+          direction={{ base: "column", lg: "row" }}
           align="center"
-          gap={{ base: '50px', md: '30px', lg: '72px' }}
+          gap={{ base: "50px", md: "30px", lg: "72px" }}
         >
           <Box>
             <Heading {...aboutPrimaryHeading}>Our History</Heading>
@@ -96,31 +247,31 @@ const About = () => (
               risus, at donec. In turpis vel et q.
             </Text>
             <Button
-              variant={'light'}
-              rightIcon={<ArrowForwardIcon fontSize={'24px'} />}
-              fontWeight={'700'}
+              variant={"light"}
+              rightIcon={<ArrowForwardIcon fontSize={"24px"} />}
+              fontWeight={"700"}
             >
               Read more
             </Button>
           </Box>
-          <Box position={'relative'}>
+          <Box position={"relative"}>
             <ChakraNextImage
               src="/assets/class.png"
-              w={{ base: '500px', md: '590px', lg: '600px' }}
-              h={{ base: '320px', md: '400px', lg: '560px' }}
+              w={{ base: "500px", md: "590px", lg: "600px" }}
+              h={{ base: "320px", md: "400px", lg: "560px" }}
               borderRadius="30px"
             />
             <ChakraNextImage
               src="/assets/dotsA.png"
-              h={{ base: '150px', md: '170px', lg: '190px' }}
-              w={{ base: '200px', md: '250px', lg: '310px' }}
-              pos={'absolute'}
-              top={'-90px'}
-              right={'-50px'}
-              zIndex={'-1'}
+              h={{ base: "150px", md: "170px", lg: "190px" }}
+              w={{ base: "200px", md: "250px", lg: "310px" }}
+              pos={"absolute"}
+              top={"-90px"}
+              right={"-50px"}
+              zIndex={"-1"}
             />
             <Flex {...aboutHistoryPlayCircle}>
-              <FaPlay color={'#814226'} size={'34'} />
+              <FaPlay color={"#814226"} size={"34"} />
             </Flex>
           </Box>
         </Flex>
@@ -136,7 +287,7 @@ const About = () => (
           </Text>
         </Box>
       </Box>
-      <Box padding={'0 40px'}>
+      <Box padding={"0 40px"}>
         <Slider {...settings}>
           {Departments.map((department) => {
             return (
@@ -144,8 +295,8 @@ const About = () => (
                 <Flex {...iconDepartmentBoxProps}>
                   <ChakraNextImage
                     src="/assets/Workbag.png"
-                    h={'41.67px'}
-                    w={'41.67px'}
+                    h={"41.67px"}
+                    w={"41.67px"}
                   />
                 </Flex>
                 <Heading {...departmentBoxHeading}>
@@ -161,6 +312,95 @@ const About = () => (
           })}
         </Slider>
       </Box>
+    </Box>
+    <Box {...mainTextWrapper}>
+      <Box {...mainTextBox}>
+        <Heading {...mainTextHeading}>Faculty Leadership</Heading>
+        <Text {...mainText}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et.
+        </Text>
+      </Box>
+      <Slider {...settingsThree}>
+        {facultyLeaders.map((leader) => (
+          <Box key={leader.title} {...leaderWrapper}>
+            <ChakraNextImage src={leader.imageSrc} {...leaderImage} />
+            <Flex {...leaderFlex}>
+              <Box w="100%">
+                <Heading fontSize="1.5rem">{leader.name}</Heading>
+                <Text fontSize="1rem" mt="2">
+                  {leader.title}
+                </Text>
+                <Flex mt="4">
+                  <Link
+                    _hover={{ bg: "#814226", _first: { color: "#F3F2F2" } }}
+                    {...leaderLink}
+                  >
+                    <FaTwitter size="20px" />
+                  </Link>
+                  <Link
+                    _hover={{ bg: "#814226", _notFirst: { color: "#F3F2F2" } }}
+                    {...leaderLink}
+                  >
+                    <FaFacebook size="20px" />
+                  </Link>
+                  <Link
+                    _hover={{ bg: "#814226", _last: { color: "#F3F2F2" } }}
+                    {...leaderLink}
+                  >
+                    <FaLinkedin size="20px" />
+                  </Link>
+                </Flex>
+              </Box>
+              <Button {...leaderButton}>&#8594;</Button>
+            </Flex>
+          </Box>
+        ))}
+      </Slider>
+    </Box>
+    <Box {...mainTextWrapper}>
+      <Box {...mainTextBox}>
+        <Heading {...mainTextHeading}>Student Body</Heading>
+        <Text {...mainText}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et.
+        </Text>
+      </Box>
+      <Slider {...settingsTwo}>
+        {studentBody.map((leader) => (
+          <Flex key={leader.title} {...studentBodyWrapper}>
+            <ChakraNextImage src={leader.imageSrc} {...studentBodyImage} />
+            <Flex {...studentBodyFlex}>
+              <Box w="100%">
+                <Heading fontSize="1.2rem">{leader.name}</Heading>
+                <Text fontSize=".8rem" mt="2">
+                  {leader.title}
+                </Text>
+                <Flex mt="4">
+                  <Link
+                    _hover={{ bg: "#814226", _first: { color: "#F3F2F2" } }}
+                    {...leaderLink}
+                  >
+                    <FaTwitter size="20px" />
+                  </Link>
+                  <Link
+                    _hover={{ bg: "#814226", _notFirst: { color: "#F3F2F2" } }}
+                    {...leaderLink}
+                  >
+                    <FaFacebook size="20px" />
+                  </Link>
+                  <Link
+                    _hover={{ bg: "#814226", _last: { color: "#F3F2F2" } }}
+                    {...leaderLink}
+                  >
+                    <FaLinkedin size="20px" />
+                  </Link>
+                </Flex>
+              </Box>
+            </Flex>
+          </Flex>
+        ))}
+      </Slider>
     </Box>
   </>
 );
