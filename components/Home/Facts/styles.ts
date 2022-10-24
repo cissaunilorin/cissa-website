@@ -2,8 +2,8 @@ import { BoxProps, HeadingProps, TextProps } from '@chakra-ui/react';
 
 export const featureText: TextProps = {
   fontWeight: 400,
-  fontSize: '20px',
-  lineHeight: '26px',
+  fontSize: { base: '18px', md: '20px' },
+  lineHeight: { base: '20px', md: '26px' },
   textAlign: 'center',
   color: 'grey.text',
 };
@@ -18,8 +18,8 @@ export const factsBox: BoxProps = {
 
 export const factsHeading: HeadingProps = {
   fontWeight: 600,
-  fontSize: '20px',
-  lineHeight: '24px',
+  fontSize: { base: '18px', md: '20px' },
+  lineHeight: { base: '22px', md: '24px' },
   textAlign: 'center',
   color: '#121212',
   as: 'h3',
@@ -28,9 +28,17 @@ export const factsHeading: HeadingProps = {
 
 export const factsText: TextProps = {
   fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '24px',
+  fontSize: { base: '14px', md: '16px' },
+  lineHeight: { base: '22px', md: '24px' },
   textAlign: 'center',
   color: '#999999',
   mb: '36px',
+};
+
+export const factsInnerBox: BoxProps = {
+  bg: 'url(/assets/fact-curve.png),url(/assets/fact-dot.png)',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: { base: '100% 100%, 30%', md: '100% 100%, 15%' },
+  backgroundPosition: { base: '0 0, 100% 2%', md: '0 0, 100% 0' },
+  py: { base: '70px', md: '110px' },
 };
