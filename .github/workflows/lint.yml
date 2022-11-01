@@ -1,0 +1,15 @@
+name: Lint
+on:
+  push:
+    branches: ['main', 'dev']
+  pull_request:
+    branches: ['main', 'dev']
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: run linting
+        run: npm run lint
