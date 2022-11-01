@@ -70,17 +70,15 @@ const Blog: FC = () => {
             </Box>
             <Box w={{ base: '90%', md: '45%' }} marginX="auto">
               {blogCards.map((blog, i) => (
-                <>
-                  <Flex key={i}>
-                    <Box bgImage={blog.bgImg} {...blogImageBox}>
-                      <Button {...blogButton}>{blog.tag}</Button>
-                    </Box>
-                    <Box {...blogContent}>
-                      <Text {...blogPrimaryText}>{blog.title}</Text>
-                      <Text {...blogSecondaryText}>{blog.description}</Text>
-                    </Box>
-                  </Flex>
-                </>
+                <Flex key={i}>
+                  <Box bgImage={blog.bgImg} {...blogImageBox}>
+                    <Button {...blogButton}>{blog.tag}</Button>
+                  </Box>
+                  <Box {...blogContent}>
+                    <Text {...blogPrimaryText}>{blog.title}</Text>
+                    <Text {...blogSecondaryText}>{blog.description}</Text>
+                  </Box>
+                </Flex>
               ))}
             </Box>
           </Flex>
