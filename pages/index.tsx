@@ -1,3 +1,5 @@
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { FC } from 'react';
 import About from '../components/Home/About/About';
@@ -28,6 +30,16 @@ const Home: FC = () => {
       <Map />
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const session = await getSession();
+
+  console.log(session?.user);
+
+  return {
+    props: {},
+  };
 };
 
 export default Home;
