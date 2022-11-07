@@ -101,11 +101,11 @@ const Footer: FC = () => {
             <Heading {...linkHeading}>Connect</Heading>
 
             <Flex gap={'20px'}>
-              {social.map((link, i) => (
+              {/* {social.map((link, i) => (
                 <NextLink key={i} href={link.href} passHref>
                   <Icon as={link.name} h="30px" w="30px" color={'white'} />
                 </NextLink>
-              ))}
+              ))} */}
             </Flex>
           </Box>
         </Flex>

@@ -1,14 +1,18 @@
-import NextAuth from 'next-auth';
+import NextAuth, { Awaitable, User } from 'next-auth';
 import CredentialProvider from 'next-auth/providers/credentials';
 import { correctPassword } from '../../../utils/authHandler';
 import { pattern } from '../../../utils/homeHandler';
 import { prisma } from '../../../lib/prisma';
+// import { User } from '@prisma/client';
 
 export default NextAuth({
   session: {
     maxAge: 60 * 60 * 24 * 7,
   },
   secret: process.env.SECRET,
+  pages: {
+    signIn: '/auth/login',
+  },
   providers: [
     CredentialProvider({
       name: 'Credentials',
@@ -16,7 +20,7 @@ export default NextAuth({
         email: { label: 'email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials: { email: string; password: string }) {
+      async authorize(credentials) {
         const { email, password } = credentials;
 
         if (!email || !password)
@@ -29,8 +33,19 @@ export default NextAuth({
         if (!user || !(await correctPassword(password, user.password)))
           throw new Error('incorrect email/username or password');
 
-        return user;
+        return {
+          ...user,
+        };
       },
     }),
   ],
+  // callbacks: {
+  //   session({ session, token, user }) {
+  //     console.log(user, session.user);
+  //     return session;
+  //   },
+  //   jwt({ token, account, isNewUser, profile, user }) {
+  //     return token;
+  //   },
+  // },
 });

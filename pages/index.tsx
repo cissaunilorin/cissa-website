@@ -33,7 +33,7 @@ const Home: FC = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-  const session = await getSession();
+  const session = await getSession(ctx);
 
   console.log(session?.user);
 
