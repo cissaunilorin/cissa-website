@@ -1,15 +1,15 @@
-import NextAuth, { Awaitable, User } from 'next-auth';
+import NextAuth from 'next-auth';
 import CredentialProvider from 'next-auth/providers/credentials';
 import { correctPassword } from '../../../utils/authHandler';
 import { pattern } from '../../../utils/homeHandler';
 import { prisma } from '../../../lib/prisma';
-// import { User } from '@prisma/client';
 
 export default NextAuth({
   session: {
+    strategy: 'jwt',
     maxAge: 60 * 60 * 24 * 7,
   },
-  secret: process.env.SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/auth/login',
   },
@@ -33,19 +33,28 @@ export default NextAuth({
         if (!user || !(await correctPassword(password, user.password)))
           throw new Error('incorrect email/username or password');
 
-        return {
-          ...user,
-        };
+        delete user.password;
+        return user;
       },
     }),
   ],
-  // callbacks: {
-  //   session({ session, token, user }) {
-  //     console.log(user, session.user);
-  //     return session;
-  //   },
-  //   jwt({ token, account, isNewUser, profile, user }) {
-  //     return token;
-  //   },
-  // },
+  callbacks: {
+    jwt: ({ token, user }) => {
+      if (user) {
+        token = { ...token, ...user };
+        delete token.picture; // might have to add it back
+      }
+      return token;
+    },
+    session: ({ session, token }) => {
+      if (token) {
+        session.user.id = token.sub;
+        session.user.email = token.email;
+        session.user.name = token.name;
+        session.user.role = token.role;
+      }
+
+      return session;
+    },
+  },
 });

@@ -1,5 +1,6 @@
 import { User as PrismaUSer } from '@prisma/client';
-import 'next-auth';
+import NextAuth from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 
 declare module 'next-auth' {
   /**
@@ -9,7 +10,10 @@ declare module 'next-auth' {
     user: Omit<PrismaUSer, 'password'>;
   }
 
-  export interface JWT extends Omit<PrismaUSer, 'password'> {}
-
   type User = Omit<PrismaUSer, 'password'>;
+}
+
+declare module 'next-auth/jwt' {
+  /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
+  export interface JWT extends Omit<PrismaUSer, 'password'> {}
 }
