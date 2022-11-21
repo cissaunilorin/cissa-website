@@ -45,16 +45,17 @@ const Overview = () => {
         </Text>
         <Stack spacing={1}>
           <InputGroup bg='#FAFAFA'>
-            <InputLeftAddon
-              bg='transparent'
-              children={<SearchIcon color='#676767' />}
-            />
+            <InputLeftAddon bg='transparent'>
+              <SearchIcon color='#676767' />
+            </InputLeftAddon>
             <Input
               placeholder='Search'
               borderLeft='transparent'
               type='search'
             />
-            <InputRightAddon bg={`#814226`} children={<FilterIcon />} />
+            <InputRightAddon bg={`#814226`}>
+              <FilterIcon />
+            </InputRightAddon>
           </InputGroup>
         </Stack>
       </Flex>
