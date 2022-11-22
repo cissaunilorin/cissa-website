@@ -1,13 +1,4 @@
-import {
-  Flex,
-  Box,
-  Text,
-  Heading,
-  Button,
-  IconButton,
-  Link,
-} from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { Flex, Box, Text, Heading, Button, IconButton } from '@chakra-ui/react';
 import { FC } from 'react';
 import { heading2Style, mainBoxStyle } from '../../../styles/common';
 import {
@@ -23,13 +14,12 @@ import {
   resourcedots1,
   resourceBoximg,
   icon,
-  button,  
+  button,
 } from './styles';
 
 const Gallery: FC = () => {
   return (
-    <Box as='section' mt={{ base: '100px', md: '198px' }}
-      mb={{ base: '54px', md: '104px' }}>
+    <Box as='section' marginBottom={'140px'}>
       <Box {...resourceBoximg}>
         <ChakraNextImage
           src='/images/icons/resourcedots.svg'
@@ -70,14 +60,12 @@ const Gallery: FC = () => {
             {...iconBtn}
             right={'2rem'}
             icon={<ChevronRightIcon {...icon} />}
-          />
+          />          
         </Flex>
         <Flex>
-          <NextLink href='/gallery' passHref>
-            <Button rightIcon={<ArrowForwardIcon />} {...button}>
-              Explore Gallery
-            </Button>
-          </NextLink>
+          <Button rightIcon={<ArrowForwardIcon />} {...button}>
+            Explore Gallery
+          </Button>
         </Flex>
       </Box>
     </Box>
