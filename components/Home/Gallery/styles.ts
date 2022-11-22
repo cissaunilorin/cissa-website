@@ -15,7 +15,7 @@ export const iconBtn: ButtonProps = {
     w: '1rem',
     h: '2.5rem',
     top: '50%',
-    zIndex: '10',    
+    zIndex: '10',
 };
 
 export const galleryImage: BoxProps = {
@@ -42,12 +42,12 @@ export const button: ButtonProps = {
     mx: 'auto',
     px: '30px',
     py: '21px',
-    mt: '40px',
+    mt: '50px',
     variant: 'light'
 }
 
-export const icon: IconProps  = {
+export const icon: IconProps = {
     w: '2rem',
-    h:'1.6rem',
+    h: '1.6rem',
     color: '#783518'
 }
