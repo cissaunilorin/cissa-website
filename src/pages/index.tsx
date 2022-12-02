@@ -11,8 +11,17 @@ import Gallery from '../components/Home/Gallery/Gallery';
 import Map from '../components/Home/Map/Map';
 import Overview from '../components/Home/Overview/Overview';
 import Recourses from '../components/Home/Recourses/Recourses';
+import { trpc } from '../utils/trpc';
 
 const Home: NextPage = () => {
+  const hello = trpc.hello.useQuery({ text: 'client' });
+
+  if (!hello.data) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(hello.data.greeting);
+
   return (
     <>
       <Head>
@@ -35,7 +44,7 @@ const Home: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const session = await getSession(ctx);
 
-  // console.log(session.user);
+  console.log(session?.user);
 
   return {
     props: {},

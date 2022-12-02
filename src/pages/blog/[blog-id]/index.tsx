@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC } from 'react';
 import {
   Box,
   Button,
@@ -6,8 +6,8 @@ import {
   ListItem,
   Text,
   UnorderedList,
-} from "@chakra-ui/react";
-import ChakraNextImage from "../../../components/chakra-nextimage";
+} from '@chakra-ui/react';
+import ChakraNextImage from '../../../components/chakra-nextimage';
 import {
   FaBookmark,
   FaEllipsisH,
@@ -15,7 +15,7 @@ import {
   FaHandshake,
   FaLinkedin,
   FaTwitter,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 import {
   blogAuthorDetailsWrapper,
   blogAuthorProps,
@@ -37,28 +37,28 @@ import {
   listItemProps,
   listProps,
   mainBlogWrapper,
-} from "../../../styles/blog";
+} from '../../../styles/blog';
 
-const bottomButtons = ["Life as a student", "Ilorin", "Hustle", "Stress"];
+const bottomButtons = ['Life as a student', 'Ilorin', 'Hustle', 'Stress'];
 const listItems = [
   {
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris, faucibus ac mollis a cras. Nec nec mi facilisis vel erat porttitor integer ultricies habitant.",
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris, faucibus ac mollis a cras. Nec nec mi facilisis vel erat porttitor integer ultricies habitant.',
   },
   {
     content:
-      "Nec pulvinar eleifend pellentesque vel, habitant aliquam. Venenatis ullamcorper mi mauris nisi, a ultricies gravida eget ac. Purus, dolor tempor luctus leo.",
+      'Nec pulvinar eleifend pellentesque vel, habitant aliquam. Venenatis ullamcorper mi mauris nisi, a ultricies gravida eget ac. Purus, dolor tempor luctus leo.',
   },
   {
     content:
-      "Volutpat ac sed luctus mauris, malesuada lectus eros ultricies nisi. Congue sapien hendrerit dui iaculis tortor nec sagittis, morbi. Vehicula cras sed tortor nisl, amet sed. Habitant felis tempor vitae nam massa.",
+      'Volutpat ac sed luctus mauris, malesuada lectus eros ultricies nisi. Congue sapien hendrerit dui iaculis tortor nec sagittis, morbi. Vehicula cras sed tortor nisl, amet sed. Habitant felis tempor vitae nam massa.',
   },
 ];
 
 const BlogPost: FC = () => {
   return (
     <Box {...mainBlogWrapper}>
-      <Text {...headerText} fontSize={{base: "22px", md: "34px"}}>
+      <Text {...headerText} fontSize={{ base: '22px', md: '34px' }}>
         The hustle and stress of the streets of Ilorin
       </Text>
       <Flex {...headerOptions}>
@@ -69,7 +69,7 @@ const BlogPost: FC = () => {
             <Text {...blogDateProps}>Aug 21, 2015. 1 min read</Text>
           </Flex>
         </Flex>
-        <Flex {...blogIconsFlex}   my={{base: "5", md: "0"}}>
+        <Flex {...blogIconsFlex} my={{ base: '5', md: '0' }}>
           <FaTwitter size="26" />
           <FaLinkedin size="26" />
           <FaFacebook size="26" />
