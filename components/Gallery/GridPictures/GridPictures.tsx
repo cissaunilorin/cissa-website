@@ -3,7 +3,6 @@ import ChakraNextImage from '../../chakra-nextimage';
 import { gridPicProps } from './styles';
 
 const GridPictures = () => {
-    const image = '/assets/gallery-1.png';
   return (
     <Grid templateColumns='repeat(4, 1fr)' gap={4}>
       <GridItem colSpan={2}>
