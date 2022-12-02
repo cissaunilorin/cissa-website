@@ -1,15 +1,19 @@
 import { ChakraProvider } from '@chakra-ui/react';
-// import type { AppType } from 'next/app';
+import type { AppType } from 'next/app';
 import { AppContextProvider } from '../context/appContext';
 import { SessionProvider } from 'next-auth/react';
 import Layout from '../layouts/layout';
+import { type Session } from 'next-auth';
 import { theme } from '../styles/theme';
 import { trpc } from '../utils/trpc';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'easymde/dist/easymde.min.css';
 
-const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
+const MyApp: AppType<{ session: Session | null }> = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
   return (
     <SessionProvider session={session}>
       <AppContextProvider>
