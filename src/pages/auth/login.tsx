@@ -40,7 +40,7 @@ const Login: FC = () => {
       password: data.password,
     })
       .then(res => {
-        if (res.error) throw new Error(res.error);
+        if (res?.error) throw new Error(res.error);
 
         router.replace('/');
       })
