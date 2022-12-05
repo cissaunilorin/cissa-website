@@ -5,7 +5,7 @@ import { correctPassword } from '../../../utils/authHandler';
 import { pattern } from '../../../utils/homeHandler';
 import { prisma } from '../../../server/lib/prisma';
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24 * 7,
@@ -17,10 +17,6 @@ export default NextAuth({
   providers: [
     CredentialProvider({
       name: 'Credentials',
-      credentials: {
-        email: { label: 'email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-      },
       async authorize(credentials) {
         const { email, password } = credentials;
 
@@ -58,4 +54,6 @@ export default NextAuth({
       return session;
     },
   },
-});
+};
+
+export default NextAuth(authOptions);
