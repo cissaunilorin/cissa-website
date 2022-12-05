@@ -14,14 +14,6 @@ import Recourses from '../components/Home/Recourses/Recourses';
 import { trpc } from '../utils/trpc';
 
 const Home: NextPage = () => {
-  const hello = trpc.hello.useQuery({ text: 'client' });
-
-  if (!hello.data) {
-    return <div>Loading...</div>;
-  }
-
-  console.log(hello.data.greeting);
-
   return (
     <>
       <Head>
