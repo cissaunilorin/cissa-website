@@ -38,6 +38,7 @@ const Recourses: FC = () => {
               Learn more
             </Button>
           </Box>
+
           <Box {...resourceBoximg}>
             <ChakraNextImage
               src="/assets/resourcedots.png"
@@ -55,8 +56,8 @@ const Recourses: FC = () => {
             />
             <ChakraNextImage
               src="/assets/bookimg.png"
-              w={{ base: '500px', md: '500px', lg: '597.82px' }}
-              h={{ base: '460px', md: '400px', lg: '466px' }}
+              w={{ base: '300px', md: '400px', lg: '597.82px' }}
+              css={{ aspectRatio: '597.82/466.3' }}
               borderRadius="30px"
               position="relative"
             />

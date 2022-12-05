@@ -36,7 +36,7 @@ const Home: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const session = await getSession(ctx);
 
-  console.log(session?.user);
+  // console.log(session?.user);
 
   return {
     props: {},

@@ -1,8 +1,10 @@
 import { Box, Button, Flex, List, ListItem, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { FC } from 'react';
+import { useRouter } from 'next/router';
+import { FC, useState } from 'react';
 import { mainBoxStyle } from '../../styles/common';
 import Logo from '../Logo/Logo';
+import { headerBox, linkStyle, listStyle } from './styles';
 
 const links = [
   {
@@ -15,7 +17,7 @@ const links = [
   },
   {
     name: 'Resources',
-    href: '/',
+    href: '#',
   },
   {
     name: 'Blog',
@@ -23,36 +25,33 @@ const links = [
   },
   {
     name: 'News & Events',
-    href: '/',
+    href: '#',
   },
   {
     name: 'Contact Us',
-    href: '/',
+    href: '#',
   },
 ];
 
 const Header: FC = () => {
+  const router = useRouter();
+
   return (
-    <Box
-      as="header"
-      boxShadow="0px 0px 27px 1px rgba(120, 53, 24, 0.12)"
-      bg={'white'}
-      py={'17px'}
-      position="fixed"
-      top={'0'}
-      left={'0'}
-      right={'0'}
-      zIndex={'100'}
-    >
+    <Box {...headerBox}>
       <Box {...mainBoxStyle}>
         <Flex justify={'space-between'} align={'center'}>
           <Logo />
 
           <List display={{ base: 'none', lg: 'flex' }} gap={'32px'}>
-            {links.map((link) => (
-              <ListItem key={link.name}>
+            {links.map(link => (
+              <ListItem
+                {...listStyle(router.pathname === link.href)}
+                key={link.name}
+              >
                 <NextLink href={link.href} passHref>
-                  <Link>{link.name}</Link>
+                  <Link {...linkStyle(router.pathname === link.href)}>
+                    {link.name}
+                  </Link>
                 </NextLink>
               </ListItem>
             ))}

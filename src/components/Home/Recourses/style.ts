@@ -2,8 +2,8 @@ import { BoxProps, HeadingProps, TextProps } from '@chakra-ui/react';
 
 export const resourceContainer: BoxProps = {
   as: 'section',
-  mb: '135px',
-  pb: '200px',
+  mb: { base: '25px', lg: '135px' },
+  pb: { base: '100px', lg: '200px' },
 };
 
 export const resourceBoxHeading: HeadingProps = {

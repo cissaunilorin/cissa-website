@@ -33,6 +33,15 @@ export const Button: ComponentStyleConfig = {
         color: 'white',
       },
     },
+    outlineWhite: {
+      border: '1.5px solid',
+      borderColor: '#FFF2EC',
+      color: '#FFF2EC',
+      _hover: {
+        bg: '#FFF2EC',
+        color: '#FFF2EC',
+      },
+    },
     dark: {
       bg: '#793518',
       color: 'white',
