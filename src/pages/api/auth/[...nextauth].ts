@@ -3,7 +3,7 @@ import NextAuth from 'next-auth';
 import CredentialProvider from 'next-auth/providers/credentials';
 import { correctPassword } from '../../../utils/authHandler';
 import { pattern } from '../../../utils/homeHandler';
-import { prisma } from '../../../lib/prisma';
+import { prisma } from '../../../server/lib/prisma';
 
 export default NextAuth({
   session: {

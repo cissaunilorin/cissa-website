@@ -38,6 +38,7 @@
     "react-simplemde-editor": "^5.0.2",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
+    "superjson": "^1.11.0",
     "zod": "^3.19.1"
   },
   "devDependencies": {
