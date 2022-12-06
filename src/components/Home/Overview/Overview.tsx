@@ -1,19 +1,29 @@
-import { ArrowForwardIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
   Flex,
   Heading,
   Icon,
+  IconButton,
   Link,
   List,
   ListItem,
+  Text,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { FC } from 'react';
 import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 import { mainBoxStyle } from '../../../styles/common';
-import { heading, listStyle } from './styles';
+import {
+  annoucementHeading,
+  annoucementLink,
+  annoucementText,
+  heading,
+  iconButton,
+  listStyle,
+  NewsTextBox,
+} from './styles';
 
 const links = [
   {
@@ -67,7 +77,65 @@ const Overview: FC = () => {
             </List>
           </Flex>
 
-          <Box>f</Box>
+          <Flex align={'center'} justify="flex-start" w={'500px'} maxW="100%">
+            <Box {...NewsTextBox}>News</Box>
+
+            <Box
+              flex={1}
+              overflowX="auto"
+              css={{ '::-webkit-scrollbar': { display: 'none' } }}
+              mr="10px"
+            >
+              <Flex>
+                <Box flex="0 0 190px" color="#fff2ec">
+                  <Heading {...annoucementHeading}>Course registration</Heading>
+                  <Text {...annoucementText}>
+                    This is to inform all students on the commencement.......
+                  </Text>
+                  <NextLink href={'#'} passHref>
+                    <Link {...annoucementLink}>
+                      Read More <ArrowForwardIcon />
+                    </Link>
+                  </NextLink>
+                </Box>
+                <Box flex="0 0 190px" color="#fff2ec">
+                  <Heading {...annoucementHeading}>Course registration</Heading>
+                  <Text {...annoucementText}>
+                    This is to inform all students on the commencement.......
+                  </Text>
+                  <NextLink href={'#'} passHref>
+                    <Link {...annoucementLink}>
+                      Read More <ArrowForwardIcon />
+                    </Link>
+                  </NextLink>
+                </Box>
+                <Box flex="0 0 190px" color="#fff2ec">
+                  <Heading {...annoucementHeading}>Course registration</Heading>
+                  <Text {...annoucementText}>
+                    This is to inform all students on the commencement.......
+                  </Text>
+                  <NextLink href={'#'} passHref>
+                    <Link {...annoucementLink}>
+                      Read More <ArrowForwardIcon />
+                    </Link>
+                  </NextLink>
+                </Box>
+              </Flex>
+            </Box>
+
+            <Box>
+              <IconButton
+                aria-label="next"
+                icon={<ArrowForwardIcon />}
+                {...iconButton}
+              />
+              <IconButton
+                aria-label="previous"
+                icon={<ArrowBackIcon />}
+                {...iconButton}
+              />
+            </Box>
+          </Flex>
         </Box>
       </Box>
     </Box>
