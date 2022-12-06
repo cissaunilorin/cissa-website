@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>CIS - home</title>
+        <title>CISSA - home</title>
       </Head>
 
       <Overview />

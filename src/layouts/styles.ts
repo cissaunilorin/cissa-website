@@ -7,8 +7,8 @@ export const adminBox: FlexProps = {
 };
 
 export const adminBody: FlexProps = {
-  height: '971px',
-  width: '1440px',
+  height: '100vh',
+  width: '100%',
   maxWidth: '100%',
   maxHeight: '100%',
   overflow: 'hidden',

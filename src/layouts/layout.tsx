@@ -13,16 +13,14 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
 
   if (router.pathname.startsWith('/admin'))
     return (
-      <Flex {...adminBox} alignItems="center" justifyContent="center">
-        <Flex {...adminBody}>
-          <SideBar />
+      <Flex {...adminBody}>
+        <SideBar />
 
-          <Flex flex={1} direction="column" backgroundColor="white">
-            <AdminHeader />
-            <Box flex={1} as="main">
-              {children}
-            </Box>
-          </Flex>
+        <Flex flex={1} direction="column" backgroundColor="white">
+          <AdminHeader />
+          <Box flex={1} as="main">
+            {children}
+          </Box>
         </Flex>
       </Flex>
     );
