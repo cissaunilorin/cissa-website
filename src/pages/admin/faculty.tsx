@@ -1,4 +1,4 @@
-import { AddIcon, EditIcon } from '@chakra-ui/icons';
+import { AddIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import {
   Box,
   FormControl,
@@ -48,6 +48,7 @@ const Faculty: NextPage<
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isNew, setIsNew] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [depId, setDepId] = useState('');
 
   const {
     register,
@@ -64,20 +65,40 @@ const Faculty: NextPage<
 
   const createDepartment = trpc.department.createDepartment.useMutation({
     onSuccess(res) {
-      // console.log(res);
       setIsLoading(false);
       router.reload();
+    },
+  });
+  const updateDepartment = trpc.department.updateDepartment.useMutation({
+    onSuccess(res) {
+      setIsLoading(false);
+      router.reload();
+    },
+  });
+  const deleteDepartment = trpc.department.deleteDepartment.useMutation({
+    onSuccess(res) {
+      toast({
+        position: 'top-right',
+        status: 'success',
+        description: 'department has been deleted',
+        isClosable: true,
+        duration: 5000,
+      });
+
+      setTimeout(() => {
+        router.reload();
+      }, 5000);
     },
   });
 
   const onSubmit = () => {
     setIsLoading(true);
     const data = getValues();
-    // console.log(data);
 
     if (isNew) {
       createDepartment.mutate(data);
     } else {
+      updateDepartment.mutate({ id: depId, ...data });
     }
   };
 
@@ -182,13 +203,26 @@ const Faculty: NextPage<
                       <IconButton
                         aria-label="add new"
                         variant="outline"
+                        mr="10px"
                         icon={<EditIcon />}
                         onClick={() => {
+                          setDepId(dep.id);
                           Object.entries(dep).forEach(([key, val]) =>
                             setValue<any>(key, val)
                           );
                           setIsNew(false);
                           onOpen();
+                        }}
+                      />
+                      <IconButton
+                        aria-label="delete"
+                        variant="outline"
+                        icon={<DeleteIcon />}
+                        onClick={() => {
+                          const confirm = window.confirm(
+                            `you're about to delete ${dep.shortName} department, deleting a department is irreversible`
+                          );
+                          if (confirm) deleteDepartment.mutate({ id: dep.id });
                         }}
                       />
                     </Td>
