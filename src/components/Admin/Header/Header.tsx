@@ -1,7 +1,10 @@
 import { Avatar, Box, Flex } from '@chakra-ui/react';
+import { useSession } from 'next-auth/react';
 import { FC } from 'react';
 
 const Header: FC = () => {
+  const { data } = useSession();
+
   return (
     <Flex
       as="header"
@@ -15,7 +18,8 @@ const Header: FC = () => {
       <Avatar
         backgroundColor={'brown.light'}
         color="brown.deep"
-        name="Adebayo Fawaz"
+        name={data?.user.name}
+        // src={data?.user.}
       />
     </Flex>
   );

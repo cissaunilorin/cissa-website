@@ -4,7 +4,10 @@ import { withAuth } from 'next-auth/middleware';
 export default withAuth({
   callbacks: {
     authorized({ req, token }) {
-      return token?.role === 'ADMIN';
+      if (req.nextUrl.pathname.includes('/admin'))
+        return token?.role === 'ADMIN';
+
+      return true;
     },
   },
 });

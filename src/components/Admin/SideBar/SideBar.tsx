@@ -44,6 +44,7 @@ const SideBar: FC = () => {
             opacity={router.pathname === list.link ? '1' : '0.4'}
             height="48px"
             transition="opacity .3s"
+            color={'brown.trans'}
             _hover={{
               opacity: '1',
             }}
