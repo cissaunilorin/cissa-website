@@ -3,21 +3,16 @@ import { z } from 'zod';
 import { router, publicProcedure, protectedProcedure } from '../trpc';
 
 export const departmentRouter = router({
-  // hello: publicProcedure
-  //   .input(z.object({ text: z.string().nullish() }).nullish())
-  //   .query(({ input }) => {
-  //     return {
-  //       greeting: `Hello ${input?.text ?? 'world'}`,
-  //     };
-  //   }),
-  // getAll: publicProcedure.query(({ ctx }) => {
-  //   // return ctx.prisma.example.findMany();
-  //   return ctx.session?.user;
-  // }),
+  getAllDepartments: publicProcedure.query(async ({ ctx }) => {
+    const department = await ctx.prisma.department.findMany();
+
+    return department;
+  }),
   createDepartment: protectedProcedure
     .input(
       z.object({
         name: z.string(),
+        shortName: z.string(),
         matric: z.string(),
         subDeanName: z.string(),
       })
@@ -26,6 +21,7 @@ export const departmentRouter = router({
       const department = ctx.prisma.department.create({
         data: {
           name: input.name,
+          shortName: input.shortName,
           matric: input.matric,
           subDeanName: input.subDeanName,
         },

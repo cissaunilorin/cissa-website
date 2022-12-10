@@ -42,7 +42,7 @@ const Login: FC = () => {
       .then(res => {
         if (res?.error) throw new Error(res.error);
 
-        router.replace('/');
+        router.replace('/admin');
       })
       .catch(err => {
         toast({

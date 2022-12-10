@@ -16,6 +16,7 @@ import { linkStyle } from './style';
 import { FaUserFriends } from 'react-icons/fa';
 import { AiFillSetting } from 'react-icons/ai';
 import { BsCalendar3EventFill } from 'react-icons/bs';
+import { BiBook } from 'react-icons/bi';
 
 const links = [
   { link: '/admin', title: 'Overview', icon: MdDashboard },
@@ -23,6 +24,7 @@ const links = [
   { link: '/admin/blog', title: 'Blog', icon: MdNoteAdd },
   { link: '/admin/event', title: 'Event', icon: BsCalendar3EventFill },
   { link: '/admin/faculty', title: 'Faculty', icon: MdSchool },
+  { link: '/admin/courses', title: 'Courses', icon: BiBook },
   { link: '/admin/settings', title: 'Settings', icon: AiFillSetting },
 ];
 
