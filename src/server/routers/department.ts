@@ -14,7 +14,7 @@ export const departmentRouter = router({
         name: z.string(),
         shortName: z.string(),
         matric: z.string(),
-        subDeanName: z.string(),
+        HOD: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -23,7 +23,7 @@ export const departmentRouter = router({
           name: input.name,
           shortName: input.shortName,
           matric: input.matric,
-          subDeanName: input.subDeanName,
+          HOD: input.HOD,
         },
       });
 
@@ -36,7 +36,7 @@ export const departmentRouter = router({
         name: z.string(),
         shortName: z.string(),
         matric: z.string(),
-        subDeanName: z.string(),
+        HOD: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -48,7 +48,7 @@ export const departmentRouter = router({
           name: input.name,
           shortName: input.shortName,
           matric: input.matric,
-          subDeanName: input.subDeanName,
+          HOD: input.HOD,
         },
       });
 

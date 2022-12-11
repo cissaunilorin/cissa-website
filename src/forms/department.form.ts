@@ -14,6 +14,6 @@ export const departmentSchema = z
     matric: z
       .string()
       .max(4, { message: 'matric name can be only 4 chracters' }),
-    subDean: z.string(),
+    HOD: z.string(),
   })
   .required();

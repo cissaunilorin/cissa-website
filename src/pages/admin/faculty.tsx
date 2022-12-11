@@ -39,7 +39,7 @@ const defaultValues: IDepartmentForm = {
   matric: '',
   name: '',
   shortName: '',
-  subDeanName: '',
+  HOD: '',
 };
 
 const Faculty: NextPage<
@@ -153,15 +153,15 @@ const Faculty: NextPage<
           />
           <FormErrorMessage>{errors.matric?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={!!errors.subDeanName?.message}>
-          <FormLabel htmlFor="subDean">Sub Dean</FormLabel>
+        <FormControl isRequired isInvalid={!!errors.HOD?.message}>
+          <FormLabel htmlFor="subDean">Head of department</FormLabel>
           <Input
             id="subDean"
             type={'text'}
-            placeholder="Sub Dean"
-            {...register('subDeanName')}
+            placeholder="Head of department"
+            {...register('HOD')}
           />
-          <FormErrorMessage>{errors.subDeanName?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.HOD?.message}</FormErrorMessage>
         </FormControl>
       </AppModal>
 
@@ -198,7 +198,7 @@ const Faculty: NextPage<
                     <Td>{dep.shortName}</Td>
                     <Td>{dep.name}</Td>
                     <Td>{dep.matric}</Td>
-                    <Td>{dep.subDeanName}</Td>
+                    <Td>{dep.HOD}</Td>
                     <Td>
                       <IconButton
                         aria-label="add new"
