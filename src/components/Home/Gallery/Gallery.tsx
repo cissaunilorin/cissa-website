@@ -47,7 +47,7 @@ const Gallery: FC = () => {
         <Text {...featureText}>
           Get directions to anywhere you are going within the faculty
         </Text>
-        <Flex pt={'80px'} position='relative'>
+        <Flex pt={'80px'} position='relative' mt={'12'}>
           <IconButton
             aria-label='Left icon'
             {...iconBtn}
@@ -60,7 +60,7 @@ const Gallery: FC = () => {
             bg={'url(/assets/gallery-2.png)'}
             {...galleryImage}
             transform={'scaleX(1.15)'}
-            height={470}
+            height={380}
             marginTop={'-40px'}
           ></Box>
           <Box bg={'url(/assets/gallery-3.png)'} {...galleryImage}></Box>

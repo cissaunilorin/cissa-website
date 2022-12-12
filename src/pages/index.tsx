@@ -2,8 +2,9 @@ import { GetServerSideProps, NextPage } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { FC } from 'react';
-import About from '../components/Home/About/About';
+import Alumni from '../components/Home/Alumni';
 import Blog from '../components/Home/Blog/Blog';
+import About from './../components/Home/About/About';
 import ContactDetails from '../components/Home/ContactDetails/ContactDetails';
 import Event from '../components/Home/Event/Event';
 import Facts from '../components/Home/Facts/Facts';
@@ -27,6 +28,7 @@ const Home: NextPage = () => {
       <ContactDetails />
       <Blog />
       <Event />
+      <Alumni />
       <Gallery />
       <Map />
     </>
