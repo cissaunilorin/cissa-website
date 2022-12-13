@@ -287,27 +287,26 @@ const About = () => (
           </Text>
         </Box>
       </Box>
-      <Box padding={'0 40px'}>
-        <Slider {...settings}>
-          {Departments.map(department => (
-            <Box {...departmentBoxProps} key={department.id}>
-              <Flex {...iconDepartmentBoxProps}>
-                <ChakraNextImage
-                  src="/assets/Workbag.png"
-                  h={'41.67px'}
-                  w={'41.67px'}
-                />
-              </Flex>
-              <Heading {...departmentBoxHeading}>{department.heading}</Heading>
-              <Text {...departmentBoxSummary}>{department.summary}</Text>
-              <Text>
-                {department.more}
-                <ArrowForwardIcon />
-              </Text>
-            </Box>
-          ))}
-        </Slider>
-      </Box>
+
+      <Flex {...mainBoxStyle} wrap={'wrap'} justify="center" gap="40px">
+        {Departments.map(department => (
+          <Box {...departmentBoxProps} key={department.id}>
+            <Flex {...iconDepartmentBoxProps}>
+              <ChakraNextImage
+                src="/assets/Workbag.png"
+                h={'41.67px'}
+                w={'41.67px'}
+              />
+            </Flex>
+            <Heading {...departmentBoxHeading}>{department.heading}</Heading>
+            <Text {...departmentBoxSummary}>{department.summary}</Text>
+            <Text>
+              {department.more}
+              <ArrowForwardIcon />
+            </Text>
+          </Box>
+        ))}
+      </Flex>
     </Box>
     <Box {...mainTextWrapper}>
       <Box {...mainTextBox}>
