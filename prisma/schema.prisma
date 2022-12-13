@@ -15,6 +15,12 @@ enum Role {
   ADMIN
 }
 
+enum CourseStatus {
+  C
+  E
+  R
+}
+
 model User {
   id       String @id @default(uuid())
   name     String @db.VarChar(255)
@@ -23,4 +29,26 @@ model User {
   role     Role   @default(USER)
 
   @@map("users")
+}
+
+model Department {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(255)
+  shortName String   @db.VarChar(3)
+  matric    String   @db.VarChar(255)
+  HOD       String   @db.VarChar(255)
+  Course    Course[]
+
+  @@map("departments")
+}
+
+model Course {
+  code         String       @id @db.VarChar(6)
+  title        String       @db.VarChar(255)
+  credit       Int          @db.Int
+  status       CourseStatus @default(C)
+  department   Department   @relation(fields: [departmentId], references: [id])
+  departmentId String
+
+  @@map("courses")
 }
