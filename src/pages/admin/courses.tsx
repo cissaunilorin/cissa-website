@@ -154,18 +154,12 @@ const Faculty: NextPage<
           <FormErrorMessage>{errors.credit?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.status?.message}>
-          <Select placeholder='Select option'>
-            <option value='option1'>Elective</option>
-            <option value='option2'>Compulsory</option>
-            <option value='option3'>Option 3</option>
-          </Select>
           <FormLabel htmlFor='status'>Status</FormLabel>
-          <Input
-            id='status'
-            type={'text'}
-            placeholder='Status'
-            {...register('status')}
-          />
+          <Select placeholder='Status' {...register('status')}>
+            <option value='required'>Required</option>
+            <option value='elective'>Elective</option>
+            <option value='compulsory'>Compulsory</option>
+          </Select>
           <FormErrorMessage>{errors.status?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.department?.message}>
