@@ -6,6 +6,7 @@ import {
   FormLabel,
   IconButton,
   Input,
+  Select,
   Table,
   TableCaption,
   TableContainer,
@@ -153,6 +154,11 @@ const Faculty: NextPage<
           <FormErrorMessage>{errors.credit?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.status?.message}>
+          <Select placeholder='Select option'>
+            <option value='option1'>Elective</option>
+            <option value='option2'>Compulsory</option>
+            <option value='option3'>Option 3</option>
+          </Select>
           <FormLabel htmlFor='status'>Status</FormLabel>
           <Input
             id='status'
