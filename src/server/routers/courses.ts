@@ -8,12 +8,12 @@ export const coursesRouter = router({
 
         return course;
     }),
-    createCourses: adminProcedure
+    createCourse: adminProcedure
         .input(
             z.object({
                 code: z.string(),   
                 title: z.string(),
-                credit: z.string(),
+                credit: z.number(),
                 status: z.string(),
                 department: z.string(),                
             })
@@ -31,12 +31,12 @@ export const coursesRouter = router({
 
             return course;
         }),
-    updateCourses: adminProcedure
+    updateCourse: adminProcedure
         .input(
             z.object({
                 code: z.string(),
                 title: z.string(),
-                credit: z.string(),
+                credit: z.number(),
                 status: z.string(),
                 department: z.string(), 
             })
@@ -56,7 +56,7 @@ export const coursesRouter = router({
 
             return course;
         }),
-    deleteCourses: adminProcedure
+    deleteCourse: adminProcedure
         .input(
             z.object({
                 code: z.string(),
