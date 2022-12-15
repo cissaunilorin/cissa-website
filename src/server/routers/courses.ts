@@ -16,7 +16,7 @@ export const coursesRouter = router({
         title: z.string(),
         credit: z.number(),
         status: z.string(),
-        department: z.string(),
+        departmentId: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -26,7 +26,7 @@ export const coursesRouter = router({
           title: input.title,
           credit: +input.credit,
           status: CourseStatus[input.status],
-          departmentId: input.department,
+          departmentId: input.departmentId,
         },
       });
 
@@ -39,7 +39,7 @@ export const coursesRouter = router({
         title: z.string(),
         credit: z.number(),
         status: z.string(),
-        department: z.string(),
+        departmentId: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -51,7 +51,7 @@ export const coursesRouter = router({
           title: input.title,
           credit: +input.credit,
           status: CourseStatus[input.status],
-          departmentId: input.department,
+          departmentId: input.departmentId,
         },
       });
 

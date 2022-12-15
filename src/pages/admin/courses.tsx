@@ -19,6 +19,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CourseStatus } from '@prisma/client';
 // import { Course } from '@prisma/client';
 import {
   GetServerSidePropsContext,
@@ -40,17 +41,17 @@ const defaultValues: ICourseForm = {
   code: '',
   title: '',
   credit: 2,
-  status: '',
-  department: '',
+  status: CourseStatus.C,
+  departmentId: '',
 };
 
 const Faculty: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ courses }) => {
+> = ({ courses, departments }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isNew, setIsNew] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [courseCode, setCourseCode] = useState('');
+  // const [courseCode, setCourseCode] = useState('');
 
   const {
     register,
@@ -100,7 +101,7 @@ const Faculty: NextPage<
     if (isNew) {
       createCourse.mutate(data);
     } else {
-      updateCourse.mutate({ code: courseCode, ...data });
+      updateCourse.mutate(data);
     }
   };
 
@@ -113,26 +114,26 @@ const Faculty: NextPage<
       <AppModal
         isOpen={isOpen}
         onClose={onClose}
-        heading='Add New Course'
+        heading="Add New Course"
         isSubmitting={isLoading}
         onClick={onSubmit}
       >
         <FormControl isRequired isInvalid={!!errors.code?.message} mb={'25px'}>
-          <FormLabel htmlFor='courseCode'>Course code</FormLabel>
+          <FormLabel htmlFor="courseCode">Course code</FormLabel>
           <Input
-            id='courseCode'
+            id="courseCode"
             type={'text'}
-            placeholder='Course code'
+            placeholder="Course code"
             {...register('code')}
           />
           <FormErrorMessage>{errors.code?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.title?.message} mb={'25px'}>
-          <FormLabel htmlFor='title'>Title</FormLabel>
+          <FormLabel htmlFor="title">Title</FormLabel>
           <Input
-            id='title'
+            id="title"
             type={'text'}
-            placeholder='Title'
+            placeholder="Title"
             {...register('title')}
           />
           <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
@@ -143,41 +144,46 @@ const Faculty: NextPage<
           isInvalid={!!errors.credit?.message}
           mb={'25px'}
         >
-          <FormLabel htmlFor='credit'>Course credit</FormLabel>
+          <FormLabel htmlFor="credit">Course credit</FormLabel>
           <Input
-            id='credit'
+            id="credit"
             type={'number'}
-            placeholder='Course credit'
+            placeholder="Course credit"
             defaultValue={2}
             {...register('credit')}
           />
           <FormErrorMessage>{errors.credit?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.status?.message}>
-          <FormLabel htmlFor='status'>Status</FormLabel>
-          <Select placeholder='Status' {...register('status')}>
-            <option value='required'>Required</option>
-            <option value='elective'>Elective</option>
-            <option value='compulsory'>Compulsory</option>
+          <FormLabel htmlFor="status">Status</FormLabel>
+          <Select placeholder="Status" {...register('status')}>
+            <option value="R">Required</option>
+            <option value="E">Elective</option>
+            <option value="C">Compulsory</option>
           </Select>
           <FormErrorMessage>{errors.status?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={!!errors.department?.message}>
-          <FormLabel htmlFor='department'>Department</FormLabel>
-          <Input
-            id='department'
-            type={'text'}
-            placeholder='Department'
-            {...register('department')}
-          />
-          <FormErrorMessage>{errors.department?.message}</FormErrorMessage>
+        <FormControl isRequired isInvalid={!!errors.departmentId?.message}>
+          <FormLabel htmlFor="department">Department</FormLabel>
+          <Select
+            id="department"
+            placeholder="Department"
+            {...register('departmentId')}
+          >
+            {departments.map(cur => (
+              <option value={cur.id} key={cur.shortName}>
+                {cur.shortName}
+              </option>
+            ))}
+          </Select>
+          <FormErrorMessage>{errors.departmentId?.message}</FormErrorMessage>
         </FormControl>
       </AppModal>
 
-      <Box py='50px'>
-        <Box width={'1200px'} maxW={'100%'} m='0 auto'>
+      <Box py="50px">
+        <Box width={'1200px'} maxW={'100%'} m="0 auto">
           <TableContainer>
-            <Table variant='striped' colorScheme='brown'>
+            <Table variant="striped" colorScheme="brown">
               <TableCaption>Courses</TableCaption>
               <Thead>
                 <Tr>
@@ -188,8 +194,8 @@ const Faculty: NextPage<
                   <Th>Department</Th>
                   <Th>
                     <IconButton
-                      aria-label='add new'
-                      variant='outline'
+                      aria-label="add new"
+                      variant="outline"
                       icon={<AddIcon />}
                       onClick={() => {
                         Object.entries(defaultValues).forEach(([key, val]) =>
@@ -203,22 +209,22 @@ const Faculty: NextPage<
                 </Tr>
               </Thead>
               <Tbody>
-                {courses.map((each) => (
+                {courses.map(each => (
                   <Tr key={each.code}>
                     <Td>{each.code}</Td>
                     <Td>{each.title}</Td>
                     <Td>{each.credit}</Td>
                     <Td>{each.status}</Td>
-                    <Td>{each.department}</Td>
+                    <Td>{each.department.name}</Td>
                     <Td>
                       <IconButton
-                        aria-label='add new'
-                        variant='outline'
-                        mr='10px'
+                        aria-label="add new"
+                        variant="outline"
+                        mr="10px"
                         icon={<EditIcon />}
                         onClick={() => {
-                          setCourseCode(each.code);
-                          Object.entries(courseCode).forEach(([key, val]) =>
+                          // setCourseCode(each.code);
+                          Object.entries(each).forEach(([key, val]) =>
                             setValue<any>(key, val)
                           );
                           setIsNew(false);
@@ -226,8 +232,8 @@ const Faculty: NextPage<
                         }}
                       />
                       <IconButton
-                        aria-label='delete'
-                        variant='outline'
+                        aria-label="delete"
+                        variant="outline"
                         icon={<DeleteIcon />}
                         onClick={() => {
                           const confirm = window.confirm(
@@ -251,13 +257,17 @@ const Faculty: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const courses = await prisma.course.findMany();
+  const courses = await prisma.course.findMany({
+    include: { department: true },
+  });
+  const departments = await prisma.department.findMany();
 
   // console.log(departments);
 
   return {
     props: {
       courses,
+      departments,
     },
   };
 };
