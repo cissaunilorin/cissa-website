@@ -55,7 +55,13 @@ const Overview: FC = () => {
         backgroundSize={'cover'}
       >
         <Box {...mainBoxStyle}>
-          <Flex mb="160px" justify={'space-between'} align="center">
+          <Flex
+            mb="160px"
+            justify={'space-between'}
+            direction={{ base: 'column', lg: 'row' }}
+            align={{ base: 'flex-start', lg: 'center' }}
+            gap="30px"
+          >
             <Box width="508px" maxW={'100%'}>
               <Heading {...heading}>
                 Welcome to Faculty of Communication and Information Sciences,
