@@ -22,11 +22,12 @@ enum CourseStatus {
 }
 
 model User {
-  id       String @id @default(uuid())
-  name     String @db.VarChar(255)
-  email    String @unique @db.VarChar(255)
-  password String @db.VarChar(255)
-  role     Role   @default(USER)
+  id         String      @id @default(uuid())
+  name       String      @db.VarChar(255)
+  email      String      @unique @db.VarChar(255)
+  password   String      @db.VarChar(255)
+  role       Role        @default(USER)
+  Executives Executives?
 
   @@map("users")
 }
@@ -51,4 +52,14 @@ model Course {
   departmentId String
 
   @@map("courses")
+}
+
+model Executives {
+  id          String @id @default(uuid())
+  position    String @db.VarChar(255)
+  description String
+  user        User   @relation(fields: [userId], references: [id])
+  userId      String @unique
+
+  @@map("executives")
 }

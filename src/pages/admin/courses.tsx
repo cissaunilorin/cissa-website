@@ -45,7 +45,7 @@ const defaultValues: ICourseForm = {
   departmentId: '',
 };
 
-const Faculty: NextPage<
+const Courses: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ courses, departments }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -272,4 +272,4 @@ export const getServerSideProps = async (
   };
 };
 
-export default Faculty;
+export default Courses;
