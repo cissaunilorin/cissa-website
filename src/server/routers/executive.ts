@@ -1,54 +1,72 @@
+import { ExcoType } from '@prisma/client';
 import { z } from 'zod';
-
+import { hashPassword } from '../../utils/authHandler';
 import { router, publicProcedure, adminProcedure } from '../trpc';
 
 export const excoRouter = router({
-  getAllDepartments: publicProcedure.query(async ({ ctx }) => {
-    const department = await ctx.prisma.department.findMany();
+  getAllExco: publicProcedure.query(async ({ ctx }) => {
+    const exco = await ctx.prisma.executive.findMany({
+      include: { user: true },
+    });
 
-    return department;
+    return exco;
   }),
   createExco: adminProcedure
     .input(
       z.object({
         name: z.string(),
-        shortName: z.string(),
-        matric: z.string(),
-        HOD: z.string(),
+        email: z.string(),
+        position: z.string(),
+        description: z.string(),
+        type: z.nativeEnum(ExcoType),
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const department = await ctx.prisma.department.create({
+      const password = await hashPassword('admin1234$');
+
+      const exco = await ctx.prisma.user.create({
         data: {
           name: input.name,
-          shortName: input.shortName,
-          matric: input.matric,
-          HOD: input.HOD,
+          email: input.email,
+          password,
+          executive: {
+            create: {
+              position: input.position,
+              type: input.type,
+              description: input.description,
+            },
+          },
         },
       });
 
-      return department;
+      return exco;
     }),
   updateDepartment: adminProcedure
     .input(
       z.object({
         id: z.string(),
         name: z.string(),
-        shortName: z.string(),
-        matric: z.string(),
-        HOD: z.string(),
+        email: z.string(),
+        position: z.string(),
+        description: z.string(),
+        type: z.nativeEnum(ExcoType),
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const department = await ctx.prisma.department.update({
+      const department = await ctx.prisma.executive.update({
         where: {
           id: input.id,
         },
         data: {
-          name: input.name,
-          shortName: input.shortName,
-          matric: input.matric,
-          HOD: input.HOD,
+          position: input.position,
+          description: input.description,
+          type: input.type,
+          user: {
+            update: {
+              name: input.name,
+              email: input.email,
+            },
+          },
         },
       });
 
