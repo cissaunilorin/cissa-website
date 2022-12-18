@@ -30,6 +30,11 @@ export const authOptions: NextAuthOptions = {
         if (!user || !(await correctPassword(password, user.password)))
           throw new Error('incorrect email/username or password');
 
+        if (!user.isActive)
+          throw new Error(
+            'your account has been deactivated, please reach out to the admin'
+          );
+
         delete user.password;
         return user;
       },
@@ -49,6 +54,7 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email;
         session.user.name = token.name;
         session.user.role = token.role;
+        session.user.isActive = token.isActive;
       }
 
       return session;

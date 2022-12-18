@@ -45,7 +45,7 @@ const defaultValues: ICourseForm = {
   departmentId: '',
 };
 
-const Faculty: NextPage<
+const Courses: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ courses, departments }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -108,7 +108,7 @@ const Faculty: NextPage<
   return (
     <>
       <Head>
-        <title>faculty - CIS</title>
+        <title>courses - CIS</title>
       </Head>
 
       <AppModal
@@ -237,7 +237,7 @@ const Faculty: NextPage<
                         icon={<DeleteIcon />}
                         onClick={() => {
                           const confirm = window.confirm(
-                            `you're about to delete ${each.code} ${each.title} department, deleting a department is irreversible`
+                            `you're about to delete ${each.code} - ${each.title}, deleting a course is irreversible`
                           );
                           if (confirm) deleteCourse.mutate({ code: each.code });
                         }}
@@ -272,4 +272,4 @@ export const getServerSideProps = async (
   };
 };
 
-export default Faculty;
+export default Courses;
