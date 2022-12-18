@@ -12,6 +12,7 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Textarea,
   Th,
   Thead,
   Tr,
@@ -31,6 +32,7 @@ import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import AppModal from '../../components/AppModal/AppModal';
 import { excoSchema, IExcoForm } from '../../forms/exco.form';
 import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
@@ -64,13 +66,13 @@ const Executive: NextPage<
   const router = useRouter();
   const toast = useToast();
 
-  const createCourse = trpc.course.createCourse.useMutation({
+  const createExco = trpc.exco.createExco.useMutation({
     onSuccess(res) {
       setIsLoading(false);
       router.reload();
     },
   });
-  const updateCourse = trpc.course.updateCourse.useMutation({
+  const updateExco = trpc.exco.updateExco.useMutation({
     onSuccess(res) {
       setIsLoading(false);
       router.reload();
@@ -97,9 +99,9 @@ const Executive: NextPage<
     const data = getValues();
 
     if (isNew) {
-      // createCourse.mutate(data);
+      createExco.mutate(data);
     } else {
-      // updateCourse.mutate(data);
+      updateExco.mutate({ id: excoId, ...data });
     }
   };
   return (
@@ -108,74 +110,76 @@ const Executive: NextPage<
         <title>faculty - CIS</title>
       </Head>
 
-      {/* <AppModal
+      <AppModal
         isOpen={isOpen}
         onClose={onClose}
         heading="Add New Course"
         isSubmitting={isLoading}
         onClick={onSubmit}
       >
-        <FormControl isRequired isInvalid={!!errors.code?.message} mb={'25px'}>
-          <FormLabel htmlFor="courseCode">Course code</FormLabel>
+        <FormControl isRequired isInvalid={!!errors.name?.message} mb={'25px'}>
+          <FormLabel htmlFor="name">Name</FormLabel>
           <Input
-            id="courseCode"
+            id="name"
             type={'text'}
-            placeholder="Course code"
-            {...register('code')}
+            placeholder="Name"
+            {...register('name')}
           />
-          <FormErrorMessage>{errors.code?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={!!errors.title?.message} mb={'25px'}>
-          <FormLabel htmlFor="title">Title</FormLabel>
+        <FormControl isRequired isInvalid={!!errors.email?.message} mb={'25px'}>
+          <FormLabel htmlFor="Email">Email</FormLabel>
           <Input
-            id="title"
-            type={'text'}
-            placeholder="Title"
-            {...register('title')}
+            id="Email"
+            type={'email'}
+            disabled={!isNew}
+            placeholder="Email"
+            {...register('email')}
           />
-          <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
         </FormControl>
-        
+
         <FormControl
           isRequired
-          isInvalid={!!errors.credit?.message}
+          isInvalid={!!errors.description?.message}
           mb={'25px'}
         >
-          <FormLabel htmlFor="credit">Course credit</FormLabel>
-          <Input
-            id="credit"
-            type={'number'}
-            placeholder="Course credit"
+          <FormLabel htmlFor="description">Description</FormLabel>
+          <Textarea
+            id="description"
+            placeholder="Description"
             defaultValue={2}
-            {...register('credit')}
+            {...register('description')}
           />
-          <FormErrorMessage>{errors.credit?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={!!errors.status?.message}>
-          <FormLabel htmlFor="status">Status</FormLabel>
-          <Select placeholder="Status" {...register('status')}>
-            <option value="R">Required</option>
-            <option value="E">Elective</option>
-            <option value="C">Compulsory</option>
-          </Select>
-          <FormErrorMessage>{errors.status?.message}</FormErrorMessage>
+        <FormControl
+          isRequired
+          isInvalid={!!errors.position?.message}
+          mb={'25px'}
+        >
+          <FormLabel htmlFor="position">Position</FormLabel>
+          <Input
+            id="position"
+            type={'text'}
+            placeholder="position"
+            defaultValue={2}
+            {...register('position')}
+          />
+          <FormErrorMessage>{errors.position?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={!!errors.departmentId?.message}>
-          <FormLabel htmlFor="department">Department</FormLabel>
-          <Select
-            id="department"
-            placeholder="Department"
-            {...register('departmentId')}
-          >
-            {departments.map(cur => (
-              <option value={cur.id} key={cur.shortName}>
-                {cur.shortName}
+        <FormControl isRequired isInvalid={!!errors.type?.message}>
+          <FormLabel htmlFor="Type">Type</FormLabel>
+          <Select placeholder="Type" {...register('type')}>
+            {Object.entries(ExcoType).map(([key, val]) => (
+              <option key={key} value={val}>
+                {val}
               </option>
             ))}
           </Select>
-          <FormErrorMessage>{errors.departmentId?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.type?.message}</FormErrorMessage>
         </FormControl>
-      </AppModal> */}
+      </AppModal>
 
       <Box py="50px">
         <Box width={'1200px'} maxW={'100%'} m="0 auto">
@@ -220,7 +224,13 @@ const Executive: NextPage<
                         mr="10px"
                         icon={<EditIcon />}
                         onClick={() => {
-                          // setCourseCode(each.code);
+                          setExcoId(exco.id);
+                          setValue('name', exco.user.name);
+                          setValue('email', exco.user.email);
+                          setValue('position', exco.position);
+                          setValue('description', exco.description);
+                          setValue('type', exco.type);
+
                           // Object.entries(each).forEach(([key, val]) =>
                           //   setValue<any>(key, val)
                           // );

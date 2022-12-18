@@ -41,7 +41,7 @@ export const excoRouter = router({
 
       return exco;
     }),
-  updateDepartment: adminProcedure
+  updateExco: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -53,7 +53,7 @@ export const excoRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const department = await ctx.prisma.executive.update({
+      const exco = await ctx.prisma.executive.update({
         where: {
           id: input.id,
         },
@@ -70,7 +70,7 @@ export const excoRouter = router({
         },
       });
 
-      return department;
+      return exco;
     }),
   deleteExco: adminProcedure
     .input(
