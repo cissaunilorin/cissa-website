@@ -21,13 +21,20 @@ enum CourseStatus {
   R
 }
 
+enum ExcoType {
+  CISSA
+  SRC
+  STAFF
+}
+
 model User {
-  id         String      @id @default(uuid())
-  name       String      @db.VarChar(255)
-  email      String      @unique @db.VarChar(255)
-  password   String      @db.VarChar(255)
-  role       Role        @default(USER)
-  Executives Executives?
+  id        String     @id @default(uuid())
+  name      String     @db.VarChar(255)
+  email     String     @unique @db.VarChar(255)
+  password  String     @db.VarChar(255)
+  isActive  Boolean    @default(true)
+  role      Role       @default(USER)
+  executive Executive?
 
   @@map("users")
 }
@@ -54,12 +61,13 @@ model Course {
   @@map("courses")
 }
 
-model Executives {
-  id          String @id @default(uuid())
-  position    String @db.VarChar(255)
+model Executive {
+  id          String   @id @default(uuid())
+  position    String   @db.VarChar(255)
   description String
-  user        User   @relation(fields: [userId], references: [id])
-  userId      String @unique
+  type        ExcoType @default(CISSA)
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @unique
 
   @@map("executives")
 }
