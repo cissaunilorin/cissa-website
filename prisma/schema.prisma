@@ -71,3 +71,11 @@ model Executive {
 
   @@map("executives")
 }
+
+model Event {
+  id    String   @id @default(uuid())
+  date  DateTime
+  venue String   @db.VarChar(255)
+
+  @@map("events")
+}
