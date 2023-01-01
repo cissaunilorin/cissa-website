@@ -37,7 +37,6 @@ import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 
 const defaultValues: IEventForm = {
-  id: '',
   date: new Date(),
   venue: '',
 };
@@ -48,7 +47,7 @@ const Events: NextPage<
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isNew, setIsNew] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  // const [courseCode, setCourseCode] = useState('');
+  const [eventId, setEventId] = useState('');
 
   const {
     register,
@@ -98,7 +97,7 @@ const Events: NextPage<
     if (isNew) {
       createEvent.mutate(data);
     } else {
-      updateEvent.mutate(data);
+      updateEvent.mutate({ id: eventId, ...data });
     }
   };
 
@@ -111,46 +110,46 @@ const Events: NextPage<
       <AppModal
         isOpen={isOpen}
         onClose={onClose}
-        heading='Add New Course'
+        heading="Add New Course"
         isSubmitting={isLoading}
         onClick={onSubmit}
       >
         <FormControl isRequired isInvalid={!!errors.date?.message} mb={'25px'}>
-          <FormLabel htmlFor='eventDate'>Event date</FormLabel>
+          <FormLabel htmlFor="eventDate">Event date</FormLabel>
           <Input
-            id='eventDate'
+            id="eventDate"
             type={'date'}
-            placeholder='Event Date'
+            placeholder="Event Date"
             {...register('date')}
           />
           <FormErrorMessage>{errors.date?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.venue?.message} mb={'25px'}>
-          <FormLabel htmlFor='venue'>Event venue</FormLabel>
+          <FormLabel htmlFor="venue">Event venue</FormLabel>
           <Input
-            id='venue'
+            id="venue"
             type={'text'}
-            placeholder='Event venue'
+            placeholder="Event venue"
             {...register('venue')}
           />
           <FormErrorMessage>{errors.venue?.message}</FormErrorMessage>
         </FormControl>
       </AppModal>
 
-      <Box py='50px'>
-        <Box width={'1200px'} maxW={'100%'} m='0 auto'>
+      <Box py="50px">
+        <Box width={'1200px'} maxW={'100%'} m="0 auto">
           <TableContainer>
-            <Table variant='striped' colorScheme='brown'>
+            <Table variant="striped" colorScheme="brown">
               <TableCaption>Courses</TableCaption>
               <Thead>
                 <Tr>
-                  <Th>Id</Th>
+                  {/* <Th>Id</Th> */}
                   <Th>Date</Th>
                   <Th>Venue</Th>
                   <Th>
                     <IconButton
-                      aria-label='add new'
-                      variant='outline'
+                      aria-label="add new"
+                      variant="outline"
                       icon={<AddIcon />}
                       onClick={() => {
                         Object.entries(defaultValues).forEach(([key, val]) =>
@@ -164,19 +163,19 @@ const Events: NextPage<
                 </Tr>
               </Thead>
               <Tbody>
-                {events.map((each) => (
+                {events.map(each => (
                   <Tr key={each.id}>
-                    <Td>{each.id}</Td>
+                    {/* <Td>{each.id}</Td> */}
                     <Td>{each.date.toDateString()}</Td>
-                    <Td>{each.venue}</Td>                    
+                    <Td>{each.venue}</Td>
                     <Td>
                       <IconButton
-                        aria-label='add new'
-                        variant='outline'
-                        mr='10px'
+                        aria-label="add new"
+                        variant="outline"
+                        mr="10px"
                         icon={<EditIcon />}
                         onClick={() => {
-                          // setCourseCode(each.code);
+                          setEventId(each.id);
                           Object.entries(each).forEach(([key, val]) =>
                             setValue<any>(key, val)
                           );
@@ -185,8 +184,8 @@ const Events: NextPage<
                         }}
                       />
                       <IconButton
-                        aria-label='delete'
-                        variant='outline'
+                        aria-label="delete"
+                        variant="outline"
                         icon={<DeleteIcon />}
                         onClick={() => {
                           const confirm = window.confirm(
