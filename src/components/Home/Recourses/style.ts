@@ -35,7 +35,7 @@ export const resourcedots2: BoxProps = {
 };
 export const resourceIcons: TextProps = {
   backgroundColor: 'brown.deep',
-  padding: '15px',
+  padding: { base: '10px', md: '15px' },
   borderRadius: '50%',
 };
 export const resourceImgTags: BoxProps = {
@@ -50,20 +50,21 @@ export const resourceImgTags: BoxProps = {
 };
 export const resourceImgTag1: BoxProps = {
   top: '45%',
-  left: '-70px',
+  left: { base: '0', md: '-70px' },
 };
 export const resourceImgTag2: BoxProps = {
   top: '7%',
-  right: '-70px',
+  right: { base: '0', md: '-70px' },
 };
 export const resourceImgTag3: BoxProps = {
   bottom: '-10%',
-  right: '50%',
-  left: '25%',
+  // right: '50%',
+  left: { md: '25%' },
+  right: { base: '0' },
 };
 export const resourceSmallText: TextProps = {
   fontWeight: 400,
-  fontSize: '16px',
-  lineHeight: '20px',
+  fontSize: { base: '12px', md: '16px' },
+  lineHeight: { base: '16px', md: '20px' },
   color: 'brown.deep',
 };

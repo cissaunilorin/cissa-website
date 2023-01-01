@@ -68,9 +68,14 @@ const Blog: FC = () => {
               <Text {...mainBlogPrimaryText}>{mainBlogCard.title}</Text>
               <Text {...mainBlogSecondaryText}>{mainBlogCard.description}</Text>
             </Box>
-            <Box w={{ base: '90%', md: '45%' }} marginX="auto">
+            <Box w={{ base: '100%', md: '45%' }} marginX="auto">
               {blogCards.map((blog, i) => (
-                <Flex key={i}>
+                <Flex
+                  key={i}
+                  direction={{ base: 'column', md: 'row' }}
+                  align="center"
+                  mb="20px"
+                >
                   <Box bgImage={blog.bgImg} {...blogImageBox}>
                     <Button {...blogButton}>{blog.tag}</Button>
                   </Box>

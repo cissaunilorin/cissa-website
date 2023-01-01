@@ -45,12 +45,14 @@ const Recourses: FC = () => {
               w="98px"
               h="72.02px"
               pos="absolute"
+              display={{ base: 'none', md: 'block' }}
               {...resourcedots1}
             />
             <ChakraNextImage
               src="/assets/resourcedots.png"
               w="98px"
               h="72.02px"
+              display={{ base: 'none', md: 'block' }}
               pos="absolute"
               {...resourcedots2}
             />
