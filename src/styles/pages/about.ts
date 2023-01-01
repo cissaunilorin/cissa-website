@@ -34,10 +34,6 @@ export const mainTextBox: BoxProps = {
   margin: 'auto',
 };
 
-export const mainTextHeading: HeadingProps = {
-  my: '2',
-};
-
 export const mainText: TextProps = {
   fontSize: '1.2rem',
   opacity: '70%',

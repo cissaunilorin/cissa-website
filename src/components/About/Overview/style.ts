@@ -17,9 +17,10 @@ export const aboutHistoryText: TextProps = {
 export const aboutHistoryPlayCircle: BoxProps = {
   pos: 'absolute',
   w: { base: '70px', md: '100px', lg: '120px' },
-  h: { base: '100px', md: '110px', lg: '126px' },
-  top: '40%',
-  left: '40%',
+  h: { base: '70px', md: '100px', lg: '120px' },
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '50%',

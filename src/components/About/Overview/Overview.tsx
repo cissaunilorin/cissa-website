@@ -53,15 +53,20 @@ const Overview = () => {
                 Read more
               </Button>
             </Box>
-            <Box position={'relative'}>
+
+            <Box
+              position={'relative'}
+              w={{ base: '100%', md: '590px', lg: '600px' }}
+            >
               <ChakraNextImage
                 src="/assets/class.png"
-                w={{ base: '500px', md: '590px', lg: '600px' }}
-                h={{ base: '320px', md: '400px', lg: '560px' }}
+                w="100%"
+                css={{ aspectRatio: '600/560' }}
                 borderRadius="30px"
               />
               <ChakraNextImage
                 src="/assets/dotsA.png"
+                display={{ base: 'none', md: 'block' }}
                 h={{ base: '150px', md: '170px', lg: '190px' }}
                 w={{ base: '200px', md: '250px', lg: '310px' }}
                 pos={'absolute'}
