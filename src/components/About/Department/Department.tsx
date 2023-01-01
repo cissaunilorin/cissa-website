@@ -1,12 +1,13 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { FC } from 'react';
-import { mainBoxStyle } from '../../../styles/common';
+import { heading2Style, mainBoxStyle } from '../../../styles/common';
 import {
   aboutPrimaryHeading,
   aboutSectionHistory,
 } from '../../../styles/pages/about';
 import ChakraNextImage from '../../chakra-nextimage';
+import { featureText } from '../../Home/Facts/styles';
 import {
   aboutDepartmentProps,
   departmentBoxHeading,
@@ -59,8 +60,10 @@ const Department: FC = () => {
     <Box {...aboutSectionHistory}>
       <Box {...mainBoxStyle}>
         <Box {...aboutDepartmentProps}>
-          <Heading {...aboutPrimaryHeading}>5 Awesome Departments.</Heading>
-          <Text>
+          <Heading {...heading2Style} mb="20px">
+            5 Awesome Departments.
+          </Heading>
+          <Text {...featureText}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et.
           </Text>
@@ -73,12 +76,12 @@ const Department: FC = () => {
             <Flex {...iconDepartmentBoxProps}>
               <ChakraNextImage
                 src="/assets/Workbag.png"
-                h={'41.67px'}
-                w={'41.67px'}
+                h={'30px'}
+                w={'30px'}
               />
             </Flex>
             <Heading {...departmentBoxHeading}>{department.heading}</Heading>
-            <Text {...departmentBoxSummary}>{department.summary}</Text>
+            {/* <Text {...departmentBoxSummary}>{department.summary}</Text> */}
             <Text>
               {department.more}
               <ArrowForwardIcon />
