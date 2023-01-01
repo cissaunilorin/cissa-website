@@ -7,10 +7,9 @@ import { type Session } from 'next-auth';
 import { theme } from '../styles/theme';
 import { trpc } from '../utils/trpc';
 import NextNProgress from 'nextjs-progressbar';
-
+import 'react-quill/dist/quill.snow.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import 'easymde/dist/easymde.min.css';
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
