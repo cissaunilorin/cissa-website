@@ -6,6 +6,7 @@ export type IExcoForm = {
   email: string;
   position: string;
   description: string;
+  order: number;
   type: ExcoType;
 };
 
@@ -15,6 +16,7 @@ export const excoSchema = z
     email: z.string(),
     position: z.string(),
     description: z.string(),
+    order: z.number(),
     type: z.nativeEnum(ExcoType),
   })
   .required();

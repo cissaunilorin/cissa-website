@@ -42,6 +42,7 @@ const defaultValues: IExcoForm = {
   description: '',
   email: '',
   position: '',
+  order: 0,
   type: ExcoType.CISSA,
 };
 
@@ -168,6 +169,17 @@ const Executive: NextPage<
           />
           <FormErrorMessage>{errors.position?.message}</FormErrorMessage>
         </FormControl>
+        <FormControl isRequired isInvalid={!!errors.order?.message} mb={'25px'}>
+          <FormLabel htmlFor="order">Order</FormLabel>
+          <Input
+            id="order"
+            type={'number'}
+            placeholder="Order"
+            defaultValue={2}
+            {...register('order')}
+          />
+          <FormErrorMessage>{errors.order?.message}</FormErrorMessage>
+        </FormControl>
         <FormControl isRequired isInvalid={!!errors.type?.message}>
           <FormLabel htmlFor="Type">Type</FormLabel>
           <Select placeholder="Type" {...register('type')}>
@@ -193,6 +205,7 @@ const Executive: NextPage<
                   <Th>Position</Th>
                   <Th>Type</Th>
                   <Th>Role</Th>
+                  <Th>Order</Th>
                   <Th>
                     <IconButton
                       aria-label="add new"
@@ -217,6 +230,7 @@ const Executive: NextPage<
                     <Td>{exco.position}</Td>
                     <Td>{exco.type}</Td>
                     <Td>{exco.user.role}</Td>
+                    <Td>{exco.order}</Td>
                     <Td>
                       <IconButton
                         aria-label="add new"
@@ -230,6 +244,7 @@ const Executive: NextPage<
                           setValue('position', exco.position);
                           setValue('description', exco.description);
                           setValue('type', exco.type);
+                          setValue('order', exco.order);
 
                           // Object.entries(each).forEach(([key, val]) =>
                           //   setValue<any>(key, val)
@@ -266,6 +281,7 @@ export const getServerSideProps = async (
 ) => {
   const executives = await prisma.executive.findMany({
     include: { user: true },
+    orderBy: [{ type: 'asc' }, { order: 'asc' }],
   });
 
   return {
