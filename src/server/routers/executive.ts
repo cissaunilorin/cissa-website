@@ -18,6 +18,7 @@ export const excoRouter = router({
         email: z.string(),
         position: z.string(),
         description: z.string(),
+        order: z.number(),
         type: z.nativeEnum(ExcoType),
       })
     )
@@ -34,6 +35,7 @@ export const excoRouter = router({
               position: input.position,
               type: input.type,
               description: input.description,
+              order: input.order,
             },
           },
         },
@@ -49,6 +51,7 @@ export const excoRouter = router({
         email: z.string(),
         position: z.string(),
         description: z.string(),
+        order: z.number(),
         type: z.nativeEnum(ExcoType),
       })
     )
@@ -61,6 +64,7 @@ export const excoRouter = router({
           position: input.position,
           description: input.description,
           type: input.type,
+          order: input.order,
           user: {
             update: {
               name: input.name,
