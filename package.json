@@ -24,6 +24,7 @@
     "@trpc/next": "^10.4.2",
     "@trpc/react-query": "^10.4.2",
     "@trpc/server": "^10.4.2",
+    "axios": "^1.2.2",
     "bcrypt": "^5.1.0",
     "framer-motion": "^6.5.1",
     "gsap": "^3.10.4",

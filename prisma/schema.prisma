@@ -13,6 +13,7 @@ datasource db {
 enum Role {
   USER
   ADMIN
+  EDITOR
 }
 
 enum CourseStatus {

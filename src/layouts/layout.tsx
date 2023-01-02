@@ -44,7 +44,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
         <title>cissa</title>
       </Head>
 
-      <Header />
+      {!router.pathname.startsWith('/write') && <Header />}
       <Box as="main">{children}</Box>
       <Footer />
     </>

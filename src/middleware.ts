@@ -7,6 +7,9 @@ export default withAuth({
       if (req.nextUrl.pathname.includes('/admin'))
         return token?.role === 'ADMIN';
 
+      if (req.nextUrl.pathname.includes('/write'))
+        return token?.role === 'ADMIN' || token?.role === 'EDITOR';
+
       return true;
     },
   },
@@ -14,4 +17,4 @@ export default withAuth({
 
 // export { default } from 'next-auth/middleware';
 
-export const config = { matcher: ['/admin', '/admin/(.*)'] };
+export const config = { matcher: ['/admin', '/admin/(.*)', '/write'] };
