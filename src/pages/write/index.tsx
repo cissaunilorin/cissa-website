@@ -17,11 +17,12 @@ const Write: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({}) => {
   const [value, setValue] = useState('');
-  const quill = useRef<typeof ReactQuill | any>(null);
+  const quill = useRef(null);
 
   const imageHandler = async () => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
     input.click();
     input.onchange = () => {
       const file = input.files![0];
@@ -70,7 +71,6 @@ const Write: NextPage<
           placeholder="Enter your post content here"
           onChange={setValue}
         />
-        <Button onClick={() => console.log(value)}>log value</Button>
       </Box>
     </>
   );

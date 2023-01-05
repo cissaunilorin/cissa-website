@@ -36,6 +36,7 @@ model User {
   isActive  Boolean    @default(true)
   role      Role       @default(USER)
   executive Executive?
+  Blog      Blog[]
 
   @@map("users")
 }
@@ -80,4 +81,18 @@ model Event {
   venue String   @db.VarChar(255)
 
   @@map("events")
+}
+
+model Blog {
+  id        String   @id @default(uuid())
+  heading   String   @db.VarChar(255)
+  imageUrl  String   @db.VarChar(255)
+  slug      String   @db.VarChar(255)
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blogs")
 }
