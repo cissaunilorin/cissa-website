@@ -4,6 +4,19 @@ import { hashPassword } from '../../utils/authHandler';
 import { router, publicProcedure, adminProcedure } from '../trpc';
 
 export const excoRouter = router({
+  getExcos: publicProcedure.input(
+    z.object({
+      type: z.nativeEnum(ExcoType),
+    })
+  ).query(async ({ input, ctx }) => {
+    const exco = await ctx.prisma.executive.findMany({
+      include: { user: true },
+      where: { type: input.type },
+      orderBy: [{ order: "asc" }]
+    });
+
+    return exco;
+  }),
   getAllExco: publicProcedure.query(async ({ ctx }) => {
     const exco = await ctx.prisma.executive.findMany({
       include: { user: true },
