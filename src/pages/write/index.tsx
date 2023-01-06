@@ -9,29 +9,42 @@ import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import { mainBoxStyle } from '../../styles/common';
 import dynamic from 'next/dynamic';
-import { useMemo, useRef, useState } from 'react';
+import { forwardRef, useMemo, useRef, useState } from 'react';
+import ReactQuill from 'react-quill';
+import axios from 'axios';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const Editor = dynamic(() => import('../../components/Editor/Editor'), {
+  ssr: false,
+});
 
 const Write: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({}) => {
   const [value, setValue] = useState('');
-  const quill = useRef(null);
+  const quill = useRef<ReactQuill>(null);
 
   const imageHandler = async () => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
     input.click();
-    input.onchange = () => {
+    input.onchange = async () => {
       const file = input.files![0];
       const formData = new FormData();
-      formData.append('upload', file);
       formData.append('type', 'image');
+      formData.append('upload', file);
+
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BUCKET}/upload`,
+        formData
+      );
 
       const editor = quill.current?.getEditor();
-      editor?.insertEmbed(editor.getSelection(), 'image', '');
+      editor?.insertEmbed(
+        editor?.getSelection()?.index as number,
+        'image',
+        `${process.env.NEXT_PUBLIC_BUCKET}${res.data.fileUrl}`
+      );
     };
   };
 
@@ -63,9 +76,9 @@ const Write: NextPage<
       </Head>
 
       <Box {...mainBoxStyle}>
-        <ReactQuill
+        <Editor
+          editorRef={quill}
           modules={modules}
-          ref={quill}
           theme="snow"
           value={value}
           placeholder="Enter your post content here"
