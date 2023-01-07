@@ -88,6 +88,8 @@ model Blog {
   heading   String   @db.VarChar(255)
   imageUrl  String   @db.VarChar(255)
   slug      String   @db.VarChar(255)
+  published Boolean  @default(false)
+  draft     Boolean  @default(false)
   content   String
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String   @unique
