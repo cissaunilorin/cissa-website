@@ -17,6 +17,21 @@ export const headerBox: BoxProps = {
   zIndex: '100',
 };
 
+export const mobileMenuStyle = (open: boolean): BoxProps => ({
+  position: 'fixed',
+  top: '0',
+  padding: '70px 0 0 30px',
+  right: '0',
+  transform: open ? 'translateX(0%)' : 'translateX(100%)',
+  opacity: open ? 1 : 0,
+  pointerEvents: open ? 'all' : 'none',
+  bg: 'brown.trans',
+  w: '50%',
+  minWidth: '280px',
+  h: '100%',
+  transition: 'all 0.3s ease',
+});
+
 export const linkStyle = (bol: boolean): LinkProps => ({
   textDecorationLine: 'none',
   fontFamily: 'Inter',
