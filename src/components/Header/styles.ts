@@ -24,6 +24,7 @@ export const mobileMenuStyle = (open: boolean): BoxProps => ({
   right: '0',
   transform: open ? 'translateX(0%)' : 'translateX(100%)',
   opacity: open ? 1 : 0,
+  pointerEvents: open ? 'all' : 'none',
   bg: 'brown.trans',
   w: '50%',
   minWidth: '280px',

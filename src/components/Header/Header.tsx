@@ -1,9 +1,8 @@
 import { Box, Button, Flex, List, ListItem, Link } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
-
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { mainBoxStyle } from '../../styles/common';
 import Logo from '../Logo/Logo';
 import { headerBox, linkStyle, listStyle, mobileMenuStyle } from './styles';
@@ -38,7 +37,11 @@ const links = [
 const Header: FC = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-
+  useEffect(() => {
+    router.events.on('routeChangeStart', () => {
+      setIsOpen(false);
+    });
+  }, [router]);
   return (
     <Box {...headerBox}>
       <Box {...mainBoxStyle}>
