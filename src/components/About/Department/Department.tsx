@@ -1,5 +1,6 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Flex, Heading, Skeleton, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import { FC } from 'react';
 import { heading2Style, mainBoxStyle } from '../../../styles/common';
 import { aboutSectionHistory } from '../../../styles/pages/about';
@@ -43,10 +44,16 @@ const Department: FC = () => {
                   </Flex>
                   <Heading {...departmentBoxHeading}>{department.name}</Heading>
                   {/* <Text {...departmentBoxSummary}>{department.summary}</Text> */}
-                  <Text>
-                    Learn More
-                    <ArrowForwardIcon />
-                  </Text>
+
+                  <Link
+                    href={`/department/${department.shortName.toLowerCase()}`}
+                    passHref
+                  >
+                    <Text>
+                      Learn More
+                      <ArrowForwardIcon />
+                    </Text>
+                  </Link>
                 </Box>
               ))
             : [1, 2, 3].map(cur => (
