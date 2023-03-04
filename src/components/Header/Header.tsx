@@ -31,10 +31,6 @@ const links = [
     name: 'Contact Us',
     href: '#',
   },
-  {
-    name: 'D.D.P',
-    href: '/departmentdetails',
-  },
 ];
 
 const Header: FC = () => {
@@ -47,7 +43,7 @@ const Header: FC = () => {
           <Logo />
 
           <List display={{ base: 'none', lg: 'flex' }} gap={'32px'}>
-            {links.map((link) => (
+            {links.map(link => (
               <ListItem
                 {...listStyle(router.pathname === link.href)}
                 key={link.name}
