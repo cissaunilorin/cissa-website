@@ -9,7 +9,7 @@ const About = () => {
       <Box {...deptGeneralBoxSpacing}>
         <Box {...mainBoxStyle}>
           <Box {...aboutBox}>
-            '<Heading {...aboutHeading}>About the department</Heading>
+            <Heading {...aboutHeading}>About the department</Heading>
             <Text {...aboutSummary}>
               The mass communication department was established in the year
               2002.The department offers undergraduate and postgraduate

@@ -47,13 +47,13 @@ const Courses = () => {
             <>
               <Heading {...coursesHeading}>Courses</Heading>
               <Box {...courseBoxes}>
-                {departmentCourses.map((dept) => {
+                {departmentCourses.map(dept => {
                   return (
-                    <Box>
+                    <Box key={dept.level}>
                       <Text {...courseLvl}>{dept.level}LVL</Text>
                       <Flex {...courseList}>
                         <Flex {...courseList}>
-                          {dept.codes.map((code) => code.code)}
+                          {dept.codes.map(code => code.code)}
                         </Flex>
                       </Flex>
                     </Box>

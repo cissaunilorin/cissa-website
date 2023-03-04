@@ -25,8 +25,8 @@ const HOD = () => {
                 other nations of the Avatar world. Iroh is known for his wisdom,
                 kindness, and sense of humor, as well as his strong devotion to
                 his family and his nation. He is also a mentor and father figure
-                to the show's main character, Prince Zuko, helping him to find
-                his true path in life.
+                to the show&apos;s main character, Prince Zuko, helping him to
+                find his true path in life.
               </Text>
             </Box>
           </Flex>
