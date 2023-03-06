@@ -84,17 +84,40 @@ model Event {
 }
 
 model Blog {
-  id        String   @id @default(uuid())
-  heading   String   @db.VarChar(255)
-  imageUrl  String   @db.VarChar(255)
-  slug      String   @db.VarChar(255)
-  published Boolean  @default(false)
-  draft     Boolean  @default(false)
+  id        String    @id @default(uuid())
+  heading   String    @db.VarChar(255)
+  imageUrl  String    @db.VarChar(255)
+  slug      String    @db.VarChar(255)
+  published Boolean   @default(false)
+  draft     Boolean   @default(false)
   content   String
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String   @unique
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  blog      BlogTag[]
+
+  @@map("blogs")
+}
+
+model Tag {
+  id        String    @id @default(uuid())
+  title     String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  BlogTag   BlogTag[]
+
+  @@map("tags")
+}
+
+model BlogTag {
+  id        String   @id @default(uuid())
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    String
+  tag       Tag      @relation(fields: [tagId], references: [id])
+  tagId     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("blogs")
+  @@map("blogTags")
 }
