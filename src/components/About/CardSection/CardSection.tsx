@@ -39,7 +39,7 @@ const CardSection: FC<ICardSection> = ({ heading, description, cards }) => {
               >
                 <ChakraNextImage
                   {...cardSectionImage}
-                  src={leader.id || '/assets/placeholder.png'}
+                  src={'/assets/placeholder.png'}
                 />
                 <Flex {...cardSectionFlex}>
                   <Box w="100%">
