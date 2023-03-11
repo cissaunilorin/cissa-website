@@ -1,11 +1,9 @@
+import { Executive, User } from '@prisma/client';
+
 export interface ICardSection {
   heading: string;
   description: string;
-  cards: {
-    user: { name: string };
-    name: string;
-    title: string;
-    imageSrc: string;
-    position: string
-  }[] | undefined | any;
+  cards?: (Executive & {
+    user: User;
+  })[];
 }
