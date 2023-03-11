@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Link, Text, Skeleton } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { FaFacebook, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { heading2Style, mainBoxStyle } from '../../../styles/common';
@@ -15,6 +16,8 @@ import {
 import { ICardSection } from './types';
 
 const CardSection: FC<ICardSection> = ({ heading, description, cards }) => {
+  const router = useRouter();
+
   return (
     <Box {...mainBoxStyle}>
       <Box {...mainTextBox} mb="30px">
@@ -27,10 +30,16 @@ const CardSection: FC<ICardSection> = ({ heading, description, cards }) => {
       <Flex wrap="wrap" justify="center" gap="30px">
         {!!cards
           ? cards?.map(leader => (
-              <Box key={leader.title} {...cardSectionWrapper}>
+              <Box
+                key={leader.id}
+                {...cardSectionWrapper}
+                onClick={() => {
+                  router.push(`/user/${leader.id}`);
+                }}
+              >
                 <ChakraNextImage
                   {...cardSectionImage}
-                  src={leader.imageSrc || '/assets/placeholder.png'}
+                  src={leader.id || '/assets/placeholder.png'}
                 />
                 <Flex {...cardSectionFlex}>
                   <Box w="100%">

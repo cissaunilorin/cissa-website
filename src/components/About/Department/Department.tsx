@@ -2,6 +2,7 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Flex, Heading, Skeleton, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { FC } from 'react';
+import SuperJSON from 'superjson';
 import { heading2Style, mainBoxStyle } from '../../../styles/common';
 import { aboutSectionHistory } from '../../../styles/pages/about';
 import { trpc } from '../../../utils/trpc';
@@ -16,7 +17,7 @@ import {
 } from './style';
 
 const Department: FC = () => {
-  const departments = trpc.department.getAllDepartments.useQuery();
+  const { data, isLoading } = trpc.department.getAllDepartments.useQuery();
 
   return (
     <Box {...aboutSectionHistory}>
@@ -32,8 +33,8 @@ const Department: FC = () => {
         </Box>
 
         <Flex wrap={'wrap'} justify="center" gap="40px">
-          {!!departments.data
-            ? departments.data.map(department => (
+          {!!data
+            ? data.map(department => (
                 <Box {...departmentBoxProps} key={department.id}>
                   <Flex {...iconDepartmentBoxProps}>
                     <ChakraNextImage
