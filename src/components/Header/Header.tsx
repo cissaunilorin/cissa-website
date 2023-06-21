@@ -1,10 +1,11 @@
 import { Box, Button, Flex, List, ListItem, Link } from '@chakra-ui/react';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { mainBoxStyle } from '../../styles/common';
 import Logo from '../Logo/Logo';
-import { headerBox, linkStyle, listStyle } from './styles';
+import { headerBox, linkStyle, listStyle, mobileMenuStyle } from './styles';
 
 const links = [
   {
@@ -35,7 +36,12 @@ const links = [
 
 const Header: FC = () => {
   const router = useRouter();
-
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    router.events.on('routeChangeStart', () => {
+      setIsOpen(false);
+    });
+  }, [router]);
   return (
     <Box {...headerBox}>
       <Box {...mainBoxStyle}>
@@ -43,7 +49,7 @@ const Header: FC = () => {
           <Logo />
 
           <List display={{ base: 'none', lg: 'flex' }} gap={'32px'}>
-            {links.map(link => (
+            {links.map((link) => (
               <ListItem
                 {...listStyle(router.pathname === link.href)}
                 key={link.name}
@@ -56,6 +62,36 @@ const Header: FC = () => {
               </ListItem>
             ))}
           </List>
+          <Button
+            zIndex={'99'}
+            w="50px"
+            h="40px"
+            display={{ base: 'flex', lg: 'none' }}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {!isOpen && <HamburgerIcon fontSize={'25px'} />}
+            {isOpen && <CloseIcon fontSize={'15px'} />}
+          </Button>
+
+          <Box
+            {...mobileMenuStyle(isOpen)}
+            display={{ base: 'flex', lg: 'none' }}
+          >
+            <List display={'flex'} flexDir="column" gap={'32px'}>
+              {links.map((link) => (
+                <ListItem
+                  {...listStyle(router.pathname === link.href)}
+                  key={link.name}
+                >
+                  <NextLink href={link.href} passHref>
+                    <Link {...linkStyle(router.pathname === link.href)}>
+                      {link.name}
+                    </Link>
+                  </NextLink>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
         </Flex>
       </Box>
     </Box>
