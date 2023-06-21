@@ -15,5 +15,6 @@ export const departmentSchema = z
       .string()
       .max(4, { message: 'matric name can be only 4 chracters' }),
     HOD: z.string(),
+    about: z.string(),
   })
   .required();

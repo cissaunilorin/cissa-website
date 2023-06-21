@@ -44,9 +44,10 @@ model User {
 model Department {
   id        String   @id @default(uuid())
   name      String   @db.VarChar(255)
-  shortName String   @db.VarChar(3)
+  shortName String   @unique @db.VarChar(3)
   matric    String   @db.VarChar(255)
   HOD       String   @db.VarChar(255)
+  about     String?
   Course    Course[]
 
   @@map("departments")

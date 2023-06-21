@@ -30,12 +30,18 @@ import {
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
 import { excoSchema, IExcoForm } from '../../forms/exco.form';
 import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
+import dynamic from 'next/dynamic';
+import ReactQuill from 'react-quill';
+
+const Editor = dynamic(() => import('../../components/Editor/Editor'), {
+  ssr: false,
+});
 
 const defaultValues: IExcoForm = {
   name: '',
@@ -105,6 +111,26 @@ const Executive: NextPage<
       updateExco.mutate({ id: excoId, ...data });
     }
   };
+
+  const [value, setEdValue] = useState('');
+  const quill = useRef<ReactQuill>(null);
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, 4, false] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ script: 'sub' }, { script: 'super' }],
+          ['background', 'color'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link', 'code', 'blockquote', 'code-block'],
+          ['direction', 'align'],
+        ],
+      },
+    }),
+    []
+  );
   return (
     <>
       <Head>
@@ -117,6 +143,7 @@ const Executive: NextPage<
         heading="Add New Course"
         isSubmitting={isLoading}
         onClick={onSubmit}
+        w="800px"
       >
         <FormControl isRequired isInvalid={!!errors.name?.message} mb={'25px'}>
           <FormLabel htmlFor="name">Name</FormLabel>
@@ -138,21 +165,6 @@ const Executive: NextPage<
             {...register('email')}
           />
           <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-        </FormControl>
-
-        <FormControl
-          isRequired
-          isInvalid={!!errors.description?.message}
-          mb={'25px'}
-        >
-          <FormLabel htmlFor="description">Description</FormLabel>
-          <Textarea
-            id="description"
-            placeholder="Description"
-            defaultValue={2}
-            {...register('description')}
-          />
-          <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
         </FormControl>
         <FormControl
           isRequired
@@ -180,7 +192,7 @@ const Executive: NextPage<
           />
           <FormErrorMessage>{errors.order?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={!!errors.type?.message}>
+        <FormControl isRequired isInvalid={!!errors.type?.message} mb={'25px'}>
           <FormLabel htmlFor="Type">Type</FormLabel>
           <Select placeholder="Type" {...register('type')}>
             {Object.entries(ExcoType).map(([key, val]) => (
@@ -190,6 +202,23 @@ const Executive: NextPage<
             ))}
           </Select>
           <FormErrorMessage>{errors.type?.message}</FormErrorMessage>
+        </FormControl>
+
+        <FormControl isRequired isInvalid={!!errors.description?.message}>
+          <FormLabel htmlFor="description">About</FormLabel>
+
+          <Editor
+            editorRef={quill}
+            modules={modules}
+            theme="snow"
+            value={value}
+            placeholder="Enter your post content here"
+            onChange={val => {
+              setEdValue(val);
+              setValue('description', val);
+            }}
+          />
+          <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
         </FormControl>
       </AppModal>
 
@@ -215,6 +244,7 @@ const Executive: NextPage<
                         Object.entries(defaultValues).forEach(([key, val]) =>
                           setValue<any>(key, val)
                         );
+                        setEdValue('');
                         setIsNew(true);
                         onOpen();
                       }}
@@ -243,6 +273,7 @@ const Executive: NextPage<
                           setValue('email', exco.user.email);
                           setValue('position', exco.position);
                           setValue('description', exco.description);
+                          setEdValue(exco.description);
                           setValue('type', exco.type);
                           setValue('order', exco.order);
 

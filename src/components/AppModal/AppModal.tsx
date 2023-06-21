@@ -16,12 +16,13 @@ const AppModal: FC<{
   children: ReactNode;
   onClick: MouseEventHandler;
   heading: string;
+  w?: string;
   isSubmitting: boolean;
-}> = ({ isOpen, onClose, children, onClick, heading, isSubmitting }) => {
+}> = ({ isOpen, onClose, children, onClick, heading, isSubmitting, w }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent w={w || '500px'} maxW={'90%'}>
         <ModalHeader>{heading}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
