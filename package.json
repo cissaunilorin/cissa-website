@@ -10,6 +10,7 @@
     "lint": "next lint",
     "studio": "prisma studio",
     "migrate": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
     "pushDB": "prisma db push"
   },
   "dependencies": {

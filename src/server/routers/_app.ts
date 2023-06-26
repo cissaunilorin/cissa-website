@@ -4,6 +4,7 @@ import { departmentRouter } from './department';
 import { coursesRouter } from './courses';
 import { excoRouter } from './executive';
 import { eventsRouter } from './events';
+import { blogRouter } from './blog';
 
 export const appRouter = router({
   department: departmentRouter,
@@ -11,6 +12,7 @@ export const appRouter = router({
   course: coursesRouter,
   exco: excoRouter,
   events: eventsRouter,
+  blog: blogRouter,
 });
 
 // export type definition of API
