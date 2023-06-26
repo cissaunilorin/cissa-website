@@ -1,4 +1,4 @@
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -10,11 +10,11 @@ import {
   List,
   ListItem,
   Text,
-} from '@chakra-ui/react';
-import NextLink from 'next/link';
-import { FC } from 'react';
-import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
-import { mainBoxStyle } from '../../../styles/common';
+} from "@chakra-ui/react";
+import NextLink from "next/link";
+import { FC } from "react";
+import { FaFacebookF, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { mainBoxStyle } from "../../../styles/common";
 import {
   annoucementHeading,
   annoucementLink,
@@ -23,20 +23,20 @@ import {
   iconButton,
   listStyle,
   NewsTextBox,
-} from './styles';
+} from "./styles";
 
 const links = [
   {
     icon: FaLinkedinIn,
-    href: '#',
+    href: "#",
   },
   {
     icon: FaFacebookF,
-    href: '#',
+    href: "#",
   },
   {
     icon: FaTwitter,
-    href: '#',
+    href: "#",
   },
 ];
 
@@ -46,23 +46,23 @@ const Overview: FC = () => {
       <Box
         pt="265px"
         pb="40px"
-        w={'100%'}
+        w={"100%"}
         bgImg={
-          'linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/assets/ov-1.png)'
+          "linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/assets/ov-1.png)"
         }
-        bgPos={'center'}
-        backgroundRepeat={'no-repeat'}
-        backgroundSize={'cover'}
+        bgPos={"center"}
+        backgroundRepeat={"no-repeat"}
+        backgroundSize={"cover"}
       >
         <Box {...mainBoxStyle}>
           <Flex
             mb="160px"
-            justify={'space-between'}
-            direction={{ base: 'column', lg: 'row' }}
-            align={{ base: 'flex-start', lg: 'center' }}
+            justify={"space-between"}
+            direction={{ base: "column", lg: "row" }}
+            align={{ base: "flex-start", lg: "center" }}
             gap="30px"
           >
-            <Box width="508px" maxW={'100%'}>
+            <Box width="508px" maxW={"100%"}>
               <Heading {...heading}>
                 Welcome to Faculty of Communication and Information Sciences,
                 Unilorin.
@@ -72,75 +72,15 @@ const Overview: FC = () => {
               </Button>
             </Box>
 
-            <List display={'flex'} flexDir={{ lg: 'column' }} gap="40px">
+            <List display={"flex"} flexDir={{ lg: "column" }} gap="40px">
               {links.map((link, i) => (
                 <ListItem key={i} {...listStyle}>
                   <NextLink href={link.href} passHref>
-                    <Icon as={link.icon} color="#FFF2EC" fontSize={'24px'} />
+                    <Icon as={link.icon} color="#FFF2EC" fontSize={"24px"} />
                   </NextLink>
                 </ListItem>
               ))}
             </List>
-          </Flex>
-
-          <Flex align={'center'} justify="flex-start" w={'500px'} maxW="100%">
-            <Box {...NewsTextBox}>News</Box>
-
-            <Box
-              flex={1}
-              overflowX="auto"
-              css={{ '::-webkit-scrollbar': { display: 'none' } }}
-              mr="10px"
-            >
-              <Flex>
-                <Box flex="0 0 190px" color="#fff2ec">
-                  <Heading {...annoucementHeading}>Course registration</Heading>
-                  <Text {...annoucementText}>
-                    This is to inform all students on the commencement.......
-                  </Text>
-                  <NextLink href={'#'} passHref>
-                    <Link {...annoucementLink}>
-                      Read More <ArrowForwardIcon />
-                    </Link>
-                  </NextLink>
-                </Box>
-                <Box flex="0 0 190px" color="#fff2ec">
-                  <Heading {...annoucementHeading}>Course registration</Heading>
-                  <Text {...annoucementText}>
-                    This is to inform all students on the commencement.......
-                  </Text>
-                  <NextLink href={'#'} passHref>
-                    <Link {...annoucementLink}>
-                      Read More <ArrowForwardIcon />
-                    </Link>
-                  </NextLink>
-                </Box>
-                <Box flex="0 0 190px" color="#fff2ec">
-                  <Heading {...annoucementHeading}>Course registration</Heading>
-                  <Text {...annoucementText}>
-                    This is to inform all students on the commencement.......
-                  </Text>
-                  <NextLink href={'#'} passHref>
-                    <Link {...annoucementLink}>
-                      Read More <ArrowForwardIcon />
-                    </Link>
-                  </NextLink>
-                </Box>
-              </Flex>
-            </Box>
-
-            <Box>
-              <IconButton
-                aria-label="next"
-                icon={<ArrowForwardIcon />}
-                {...iconButton}
-              />
-              <IconButton
-                aria-label="previous"
-                icon={<ArrowBackIcon />}
-                {...iconButton}
-              />
-            </Box>
           </Flex>
         </Box>
       </Box>
