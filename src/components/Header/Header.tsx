@@ -16,17 +16,17 @@ const links = [
     name: 'About',
     href: '/about',
   },
-  {
-    name: 'Resources',
-    href: '#',
-  },
+  // {
+  //   name: 'Resources',
+  //   href: '#',
+  // },
   {
     name: 'Blog',
     href: '/blog',
   },
   {
-    name: 'News & Events',
-    href: '#',
+    name: 'Events',
+    href: '/events',
   },
   {
     name: 'Contact Us',
@@ -49,7 +49,7 @@ const Header: FC = () => {
           <Logo />
 
           <List display={{ base: 'none', lg: 'flex' }} gap={'32px'}>
-            {links.map((link) => (
+            {links.map(link => (
               <ListItem
                 {...listStyle(router.pathname === link.href)}
                 key={link.name}
@@ -78,7 +78,7 @@ const Header: FC = () => {
             display={{ base: 'flex', lg: 'none' }}
           >
             <List display={'flex'} flexDir="column" gap={'32px'}>
-              {links.map((link) => (
+              {links.map(link => (
                 <ListItem
                   {...listStyle(router.pathname === link.href)}
                   key={link.name}
