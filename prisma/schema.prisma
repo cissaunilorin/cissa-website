@@ -88,7 +88,7 @@ model Blog {
   id        String    @id @default(uuid())
   heading   String    @db.VarChar(255)
   imageUrl  String    @db.VarChar(255)
-  slug      String    @db.VarChar(255)
+  slug      String    @unique @db.VarChar(255)
   published Boolean   @default(false)
   draft     Boolean   @default(false)
   content   String
@@ -96,7 +96,7 @@ model Blog {
   authorId  String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  blog      BlogTag[]
+  blogTag   BlogTag[]
 
   @@map("blogs")
 }

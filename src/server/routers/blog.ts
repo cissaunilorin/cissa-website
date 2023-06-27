@@ -8,74 +8,42 @@ import {
 } from '../trpc';
 
 export const blogRouter = router({
-  getAllDepartments: publicProcedure.query(async ({ ctx }) => {
-    const department = await ctx.prisma.department.findMany();
+  getAllblogs: publicProcedure.query(async ({ ctx }) => {
+    const blog = await ctx.prisma.blog.findMany();
 
-    return department;
+    return blog;
   }),
-  createDepartment: adminProcedure
+  createBlogPost: editorProcedure
     .input(
       z.object({
-        name: z.string(),
-        shortName: z.string(),
-        matric: z.string(),
-        HOD: z.string(),
-        about: z.string(),
+        heading: z.string(),
+        content: z.string(),
+        imageUrl: z.string(),
+        draft: z.boolean(),
+        tags: z.string().array(),
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const department = await ctx.prisma.department.create({
+      const blog = await ctx.prisma.blog.create({
         data: {
-          name: input.name,
-          shortName: input.shortName,
-          matric: input.matric,
-          HOD: input.HOD,
-          about: input.about,
+          imageUrl: input.imageUrl,
+          heading: input.heading,
+          content: input.content,
+          draft: input.draft,
+          slug: '',
+          authorId: ctx.session.user.id,
         },
       });
 
-      return department;
-    }),
-  updateDepartment: adminProcedure
-    .input(
-      z.object({
-        id: z.string(),
-        name: z.string(),
-        shortName: z.string(),
-        matric: z.string(),
-        HOD: z.string(),
-        about: z.string(),
-      })
-    )
-    .mutation(async ({ input, ctx }) => {
-      const department = await ctx.prisma.department.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          name: input.name,
-          shortName: input.shortName,
-          matric: input.matric,
-          HOD: input.HOD,
-          about: input.about,
-        },
+      const blogTag = input.tags.map((cur) => ({
+        blogId: blog.id,
+        tagId: cur,
+      }));
+
+      await ctx.prisma.blogTag.createMany({
+        data: blogTag,
       });
 
-      return department;
-    }),
-  deleteDepartment: adminProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      })
-    )
-    .mutation(async ({ input, ctx }) => {
-      await ctx.prisma.department.delete({
-        where: {
-          id: input.id,
-        },
-      });
-
-      return `done`;
+      return blog;
     }),
 });

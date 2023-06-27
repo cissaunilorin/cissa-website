@@ -21,7 +21,7 @@ const Editor = dynamic(() => import('../../components/Editor/Editor'), {
 
 const Write: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({}) => {
+> = ({ isNew }) => {
   const [value, setValue] = useState('');
   const [heading, setHeading] = useState('');
   const quill = useRef<ReactQuill>(null);
@@ -36,12 +36,12 @@ const Write: NextPage<
           ['background', 'color'],
           [{ list: 'ordered' }, { list: 'bullet' }],
           ['link', 'code', 'blockquote', 'code-block'],
-          ['image', 'video'],
+          ['image' /* 'video' */],
           ['direction', 'align'],
         ],
         handlers: {
           image: async () => await imageHandler(quill),
-          video: async () => await videoHandler(quill),
+          // video: async () => await videoHandler(quill),
         },
       },
     }),
@@ -54,20 +54,20 @@ const Write: NextPage<
         <title>CIS - write</title>
       </Head>
 
-      <Box {...mainBoxStyle} my="100px">
-        <Flex justify={'space-between'} mb="52px" align={'center'}>
-          <FormLabel htmlFor="thumbnail">
-            <PlusSquareIcon fontSize={'40px'} color="brown.deep" /> add a
+      <Box {...mainBoxStyle} my='100px'>
+        <Flex justify={'space-between'} mb='52px' align={'center'}>
+          <FormLabel htmlFor='thumbnail'>
+            <PlusSquareIcon fontSize={'40px'} color='brown.deep' /> add a
             thumbnail
           </FormLabel>
           <Input
             type={'file'}
-            accept="image/*"
-            id="thumbnail"
+            accept='image/*'
+            id='thumbnail'
             display={'none'}
           />
 
-          <Flex gap="40px">
+          <Flex gap='10px'>
             <Button variant={'outline'}>Preview</Button>
             <Button variant={'dark'}>Publish</Button>
           </Flex>
@@ -77,15 +77,15 @@ const Write: NextPage<
           <Input
             {...headingInputStyle}
             value={heading}
-            onChange={e => setHeading(e.target.value)}
+            onChange={(e) => setHeading(e.target.value)}
           />
 
           <Editor
             editorRef={quill}
             modules={modules}
-            theme="snow"
+            theme='snow'
             value={value}
-            placeholder="Enter your post content here"
+            placeholder='Enter your post content here'
             onChange={setValue}
           />
         </Box>
@@ -101,8 +101,19 @@ const Write: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
+  const blogId = ctx.query['blog-id'] as string;
+
+  if (blogId === 'new')
+    return {
+      props: {
+        isNew: true,
+      },
+    };
+
   return {
-    props: {},
+    props: {
+      isNew: false,
+    },
   };
 };
 
