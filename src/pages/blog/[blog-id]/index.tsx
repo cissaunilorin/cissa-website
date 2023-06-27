@@ -143,4 +143,22 @@ const BlogPost: FC = () => {
   );
 };
 
+
+// export const getServerSideProps = async (
+//   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+// ) => {
+//   const id = ctx.query['id'] as string;
+
+//   const user = await prisma.executive.findUnique({
+//     include: { user: true },
+//     where: { id },
+//   });
+
+//   return {
+//     props: {
+//       user,
+//     },
+//   };
+// };
+
 export default BlogPost;
