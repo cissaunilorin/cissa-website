@@ -13,7 +13,7 @@ export const cardImg: BoxProps = {
   borderRadius: '24px 24px 0px 0px',
 };
 export const card: BoxProps = {
-  width: '350px',
+  flex: '0 0 350px',
   height: '100%',
   boxShadow: '0px 4px 14px rgba(0, 0, 0, 0.07)',
   borderRadius: '24px',

@@ -71,9 +71,9 @@ const Event: FC = () => {
   }, []);
 
   return (
-    <Box as="section" my={'24'}>
+    <Box as='section' my={'24'}>
       <Box {...mainBoxStyle} ref={mlRef}>
-        <Heading as={'h2'} {...heading2Style} textAlign="center" mb={'8px'}>
+        <Heading as={'h2'} {...heading2Style} textAlign='center' mb={'8px'}>
           Latest Events
         </Heading>
         <Text {...featureText}>
@@ -84,10 +84,10 @@ const Event: FC = () => {
       <Box
         overflowX={'auto'}
         ml={margin}
-        css={{ '::-webkit-scrollbar': { display: 'none' } }}
-      >
+        py='20px'
+        css={{ '::-webkit-scrollbar': { display: 'none' } }}>
         <Flex mt={'12'} gap={5}>
-          {events?.map(event => (
+          {events?.map((event) => (
             <Card {...event} key={event.id} />
           ))}
         </Flex>
