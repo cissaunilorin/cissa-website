@@ -3,7 +3,7 @@ import { BoxProps, InputProps } from '@chakra-ui/react';
 export const headingInputStyle: InputProps = {
   type: 'text',
   placeholder: 'Your title goes here',
-  mb: '70px',
+  my: '20px',
   fontSize: '40px',
   lineHeight: '40px',
   p: '10px',

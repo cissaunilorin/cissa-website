@@ -2,7 +2,6 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Flex, Heading, Skeleton, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { FC } from 'react';
-import SuperJSON from 'superjson';
 import { heading2Style, mainBoxStyle } from '../../../styles/common';
 import { aboutSectionHistory } from '../../../styles/pages/about';
 import { trpc } from '../../../utils/trpc';
@@ -23,7 +22,7 @@ const Department: FC = () => {
     <Box {...aboutSectionHistory}>
       <Box {...mainBoxStyle}>
         <Box {...aboutDepartmentProps}>
-          <Heading {...heading2Style} mb="20px">
+          <Heading {...heading2Style} mb='20px'>
             5 Awesome Departments.
           </Heading>
           <Text {...featureText}>
@@ -32,13 +31,13 @@ const Department: FC = () => {
           </Text>
         </Box>
 
-        <Flex wrap={'wrap'} justify="center" gap="40px">
+        <Flex wrap={'wrap'} justify='center' gap='40px'>
           {!!data
-            ? data.map(department => (
+            ? data.map((department) => (
                 <Box {...departmentBoxProps} key={department.id}>
                   <Flex {...iconDepartmentBoxProps}>
                     <ChakraNextImage
-                      src="/assets/Workbag.png"
+                      src='/assets/Workbag.png'
                       h={'30px'}
                       w={'30px'}
                     />
@@ -48,8 +47,7 @@ const Department: FC = () => {
 
                   <Link
                     href={`/department/${department.shortName.toLowerCase()}`}
-                    passHref
-                  >
+                    passHref>
                     <Text>
                       Learn More
                       <ArrowForwardIcon />
@@ -57,11 +55,11 @@ const Department: FC = () => {
                   </Link>
                 </Box>
               ))
-            : [1, 2, 3].map(cur => (
+            : [1, 2, 3].map((cur) => (
                 <Box key={cur} {...departmentBoxProps}>
                   <Skeleton {...iconDepartmentBoxProps} />
-                  <Skeleton h="50px" mb="20px" />
-                  <Skeleton h="30px" />
+                  <Skeleton h='50px' mb='20px' />
+                  <Skeleton h='30px' />
                 </Box>
               ))}
         </Flex>
