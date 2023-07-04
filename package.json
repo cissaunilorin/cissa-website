@@ -7,7 +7,7 @@
     "build": "next build",
     "vercel-build": "prisma generate && prisma migrate deploy && next build && next-sitemap",
     "postbuild": "next-sitemap",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "studio": "prisma studio",
     "migrate": "prisma migrate dev",
