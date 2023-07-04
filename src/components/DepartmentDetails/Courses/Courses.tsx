@@ -2,43 +2,13 @@ import { Box, Flex, Text, Heading } from '@chakra-ui/react';
 import { coursesHeading, courseBoxes, courseLvl, courseList } from './style';
 import { mainBoxStyle } from '../../../styles/common';
 import { deptGeneralBoxSpacing } from '../Overview/style';
-const departmentCourses = [
-  {
-    level: '100',
-    codes: [
-      {
-        code: 'mac101',
-      },
-    ],
-  },
-  {
-    level: '200',
-    codes: [
-      {
-        code: 'mac101',
-      },
-    ],
-  },
-  {
-    level: '300',
-    codes: [
-      {
-        code: 'mac101',
-      },
-    ],
-  },
-  {
-    level: '400',
-    codes: [
-      {
-        code: 'mac101',
-      },
-    ],
-  },
-];
+import { FC } from 'react';
+import { Course } from '@prisma/client';
 
-// const courseCodes =
-const Courses = () => {
+const level = ['100', '200', '300', '400'];
+
+const Courses: FC<{ courses: Course[] }> = ({ courses }) => {
+  console.log(courses);
   return (
     <>
       <Box {...deptGeneralBoxSpacing}>
@@ -47,13 +17,15 @@ const Courses = () => {
             <>
               <Heading {...coursesHeading}>Courses</Heading>
               <Box {...courseBoxes}>
-                {departmentCourses.map(dept => {
+                {level.map(lvl => {
                   return (
-                    <Box key={dept.level}>
-                      <Text {...courseLvl}>{dept.level}LVL</Text>
+                    <Box key={lvl}>
+                      <Text {...courseLvl}>{lvl}LVL</Text>
                       <Flex {...courseList}>
                         <Flex {...courseList}>
-                          {dept.codes.map(code => code.code)}
+                          {courses.map(course => {
+                            if (course.code[3] === lvl[0]) return course.code;
+                          })}
                         </Flex>
                       </Flex>
                     </Box>

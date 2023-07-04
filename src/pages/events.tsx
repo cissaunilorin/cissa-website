@@ -1,8 +1,11 @@
-import { FC, useEffect, useRef, useState } from 'react';
-import { Box, Heading, Text, Flex, Button, Grid } from '@chakra-ui/react';
-import { mainBoxStyle, heading2Style } from '../../../styles/common';
-import { featureText, EventProps } from './styles';
-import Card from './Card';
+import { GetServerSideProps, NextPage } from 'next';
+import { getSession } from 'next-auth/react';
+import Head from 'next/head';
+import { Box, Flex } from '@chakra-ui/react';
+import Card from '../components/Home/Event/Card';
+import { EventProps } from '../components/Home/Event/styles';
+import { mainBoxStyle } from '../styles/common';
+
 const events: EventProps[] = [
   {
     id: 1,
@@ -60,40 +63,32 @@ const events: EventProps[] = [
   },
 ];
 
-const Event: FC = () => {
-  const [margin, setMargin] = useState('');
-
-  const mlRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (mlRef.current)
-      setMargin(window.getComputedStyle(mlRef.current).marginLeft);
-  }, []);
-
+const Gallery: NextPage = () => {
   return (
-    <Box as='section' my={'24'}>
-      <Box {...mainBoxStyle} ref={mlRef}>
-        <Heading as={'h2'} {...heading2Style} textAlign='center' mb={'8px'}>
-          Latest Events
-        </Heading>
-        <Text {...featureText}>
-          Here are some amazing things said by our past students
-        </Text>
-      </Box>
+    <>
+      <Head>
+        <title>CIS - home</title>
+      </Head>
 
-      <Box
-        overflowX={'auto'}
-        ml={margin}
-        py='20px'
-        css={{ '::-webkit-scrollbar': { display: 'none' } }}>
-        <Flex mt={'12'} gap={5}>
+      <Box {...mainBoxStyle} my={'120px'}>
+        <Flex wrap={'wrap'} gap={'20px 10px'} justify={'center'}>
           {events?.map((event) => (
             <Card {...event} key={event.id} />
           ))}
         </Flex>
       </Box>
-    </Box>
+    </>
   );
 };
 
-export default Event;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession(ctx);
+
+  // console.log(session.user);
+
+  return {
+    props: {},
+  };
+};
+
+export default Gallery;

@@ -44,9 +44,10 @@ model User {
 model Department {
   id        String   @id @default(uuid())
   name      String   @db.VarChar(255)
-  shortName String   @db.VarChar(3)
+  shortName String   @unique @db.VarChar(3)
   matric    String   @db.VarChar(255)
   HOD       String   @db.VarChar(255)
+  about     String?
   Course    Course[]
 
   @@map("departments")
@@ -87,7 +88,7 @@ model Blog {
   id        String    @id @default(uuid())
   heading   String    @db.VarChar(255)
   imageUrl  String    @db.VarChar(255)
-  slug      String    @db.VarChar(255)
+  slug      String    @unique @db.VarChar(255)
   published Boolean   @default(false)
   draft     Boolean   @default(false)
   content   String
@@ -95,7 +96,7 @@ model Blog {
   authorId  String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  blog      BlogTag[]
+  blogTag   BlogTag[]
 
   @@map("blogs")
 }

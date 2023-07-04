@@ -28,18 +28,24 @@ import {
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
 import { departmentSchema, IDepartmentForm } from '../../forms/department.form';
 import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
+import ReactQuill from 'react-quill';
+import dynamic from 'next/dynamic';
 
+const Editor = dynamic(() => import('../../components/Editor/Editor'), {
+  ssr: false,
+});
 const defaultValues: IDepartmentForm = {
   matric: '',
   name: '',
   shortName: '',
   HOD: '',
+  about: '',
 };
 
 const Faculty: NextPage<
@@ -96,11 +102,31 @@ const Faculty: NextPage<
     const data = getValues();
 
     if (isNew) {
-      createDepartment.mutate(data);
+      createDepartment.mutate({ ...data, about: data.about || '' });
     } else {
-      updateDepartment.mutate({ id: depId, ...data });
+      updateDepartment.mutate({ id: depId, ...data, about: data.about || '' });
     }
   };
+
+  const [value, setEdValue] = useState('');
+  const quill = useRef<ReactQuill>(null);
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, 4, false] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ script: 'sub' }, { script: 'super' }],
+          ['background', 'color'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link', 'code', 'blockquote', 'code-block'],
+          ['direction', 'align'],
+        ],
+      },
+    }),
+    []
+  );
 
   return (
     <>
@@ -114,6 +140,7 @@ const Faculty: NextPage<
         heading="Add New Department"
         isSubmitting={isLoading}
         onClick={onSubmit}
+        w="800px"
       >
         <FormControl
           isRequired
@@ -153,7 +180,7 @@ const Faculty: NextPage<
           />
           <FormErrorMessage>{errors.matric?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={!!errors.HOD?.message}>
+        <FormControl isRequired isInvalid={!!errors.HOD?.message} mb={'25px'}>
           <FormLabel htmlFor="subDean">Head of department</FormLabel>
           <Input
             id="subDean"
@@ -162,6 +189,23 @@ const Faculty: NextPage<
             {...register('HOD')}
           />
           <FormErrorMessage>{errors.HOD?.message}</FormErrorMessage>
+        </FormControl>
+
+        <FormControl isRequired isInvalid={!!errors.about?.message}>
+          <FormLabel htmlFor="about">About</FormLabel>
+
+          <Editor
+            editorRef={quill}
+            modules={modules}
+            theme="snow"
+            value={value}
+            placeholder="Enter your post content here"
+            onChange={val => {
+              setEdValue(val);
+              setValue('about', val);
+            }}
+          />
+          <FormErrorMessage>{errors.about?.message}</FormErrorMessage>
         </FormControl>
       </AppModal>
 
@@ -185,6 +229,7 @@ const Faculty: NextPage<
                         Object.entries(defaultValues).forEach(([key, val]) =>
                           setValue<any>(key, val)
                         );
+                        setEdValue('');
                         setIsNew(true);
                         onOpen();
                       }}
@@ -210,6 +255,7 @@ const Faculty: NextPage<
                           Object.entries(dep).forEach(([key, val]) =>
                             setValue<any>(key, val)
                           );
+                          setEdValue(dep.about || '');
                           setIsNew(false);
                           onOpen();
                         }}
