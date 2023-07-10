@@ -16,7 +16,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { prisma } from '../server/lib/prisma';
 import { useRouter } from 'next/router';
 
-const Gallery: NextPage<
+const EventsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ events }) => {
   return (
@@ -52,4 +52,4 @@ export const getServerSideProps = async (
   };
 };
 
-export default Gallery;
+export default EventsPage;
