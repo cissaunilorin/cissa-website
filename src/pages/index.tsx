@@ -60,5 +60,3 @@ export const getServerSideProps = async (
 };
 
 export default Home;
-
-// $2b$12$SwlKhp0COw3asevoX2NQVe8zDVf4PbU/wgXC64FAXlG48sjEDgACa
