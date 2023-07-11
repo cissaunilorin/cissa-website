@@ -5,6 +5,7 @@ import {
   Flex,
   FormLabel,
   Input,
+  Text,
 } from '@chakra-ui/react';
 import {
   GetServerSidePropsContext,
@@ -34,14 +35,13 @@ const Editor = dynamic(() => import('../../components/Editor/Editor'), {
 
 const Write: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ isNew, blog }) => {
+> = ({ blog }) => {
   const [value, setValue] = useState('');
   const [heading, setHeading] = useState('');
   const [photo, setPhoto] = useState('');
-  // const [p, setP] = useState<File>();
   const quill = useRef<ReactQuill>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [draft, setDraft] = useState(false);
+  const [save, setSave] = useState(true);
 
   const blogImgHandler = async (p?: File) => {
     if (p) {
@@ -55,6 +55,7 @@ const Write: NextPage<
         );
 
         setPhoto(`${process.env.NEXT_PUBLIC_BUCKET}${res.data.fileUrl}`);
+        setSave(false);
       } catch (err) {
         console.error(err);
       }
@@ -85,44 +86,27 @@ const Write: NextPage<
 
   const router = useRouter();
 
-  const createBlog = trpc.blog.createBlogPost.useMutation({
-    onSuccess(res) {
-      setIsLoading(false);
-      router.replace(`/write/${res.id}`);
-    },
-    onError() {
-      setIsLoading(false);
-    },
-  });
   const updateBlog = trpc.blog.updateBlogPost.useMutation({
     onSuccess(res) {
       setIsLoading(false);
-      router.reload();
+      setSave(true);
     },
     onError() {
       setIsLoading(false);
+      setSave(false);
     },
   });
 
-  const publish = () => {
+  const publish = (draft: boolean) => {
     setIsLoading(true);
 
-    if (isNew) {
-      createBlog.mutate({
-        content: value,
-        imageUrl: photo,
-        heading,
-        draft,
-      });
-    } else {
-      updateBlog.mutate({
-        id: blog?.id || '',
-        content: value,
-        imageUrl: photo,
-        heading,
-        draft,
-      });
-    }
+    updateBlog.mutate({
+      id: blog?.id || '',
+      content: value,
+      imageUrl: photo,
+      draft,
+      heading,
+    });
   };
 
   useEffect(() => {
@@ -130,9 +114,16 @@ const Write: NextPage<
       setValue(blog.content);
       setPhoto(blog.imageUrl);
       setHeading(blog.heading);
-      setDraft(blog.draft);
     }
   }, [blog]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!save) publish(true);
+    }, 30000);
+
+    return () => clearInterval(interval);
+  });
 
   return (
     <>
@@ -143,6 +134,11 @@ const Write: NextPage<
       <Box {...mainBoxStyle} my='100px'>
         <Flex justify={'space-between'} gap='52px' align={'flex-start'}>
           <Box flex={1}>
+            {!save && isLoading && (
+              <Text opacity={0.5} mb='10px'>
+                saving to draft
+              </Text>
+            )}
             {photo ? (
               <Box position={'relative'}>
                 <CloseButton
@@ -191,7 +187,6 @@ const Write: NextPage<
                   display={'none'}
                   onChange={async (e) => {
                     if (e.target.files) {
-                      // setP();
                       setPhoto(URL.createObjectURL(e.target.files[0]));
                       await blogImgHandler(e.target.files[0]);
                     }
@@ -199,12 +194,14 @@ const Write: NextPage<
                 />
               </>
             )}
-
             <Box {...editorBox}>
               <Input
                 {...headingInputStyle}
                 value={heading}
-                onChange={(e) => setHeading(e.target.value)}
+                onChange={(e) => {
+                  setHeading(e.target.value);
+                  setSave(false);
+                }}
               />
 
               <Editor
@@ -213,27 +210,31 @@ const Write: NextPage<
                 theme='snow'
                 value={value}
                 placeholder='Enter your post content here'
-                onChange={setValue}
+                onChange={(val) => {
+                  setSave(false);
+                  setValue(val);
+                }}
               />
             </Box>
-
-            <Flex>
-              <Button variant={'dark'} onClick={() => setDraft(!draft)}>
-                {draft ? 'remove from' : 'save to'} draft
-              </Button>
-            </Flex>
           </Box>
 
           <Flex gap='10px' direction={'column'}>
+            {save && (
+              <Button
+                variant={'outline'}
+                onClick={() => {
+                  router.push(`/blog/${blog?.id}?preview=true`);
+                }}>
+                Preview
+              </Button>
+            )}
+
             <Button
-              disabled={isNew}
-              variant={'outline'}
+              variant={'dark'}
               onClick={() => {
-                if (!isNew) router.push(`/blog/${blog?.id}?preview=true`);
-              }}>
-              Preview
-            </Button>
-            <Button variant={'dark'} onClick={publish} isLoading={isLoading}>
+                publish(false);
+              }}
+              isLoading={isLoading}>
               Save
             </Button>
           </Flex>
@@ -247,14 +248,6 @@ export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
   const blogId = ctx.query['blog-id'] as string;
-
-  if (blogId === 'new')
-    return {
-      props: {
-        isNew: true,
-      },
-    };
-
   const blogRes = await prisma.blog.findUnique({
     where: { id: blogId },
   });
@@ -263,7 +256,6 @@ export const getServerSideProps = async (
 
   return {
     props: {
-      isNew: false,
       blog,
     },
   };

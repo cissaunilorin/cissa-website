@@ -92,12 +92,12 @@ model Blog {
   id        String    @id @default(uuid())
   heading   String    @db.VarChar(255)
   imageUrl  String    @db.VarChar(255)
-  slug      String    @unique @db.VarChar(255)
+  // slug      String    @unique @db.VarChar(255)
   published Boolean   @default(false)
   draft     Boolean   @default(false)
-  content   String
+  content   String    @db.LongText
   author    User      @relation(fields: [authorId], references: [id])
-  authorId  String    @unique
+  authorId  String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   blogTag   BlogTag[]
