@@ -225,7 +225,14 @@ const Write: NextPage<
           </Box>
 
           <Flex gap='10px' direction={'column'}>
-            <Button variant={'outline'}>Preview</Button>
+            <Button
+              disabled={isNew}
+              variant={'outline'}
+              onClick={() => {
+                if (!isNew) router.push(`/blog/${blog?.id}?preview=true`);
+              }}>
+              Preview
+            </Button>
             <Button variant={'dark'} onClick={publish} isLoading={isLoading}>
               Save
             </Button>

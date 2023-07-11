@@ -80,13 +80,3 @@ export const cardAttendInfoAttendance: TextProps = {
   mb: 1,
   fontWeight: 400,
 };
-
-export interface EventProps {
-  id: number;
-  mainImage: string;
-  title: string;
-  price: string;
-  date: string;
-  location: string;
-  attending: boolean;
-}

@@ -10,15 +10,23 @@ export const eventsRouter = router({
   createEvent: adminProcedure
     .input(
       z.object({
-        date: z.date(),
+        date: z.string(),
         venue: z.string(),
+        title: z.string(),
+        price: z.string(),
+        link: z.string(),
+        imageUrl: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
       const event = await ctx.prisma.event.create({
         data: {
-          date: input.date,
+          date: new Date(input.date),
           venue: input.venue,
+          imageUrl: input.imageUrl,
+          link: input.link,
+          price: input.price,
+          title: input.title,
         },
       });
 
@@ -28,8 +36,12 @@ export const eventsRouter = router({
     .input(
       z.object({
         id: z.string(),
-        date: z.date(),
+        date: z.string(),
         venue: z.string(),
+        title: z.string(),
+        price: z.string(),
+        link: z.string(),
+        imageUrl: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -38,8 +50,12 @@ export const eventsRouter = router({
           id: input.id,
         },
         data: {
-          date: input.date,
+          date: new Date(input.date),
           venue: input.venue,
+          imageUrl: input.imageUrl,
+          link: input.link,
+          price: input.price,
+          title: input.title,
         },
       });
 

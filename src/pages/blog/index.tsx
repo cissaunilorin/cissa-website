@@ -11,6 +11,7 @@ import {
   Grid,
   GridItem,
   IconButton,
+  Avatar,
 } from '@chakra-ui/react';
 
 import ChakraNextImage from '../../components/chakra-nextimage';
@@ -26,6 +27,15 @@ import {
   blogTrendingHeading,
 } from '../../styles/pages/blog';
 import { mainBoxStyle } from '../../styles/common';
+import {
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+  NextPage,
+  PreviewData,
+} from 'next';
+import { ParsedUrlQuery } from 'querystring';
+import { prisma } from '../../server/lib/prisma';
+import { useRouter } from 'next/router';
 
 const blogBtns = [
   {
@@ -103,7 +113,10 @@ const blogPosts = [
   },
 ];
 
-const Blog: FC = () => {
+const Blog: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ trending }) => {
+  const router = useRouter();
   return (
     <>
       <Box {...blogHeaderContainer}>
@@ -111,9 +124,8 @@ const Blog: FC = () => {
           <Box
             textAlign={'center'}
             maxWidth={'702px'}
-            marginX="auto"
-            marginY={0}
-          >
+            marginX='auto'
+            marginY={0}>
             <Heading {...blogHeaderHeading}>Welcome to CIS Blog</Heading>
             <Text {...blogHeaderSummary}>
               Here we provide you with over 100+ resources curated by our
@@ -121,11 +133,11 @@ const Blog: FC = () => {
               fashion
             </Text>
 
-            <Flex maxW={'435px'} mx="auto">
-              <Input placeholder="Search" />
+            <Flex maxW={'435px'} mx='auto'>
+              <Input placeholder='Search' />
               <IconButton
                 variant={'dark'}
-                aria-label="Search database"
+                aria-label='Search database'
                 marginLeft={'-40px'}
                 icon={<IoMdOptions size={24} />}
               />
@@ -135,8 +147,7 @@ const Blog: FC = () => {
               justifyContent={'center'}
               gap={'20px'}
               flexWrap={'wrap'}
-              mt={'50px'}
-            >
+              mt={'50px'}>
               {blogBtns.map((blogBtn, i) => (
                 <Button variant={blogBtn.variant} key={i}>
                   {blogBtn.text}
@@ -151,30 +162,26 @@ const Blog: FC = () => {
         <Box {...mainBoxStyle}>
           <Heading {...blogPrimaryHeading}>Trending</Heading>
           <Flex
-            gap={{ md: '13px', lg: '23px' }}
+            gap={'13px 23px'}
             mt={'50px'}
             flex={1}
-            direction={{ base: 'column', md: 'column', lg: 'row' }}
-          >
-            <Box>
-              <ChakraNextImage
-                src={'/assets/trendingImg.png'}
-                h={'472.23px'}
-                w={{ base: '100%', md: '100%', lg: '664px' }}
-                borderRadius={'8px'}
-              />
-            </Box>
-            <Box pt={{ base: '50px', md: '50px', lg: '100px' }} flex={2}>
+            align={{ lg: 'center' }}
+            onClick={() => router.push(`/blog/${trending?.id}`)}
+            direction={{ base: 'column', lg: 'row' }}
+            cursor={'pointer'}>
+            <ChakraNextImage
+              src={trending?.imageUrl || ''}
+              h={'472.23px'}
+              w={{ base: '100%', md: '100%', lg: '664px' }}
+              borderRadius={'8px'}
+            />
+
+            <Box pt={{ base: '50px', lg: 'unset' }} flex={2}>
               <Heading {...blogSecondaryHeading}>Development</Heading>
-              <Text {...blogTrendingHeading}>{blogTending[0].summary}</Text>
+              <Text {...blogTrendingHeading}>{trending?.heading}</Text>
               <Flex gap={'8px'} alignItems={'center'}>
-                <ChakraNextImage
-                  src={'/assets/blogFace.png'}
-                  h={'35px'}
-                  w={'35px'}
-                  borderRadius={'50%'}
-                />
-                <Text {...blogSmText}>By Rukayah Bisi</Text>
+                <Avatar h={'35px'} w={'35px'} name={trending?.author.name} />
+                <Text {...blogSmText}>By {trending?.author.name}</Text>
               </Flex>
             </Box>
           </Flex>
@@ -186,8 +193,7 @@ const Blog: FC = () => {
             alignItems={'center'}
             align={'center'}
             justifyContent={'space-between'}
-            mb={'54px'}
-          >
+            mb={'54px'}>
             <Heading {...blogPrimaryHeading}>Development</Heading>
             <Text {...blogSmText} fontWeight={'700'}>
               View all
@@ -201,10 +207,9 @@ const Blog: FC = () => {
               lg: 'repeat(3,1fr)',
             }}
             columnGap={'24px'}
-            rowGap={'80px'}
-          >
+            rowGap={'80px'}>
             {blogPosts.map((blogPost, i) => (
-              <GridItem key={i} w="100%">
+              <GridItem key={i} w='100%'>
                 <ChakraNextImage
                   src={blogPost.img}
                   borderRadius={'8px'}
@@ -229,8 +234,7 @@ const Blog: FC = () => {
             alignItems={'center'}
             align={'center'}
             justifyContent={'space-between'}
-            mb={'54px'}
-          >
+            mb={'54px'}>
             <Heading {...blogPrimaryHeading}>Design</Heading>
             <Text {...blogSmText} fontWeight={'700'}>
               View all
@@ -244,10 +248,9 @@ const Blog: FC = () => {
               lg: 'repeat(3,1fr)',
             }}
             columnGap={'24px'}
-            rowGap={'80px'}
-          >
+            rowGap={'80px'}>
             {blogPosts.map((blogPost, i) => (
-              <GridItem key={i} w="100%">
+              <GridItem key={i} w='100%'>
                 <ChakraNextImage
                   src={blogPost.img}
                   borderRadius={'8px'}
@@ -270,21 +273,23 @@ const Blog: FC = () => {
   );
 };
 
-// export const getServerSideProps = async (
-//   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
-// ) => {
-//   const id = ctx.query['id'] as string;
+export const getServerSideProps = async (
+  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+) => {
+  const trendingRes = await prisma.blog.findFirst({
+    include: { author: true },
+    orderBy: { createdAt: 'desc' },
+  });
 
-//   const user = await prisma.executive.findUnique({
-//     include: { user: true },
-//     where: { id },
-//   });
+  const trending: Readonly<typeof trendingRes> = JSON.parse(
+    JSON.stringify(trendingRes)
+  );
 
-//   return {
-//     props: {
-//       user,
-//     },
-//   };
-// };
+  return {
+    props: {
+      trending,
+    },
+  };
+};
 
 export default Blog;

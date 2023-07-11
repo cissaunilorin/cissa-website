@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import ChakraNextImage from '../../chakra-nextimage';
 import { Box, Text, Flex, Button } from '@chakra-ui/react';
-import {  
+import {
   cardImg,
   card,
   cardDetails,
@@ -15,11 +15,13 @@ import {
   cardAttendInfo,
   cardAttendInfoAttendance,
 } from './styles';
+import { Event } from '@prisma/client';
+import moment from 'moment';
 
-const Card: FC = (props: any) => {
+const Card: FC = (props: Event) => {
   return (
     <Box {...card}>
-      <ChakraNextImage src={props.mainImage} {...cardImg} />
+      <ChakraNextImage src={props.imageUrl} {...cardImg} />
       <Box>
         <Box {...cardDetails}>
           <Flex {...cardDetailsTitle}>
@@ -33,7 +35,7 @@ const Card: FC = (props: any) => {
               height={20}
               alt='calendar'
             />
-            <Text>{props.date}</Text>
+            <Text>{moment(props?.date).format('MMM Do, YYYY')}</Text>
           </Flex>
           <Flex {...cardDetailsIconInfo}>
             <Image
@@ -42,18 +44,18 @@ const Card: FC = (props: any) => {
               height={20}
               alt='calendar'
             />
-            <Text>{props.location}</Text>
+            <Text>{props.venue}</Text>
           </Flex>
-          {props.attending ? (
+          {/* {props.attending ? (
             <Box {...cardAttendInfo}>
               <Text {...cardAttendInfoAttendance}>
                 50 others would be Attending too
               </Text>
               <Text>See you there!</Text>
             </Box>
-          ) : null}
+          ) : null} */}
         </Box>
-        {!props.attending ? (
+        {/* {!props.attending ? (
           <Flex {...otherInfo}>
             <Text>Attending ?</Text>
             <Flex>
@@ -61,7 +63,7 @@ const Card: FC = (props: any) => {
               <Button {...cardbtn2}>No</Button>
             </Flex>
           </Flex>
-        ) : null}
+        ) : null} */}
       </Box>
     </Box>
   );
