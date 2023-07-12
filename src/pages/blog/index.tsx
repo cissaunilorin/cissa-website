@@ -167,7 +167,7 @@ const Blog: NextPage<
               mt={'50px'}
               flex={1}
               align={{ lg: 'center' }}
-              onClick={() => router.push(`/blog/${trending?.id}`)}
+              onClick={() => router.push(`/blog/${trending?.slug}`)}
               direction={{ base: 'column', lg: 'row' }}
               cursor={'pointer'}>
               <ChakraNextImage

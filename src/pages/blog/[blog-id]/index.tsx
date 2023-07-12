@@ -140,7 +140,7 @@ export const getServerSideProps = async (
   }
   const blogRes = await prisma.blog.findFirst({
     include: { author: true },
-    where: { id, published: true, draft: false },
+    where: { slug: id, published: true, draft: false },
   });
   const blog: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
 

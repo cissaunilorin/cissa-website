@@ -6,6 +6,8 @@ import {
   adminProcedure,
   editorProcedure,
 } from '../trpc';
+import slugify from 'slugify';
+import uniqid from 'uniqid';
 
 export const blogRouter = router({
   getAllblogs: publicProcedure.query(async ({ ctx }) => {
@@ -19,7 +21,7 @@ export const blogRouter = router({
         imageUrl: '',
         heading: '',
         content: '',
-        // slug: '',
+        slug: uniqid(),
         draft: false,
         published: false,
         authorId: ctx.session.user.id,
@@ -50,6 +52,7 @@ export const blogRouter = router({
           content: input.content,
           draft: input.draft,
           published: false,
+          slug: `${slugify(input.heading)}-${uniqid()}`,
         },
       });
 
@@ -64,31 +67,6 @@ export const blogRouter = router({
 
       return blog;
     }),
-  // draftBlogPost: editorProcedure
-  //   .input(
-  //     z.object({
-  //       id: z.string(),
-  //       heading: z.string(),
-  //       content: z.string(),
-  //       imageUrl: z.string(),
-  //     })
-  //   )
-  //   .mutation(async ({ input, ctx }) => {
-  //     const blog = await ctx.prisma.blog.update({
-  //       where: {
-  //         id: input.id,
-  //       },
-  //       data: {
-  //         imageUrl: input.imageUrl,
-  //         heading: input.heading,
-  //         content: input.content,
-  //         draft: true,
-  //         published: false,
-  //       },
-  //     });
-
-  //     return blog;
-  //   }),
   pubBlogPost: adminProcedure
     .input(
       z.object({
