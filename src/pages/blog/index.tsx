@@ -159,33 +159,35 @@ const Blog: NextPage<
       </Box>
 
       <Box {...blogComponentsContainer}>
-        <Box {...mainBoxStyle}>
-          <Heading {...blogPrimaryHeading}>Trending</Heading>
-          <Flex
-            gap={'13px 23px'}
-            mt={'50px'}
-            flex={1}
-            align={{ lg: 'center' }}
-            onClick={() => router.push(`/blog/${trending?.id}`)}
-            direction={{ base: 'column', lg: 'row' }}
-            cursor={'pointer'}>
-            <ChakraNextImage
-              src={trending?.imageUrl || ''}
-              h={'472.23px'}
-              w={{ base: '100%', md: '100%', lg: '664px' }}
-              borderRadius={'8px'}
-            />
+        {trending && (
+          <Box {...mainBoxStyle}>
+            <Heading {...blogPrimaryHeading}>Trending</Heading>
+            <Flex
+              gap={'13px 23px'}
+              mt={'50px'}
+              flex={1}
+              align={{ lg: 'center' }}
+              onClick={() => router.push(`/blog/${trending?.slug}`)}
+              direction={{ base: 'column', lg: 'row' }}
+              cursor={'pointer'}>
+              <ChakraNextImage
+                src={trending?.imageUrl || ''}
+                h={'472.23px'}
+                w={{ base: '100%', md: '100%', lg: '664px' }}
+                borderRadius={'8px'}
+              />
 
-            <Box pt={{ base: '50px', lg: 'unset' }} flex={2}>
-              <Heading {...blogSecondaryHeading}>Development</Heading>
-              <Text {...blogTrendingHeading}>{trending?.heading}</Text>
-              <Flex gap={'8px'} alignItems={'center'}>
-                <Avatar h={'35px'} w={'35px'} name={trending?.author.name} />
-                <Text {...blogSmText}>By {trending?.author.name}</Text>
-              </Flex>
-            </Box>
-          </Flex>
-        </Box>
+              <Box pt={{ base: '50px', lg: 'unset' }} flex={2}>
+                <Heading {...blogSecondaryHeading}>Development</Heading>
+                <Text {...blogTrendingHeading}>{trending?.heading}</Text>
+                <Flex gap={'8px'} alignItems={'center'}>
+                  <Avatar h={'35px'} w={'35px'} name={trending?.author.name} />
+                  <Text {...blogSmText}>By {trending?.author.name}</Text>
+                </Flex>
+              </Box>
+            </Flex>
+          </Box>
+        )}
       </Box>
       <Box {...blogComponentsContainer}>
         <Box {...mainBoxStyle}>
@@ -277,6 +279,7 @@ export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
   const trendingRes = await prisma.blog.findFirst({
+    where: { published: true, draft: false },
     include: { author: true },
     orderBy: { createdAt: 'desc' },
   });

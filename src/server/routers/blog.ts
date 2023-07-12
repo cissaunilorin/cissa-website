@@ -6,6 +6,8 @@ import {
   adminProcedure,
   editorProcedure,
 } from '../trpc';
+import slugify from 'slugify';
+import uniqid from 'uniqid';
 
 export const blogRouter = router({
   getAllblogs: publicProcedure.query(async ({ ctx }) => {
@@ -13,39 +15,21 @@ export const blogRouter = router({
 
     return blog;
   }),
-  createBlogPost: editorProcedure
-    .input(
-      z.object({
-        heading: z.string(),
-        content: z.string(),
-        imageUrl: z.string(),
-        draft: z.boolean(),
-        // tags: z.string().array(),
-      })
-    )
-    .mutation(async ({ input, ctx }) => {
-      const blog = await ctx.prisma.blog.create({
-        data: {
-          imageUrl: input.imageUrl,
-          heading: input.heading,
-          content: input.content,
-          draft: input.draft,
-          slug: '',
-          authorId: ctx.session.user.id,
-        },
-      });
+  createBlogPost: editorProcedure.mutation(async ({ ctx }) => {
+    const blog = await ctx.prisma.blog.create({
+      data: {
+        imageUrl: '',
+        heading: '',
+        content: '',
+        slug: uniqid(),
+        draft: false,
+        published: false,
+        authorId: ctx.session.user.id,
+      },
+    });
 
-      // const blogTag = input.tags.map((cur) => ({
-      //   blogId: blog.id,
-      //   tagId: cur,
-      // }));
-
-      // await ctx.prisma.blogTag.createMany({
-      //   data: blogTag,
-      // });
-
-      return blog;
-    }),
+    return blog;
+  }),
   updateBlogPost: editorProcedure
     .input(
       z.object({
@@ -67,6 +51,8 @@ export const blogRouter = router({
           heading: input.heading,
           content: input.content,
           draft: input.draft,
+          published: false,
+          slug: `${slugify(input.heading)}-${uniqid()}`,
         },
       });
 
@@ -78,6 +64,25 @@ export const blogRouter = router({
       // await ctx.prisma.blogTag.createMany({
       //   data: blogTag,
       // });
+
+      return blog;
+    }),
+  pubBlogPost: adminProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        published: z.boolean(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const blog = await ctx.prisma.blog.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          published: input.published,
+        },
+      });
 
       return blog;
     }),

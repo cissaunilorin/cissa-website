@@ -37,7 +37,7 @@ const Home: NextPage<
       <Recourses />
       <ContactDetails />
       <Blog />
-      <Events events={events} />
+      {events.length > 0 && <Events events={events} />}
       {/* <Alumni /> */}
       <Gallery />
       <Map />

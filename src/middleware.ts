@@ -18,5 +18,5 @@ export default withAuth({
 // export { default } from 'next-auth/middleware';
 
 export const config = {
-  matcher: ['/admin', '/admin/(.*)', '/write', '/author'],
+  matcher: ['/admin', '/admin/(.*)', '/write/(.*)', '/author'],
 };
