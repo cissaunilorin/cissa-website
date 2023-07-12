@@ -68,12 +68,15 @@ const Blog: NextPage<
         <ChakraNextImage
           src={blogData.imageUrl}
           w='100%'
-          css={{ aspectRatio: '3/1' }}
+          css={{ aspectRatio: '4/1' }}
         />
 
         <Box
           dangerouslySetInnerHTML={{ __html: blogData.content }}
+          maxH={'40vh'}
+          overflowY={'auto'}
           mt='12px'
+          px='30px'
           mb='30px'
         />
 
