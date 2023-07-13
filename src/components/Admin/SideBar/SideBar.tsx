@@ -21,6 +21,7 @@ import { BiBook } from 'react-icons/bi';
 const links = [
   { link: '/admin', title: 'Overview', icon: MdDashboard },
   { link: '/admin/executives', title: 'Executives', icon: FaUserFriends },
+  { link: '/admin/editors', title: 'Editors', icon: FaUserFriends },
   { link: '/admin/blog', title: 'Blog', icon: MdNoteAdd },
   { link: '/admin/event', title: 'Event', icon: BsCalendar3EventFill },
   { link: '/admin/department', title: 'Department', icon: MdSchool },
