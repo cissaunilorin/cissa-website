@@ -13,10 +13,11 @@ import { getServerAuthSession } from '../server/common/get-server-auth-session';
 import { trpc } from '../utils/trpc';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { Session } from 'next-auth';
 
 const Author: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ blogs }) => {
+> = ({ blogs, user }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -43,8 +44,8 @@ const Author: NextPage<
 
       <Box {...mainBoxStyle} my='100px'>
         <Flex>
-          <Box></Box>
-          <Box>
+          <Box flex={3}></Box>
+          <Box flex={1}>
             <Button onClick={newBlog} isLoading={isLoading}>
               write
             </Button>
@@ -65,10 +66,12 @@ export const getServerSideProps = async (
   });
 
   const blogs: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
+  const user: Session = JSON.parse(JSON.stringify(session?.user));
 
   return {
     props: {
       blogs,
+      user,
     },
   };
 };
