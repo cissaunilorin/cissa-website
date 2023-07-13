@@ -60,19 +60,19 @@ const Blog: NextPage<
       <AppModal
         isOpen={isOpen}
         onClose={onClose}
-        heading={blogData.heading}
+        heading={blogData?.heading}
         isSubmitting={isLoading}
         w='800px'
-        actionBtn={blogData.published ? 'unpublish' : 'publish'}
+        actionBtn={blogData?.published ? 'unpublish' : 'publish'}
         onClick={onSubmit}>
         <ChakraNextImage
-          src={blogData.imageUrl}
+          src={blogData?.imageUrl}
           w='100%'
           css={{ aspectRatio: '4/1' }}
         />
 
         <Box
-          dangerouslySetInnerHTML={{ __html: blogData.content }}
+          dangerouslySetInnerHTML={{ __html: blogData?.content }}
           maxH={'40vh'}
           overflowY={'auto'}
           mt='12px'
@@ -80,8 +80,8 @@ const Blog: NextPage<
           mb='30px'
         />
 
-        <Text>written by {blogData.author.name}</Text>
-        <Text>time {moment(blogData.createdAt).format('MMM Do, YYYY')}</Text>
+        <Text>written by {blogData?.author.name}</Text>
+        <Text>time {moment(blogData?.createdAt).format('MMM Do, YYYY')}</Text>
       </AppModal>
 
       <Box py='50px'>

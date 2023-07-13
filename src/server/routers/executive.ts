@@ -1,22 +1,24 @@
-import { ExcoType } from '@prisma/client';
+import { ExcoType, Role } from '@prisma/client';
 import { z } from 'zod';
 import { hashPassword } from '../../utils/authHandler';
 import { router, publicProcedure, adminProcedure } from '../trpc';
 
 export const excoRouter = router({
-  getExcos: publicProcedure.input(
-    z.object({
-      type: z.nativeEnum(ExcoType),
-    })
-  ).query(async ({ input, ctx }) => {
-    const exco = await ctx.prisma.executive.findMany({
-      include: { user: true },
-      where: { type: input.type },
-      orderBy: [{ order: "asc" }]
-    });
+  getExcos: publicProcedure
+    .input(
+      z.object({
+        type: z.nativeEnum(ExcoType),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const exco = await ctx.prisma.executive.findMany({
+        include: { user: true },
+        where: { type: input.type },
+        orderBy: [{ order: 'asc' }],
+      });
 
-    return exco;
-  }),
+      return exco;
+    }),
   getAllExco: publicProcedure.query(async ({ ctx }) => {
     const exco = await ctx.prisma.executive.findMany({
       include: { user: true },
@@ -55,6 +57,27 @@ export const excoRouter = router({
       });
 
       return exco;
+    }),
+  createEditor: adminProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        email: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const password = await hashPassword('editor1234$');
+
+      const editor = await ctx.prisma.user.create({
+        data: {
+          name: input.name,
+          email: input.email,
+          password,
+          role: Role.EDITOR,
+        },
+      });
+
+      return editor;
     }),
   updateExco: adminProcedure
     .input(
@@ -106,5 +129,24 @@ export const excoRouter = router({
       });
 
       return `done`;
+    }),
+  activateEditor: adminProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        isActive: z.boolean(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const editor = await ctx.prisma.user.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          isActive: input.isActive,
+        },
+      });
+
+      return editor.isActive;
     }),
 });
