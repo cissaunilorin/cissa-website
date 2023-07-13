@@ -31,7 +31,7 @@ const Login: FC = () => {
   const router = useRouter();
   const toast = useToast();
 
-  const onSubmit: SubmitHandler<ILoginForm> = data => {
+  const onSubmit: SubmitHandler<ILoginForm> = (data) => {
     console.log(data);
 
     signIn('credentials', {
@@ -39,12 +39,12 @@ const Login: FC = () => {
       email: data.email.toLowerCase(),
       password: data.password,
     })
-      .then(res => {
+      .then((res) => {
         if (res?.error) throw new Error(res.error);
 
         router.replace('/admin');
       })
-      .catch(err => {
+      .catch((err) => {
         toast({
           position: 'top-right',
           title: 'Error',
@@ -69,7 +69,7 @@ const Login: FC = () => {
               src={'/images/icons/cissa144.png'}
               width={100}
               height={100}
-              alt="logo"
+              alt='logo'
             />
           </Center>
 
@@ -77,13 +77,12 @@ const Login: FC = () => {
             <FormControl
               isRequired
               isInvalid={!!errors.email?.message}
-              mb={'25px'}
-            >
-              <FormLabel htmlFor="name">email</FormLabel>
+              mb={'25px'}>
+              <FormLabel htmlFor='name'>email</FormLabel>
               <Input
-                id="email"
+                id='email'
                 type={'email'}
-                placeholder="email"
+                placeholder='email'
                 {...register('email')}
               />
               <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
@@ -92,19 +91,18 @@ const Login: FC = () => {
             <FormControl
               isRequired
               isInvalid={!!errors.password?.message}
-              mb={'25px'}
-            >
-              <FormLabel htmlFor="password">Password</FormLabel>
+              mb={'25px'}>
+              <FormLabel htmlFor='password'>Password</FormLabel>
               <Input
-                id="password"
+                id='password'
                 type={'password'}
-                placeholder="password"
+                placeholder='password'
                 {...register('password')}
               />
               <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
             </FormControl>
 
-            <Button mt={4} isLoading={isSubmitting} type="submit">
+            <Button mt={4} isLoading={isSubmitting} type='submit'>
               Submit
             </Button>
           </chakra.form>

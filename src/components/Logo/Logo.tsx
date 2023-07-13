@@ -3,22 +3,24 @@ import NextLink from 'next/link';
 import { FC } from 'react';
 import ChakraNextImage from '../chakra-nextimage';
 
-const Logo: FC = () => {
+const Logo: FC<{ white?: boolean }> = ({ white }) => {
   return (
-    <NextLink href="/" passHref>
+    <NextLink href='/' passHref>
       <Link
         display={'flex'}
         gap={'10px'}
         _hover={{ textDecoration: 'none' }}
-        alignItems="center"
-      >
+        alignItems='center'>
         <ChakraNextImage
-          src="/images/icons/cissa.png"
+          src='/images/icons/cissa.png'
           width={{ base: '30px', md: '40px' }}
           height={{ base: '30px', md: '40px' }}
-          alt="logo"
+          alt='logo'
         />
-        <Text fontSize={'20px'} fontWeight={700} color="brown.deep">
+        <Text
+          fontSize={'20px'}
+          fontWeight={700}
+          color={white ? 'white' : 'brown.deep'}>
           CIS
         </Text>
       </Link>

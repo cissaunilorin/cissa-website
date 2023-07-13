@@ -5,8 +5,8 @@ import { prisma } from '../../../server/lib/prisma';
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const blogs = await prisma.blog.findMany();
 
-  const fields: ISitemapField[] = blogs.map(blog => ({
-    loc: `${process.env.SITE_URL}/blog/${blog.id}`,
+  const fields: ISitemapField[] = blogs.map((blog) => ({
+    loc: `${process.env.SITE_URL}/blog/${blog.slug}`,
     lastmod: new Date(blog.createdAt).toISOString(),
   }));
 

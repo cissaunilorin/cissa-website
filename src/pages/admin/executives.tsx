@@ -140,28 +140,27 @@ const Executive: NextPage<
       <AppModal
         isOpen={isOpen}
         onClose={onClose}
-        heading="Add New Course"
+        heading='Add New StakeHolder'
         isSubmitting={isLoading}
         onClick={onSubmit}
-        w="800px"
-      >
+        w='800px'>
         <FormControl isRequired isInvalid={!!errors.name?.message} mb={'25px'}>
-          <FormLabel htmlFor="name">Name</FormLabel>
+          <FormLabel htmlFor='name'>Name</FormLabel>
           <Input
-            id="name"
+            id='name'
             type={'text'}
-            placeholder="Name"
+            placeholder='Name'
             {...register('name')}
           />
           <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.email?.message} mb={'25px'}>
-          <FormLabel htmlFor="Email">Email</FormLabel>
+          <FormLabel htmlFor='Email'>Email</FormLabel>
           <Input
-            id="Email"
+            id='Email'
             type={'email'}
             disabled={!isNew}
-            placeholder="Email"
+            placeholder='Email'
             {...register('email')}
           />
           <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
@@ -169,32 +168,31 @@ const Executive: NextPage<
         <FormControl
           isRequired
           isInvalid={!!errors.position?.message}
-          mb={'25px'}
-        >
-          <FormLabel htmlFor="position">Position</FormLabel>
+          mb={'25px'}>
+          <FormLabel htmlFor='position'>Position</FormLabel>
           <Input
-            id="position"
+            id='position'
             type={'text'}
-            placeholder="position"
+            placeholder='position'
             defaultValue={2}
             {...register('position')}
           />
           <FormErrorMessage>{errors.position?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.order?.message} mb={'25px'}>
-          <FormLabel htmlFor="order">Order</FormLabel>
+          <FormLabel htmlFor='order'>Order</FormLabel>
           <Input
-            id="order"
+            id='order'
             type={'number'}
-            placeholder="Order"
+            placeholder='Order'
             defaultValue={2}
             {...register('order')}
           />
           <FormErrorMessage>{errors.order?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.type?.message} mb={'25px'}>
-          <FormLabel htmlFor="Type">Type</FormLabel>
-          <Select placeholder="Type" {...register('type')}>
+          <FormLabel htmlFor='Type'>Type</FormLabel>
+          <Select placeholder='Type' {...register('type')}>
             {Object.entries(ExcoType).map(([key, val]) => (
               <option key={key} value={val}>
                 {val}
@@ -205,15 +203,15 @@ const Executive: NextPage<
         </FormControl>
 
         <FormControl isRequired isInvalid={!!errors.description?.message}>
-          <FormLabel htmlFor="description">About</FormLabel>
+          <FormLabel htmlFor='description'>About</FormLabel>
 
           <Editor
             editorRef={quill}
             modules={modules}
-            theme="snow"
+            theme='snow'
             value={value}
-            placeholder="Enter your post content here"
-            onChange={val => {
+            placeholder='Enter your post content here'
+            onChange={(val) => {
               setEdValue(val);
               setValue('description', val);
             }}
@@ -222,10 +220,10 @@ const Executive: NextPage<
         </FormControl>
       </AppModal>
 
-      <Box py="50px">
-        <Box width={'1200px'} maxW={'100%'} m="0 auto">
+      <Box py='50px'>
+        <Box width={'1200px'} maxW={'100%'} m='0 auto'>
           <TableContainer>
-            <Table variant="striped" colorScheme="brown">
+            <Table variant='striped' colorScheme='brown'>
               <TableCaption>Excos</TableCaption>
               <Thead>
                 <Tr>
@@ -237,8 +235,8 @@ const Executive: NextPage<
                   <Th>Order</Th>
                   <Th>
                     <IconButton
-                      aria-label="add new"
-                      variant="outline"
+                      aria-label='add new'
+                      variant='outline'
                       icon={<AddIcon />}
                       onClick={() => {
                         Object.entries(defaultValues).forEach(([key, val]) =>
@@ -253,7 +251,7 @@ const Executive: NextPage<
                 </Tr>
               </Thead>
               <Tbody>
-                {executives.map(exco => (
+                {executives.map((exco) => (
                   <Tr key={exco.id}>
                     <Td>{exco.user.name}</Td>
                     <Td>{exco.user.email}</Td>
@@ -263,9 +261,9 @@ const Executive: NextPage<
                     <Td>{exco.order}</Td>
                     <Td>
                       <IconButton
-                        aria-label="add new"
-                        variant="outline"
-                        mr="10px"
+                        aria-label='add new'
+                        variant='outline'
+                        mr='10px'
                         icon={<EditIcon />}
                         onClick={() => {
                           setExcoId(exco.id);
@@ -285,8 +283,8 @@ const Executive: NextPage<
                         }}
                       />
                       <IconButton
-                        aria-label="delete"
-                        variant="outline"
+                        aria-label='delete'
+                        variant='outline'
                         icon={<DeleteIcon />}
                         onClick={() => {
                           const confirm = window.confirm(
