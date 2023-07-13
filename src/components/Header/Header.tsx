@@ -16,21 +16,21 @@ const links = [
     name: 'About',
     href: '/about',
   },
-  {
-    name: 'Resources',
-    href: '#',
-  },
+  // {
+  //   name: 'Resources',
+  //   href: '#',
+  // },
   {
     name: 'Blog',
     href: '/blog',
   },
   {
-    name: 'News & Events',
-    href: '#',
+    name: 'Events',
+    href: '/events',
   },
   {
-    name: 'Contact Us',
-    href: '#',
+    name: 'Contact',
+    href: '/contact',
   },
 ];
 
@@ -52,8 +52,7 @@ const Header: FC = () => {
             {links.map((link) => (
               <ListItem
                 {...listStyle(router.pathname === link.href)}
-                key={link.name}
-              >
+                key={link.name}>
                 <NextLink href={link.href} passHref>
                   <Link {...linkStyle(router.pathname === link.href)}>
                     {link.name}
@@ -64,25 +63,22 @@ const Header: FC = () => {
           </List>
           <Button
             zIndex={'99'}
-            w="50px"
-            h="40px"
+            w='50px'
+            h='40px'
             display={{ base: 'flex', lg: 'none' }}
-            onClick={() => setIsOpen(!isOpen)}
-          >
+            onClick={() => setIsOpen(!isOpen)}>
             {!isOpen && <HamburgerIcon fontSize={'25px'} />}
             {isOpen && <CloseIcon fontSize={'15px'} />}
           </Button>
 
           <Box
             {...mobileMenuStyle(isOpen)}
-            display={{ base: 'flex', lg: 'none' }}
-          >
-            <List display={'flex'} flexDir="column" gap={'32px'}>
+            display={{ base: 'flex', lg: 'none' }}>
+            <List display={'flex'} flexDir='column' gap={'32px'}>
               {links.map((link) => (
                 <ListItem
                   {...listStyle(router.pathname === link.href)}
-                  key={link.name}
-                >
+                  key={link.name}>
                   <NextLink href={link.href} passHref>
                     <Link {...linkStyle(router.pathname === link.href)}>
                       {link.name}

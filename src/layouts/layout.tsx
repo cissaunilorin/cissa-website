@@ -16,24 +16,23 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
       <Flex {...adminBody}>
         <SideBar />
 
-        <Flex flex={1} direction="column" backgroundColor="white">
+        <Flex flex={1} direction='column' backgroundColor='white'>
           <AdminHeader />
-          <Box flex={1} as="main">
+          <Box flex={1} as='main'>
             {children}
           </Box>
         </Flex>
       </Flex>
     );
 
-  if (router.pathname.startsWith('/auth'))
+  if (router.pathname.startsWith('/auth') && router.pathname !== '/author')
     return (
       <Flex
         {...adminBox}
-        overflowY="auto"
+        overflowY='auto'
         pb={'50px'}
-        alignItems="flex-start"
-        justifyContent="center"
-      >
+        alignItems='flex-start'
+        justifyContent='center'>
         <Flex {...authBody}>{children}</Flex>
       </Flex>
     );
@@ -45,7 +44,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
       </Head>
 
       <Header />
-      <Box as="main">{children}</Box>
+      <Box as='main'>{children}</Box>
       <Footer />
     </>
   );

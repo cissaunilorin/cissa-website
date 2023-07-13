@@ -16,25 +16,35 @@ const AppModal: FC<{
   children: ReactNode;
   onClick: MouseEventHandler;
   heading: string;
+  actionBtn?: string;
+  w?: string;
   isSubmitting: boolean;
-}> = ({ isOpen, onClose, children, onClick, heading, isSubmitting }) => {
+}> = ({
+  isOpen,
+  onClose,
+  children,
+  onClick,
+  heading,
+  isSubmitting,
+  w,
+  actionBtn,
+}) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent w={w || '500px'} maxW={'90%'}>
         <ModalHeader>{heading}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
 
         <ModalFooter>
           <Button
-            colorScheme="blue"
+            colorScheme='blue'
             ml={'auto'}
             onClick={onClick}
-            type="submit"
-            isLoading={isSubmitting}
-          >
-            save
+            type='submit'
+            isLoading={isSubmitting}>
+            {actionBtn || 'save'}
           </Button>
         </ModalFooter>
       </ModalContent>

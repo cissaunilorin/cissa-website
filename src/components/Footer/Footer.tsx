@@ -14,17 +14,18 @@ import { FC } from 'react';
 import { mainBoxStyle } from '../../styles/common';
 import { footerBox, linkHeading, linkItems } from './style';
 import { FaFacebook, FaTwitter, FaInstagram, FaEnvelope } from 'react-icons/fa';
+import Logo from '../Logo/Logo';
 
-const quickLinks = [
-  {
-    name: 'Archive',
-    href: '/',
-  },
-  {
-    name: 'Course materials',
-    href: '/about',
-  },
-];
+// const quickLinks = [
+//   {
+//     name: 'Archive',
+//     href: '/',
+//   },
+//   {
+//     name: 'Course materials',
+//     href: '/about',
+//   },
+// ];
 
 const pageLinks = [
   {
@@ -62,32 +63,21 @@ const social = [
 
 const Footer: FC = () => {
   return (
-    <Box as="footer" {...footerBox}>
+    <Box as='footer' {...footerBox}>
       <Box {...mainBoxStyle}>
         <Flex
           py={'50px'}
           gap={'40px'}
-          direction={{ base: 'column', md: 'row' }}
-        >
-          <Box width={'340px'} maxW="100%">
-            <Heading {...linkHeading}>Quick links</Heading>
-
-            <List>
-              {quickLinks.map(link => (
-                <ListItem key={link.name}>
-                  <NextLink href={link.href} passHref>
-                    <Link {...linkItems}>{link.name}</Link>
-                  </NextLink>
-                </ListItem>
-              ))}
-            </List>
+          direction={{ base: 'column', md: 'row' }}>
+          <Box width={'340px'} maxW='100%' alignSelf={'flex-start'}>
+            <Logo white />
           </Box>
 
-          <Box width={'340px'} maxW="100%">
+          <Box width={'340px'} maxW='100%'>
             <Heading {...linkHeading}>Pages</Heading>
 
             <List>
-              {pageLinks.map(link => (
+              {pageLinks.map((link) => (
                 <ListItem key={link.name}>
                   <NextLink href={link.href} passHref>
                     <Link {...linkItems}>{link.name}</Link>
@@ -97,7 +87,7 @@ const Footer: FC = () => {
             </List>
           </Box>
 
-          <Box width={'340px'} maxW="100%">
+          <Box width={'340px'} maxW='100%'>
             <Heading {...linkHeading}>Connect</Heading>
 
             <Flex gap={'20px'}>
@@ -114,12 +104,11 @@ const Footer: FC = () => {
       <Box {...mainBoxStyle}>
         <Text
           py={'15px'}
-          textAlign="center"
+          textAlign='center'
           fontWeight={300}
-          fontSize="16px"
-          lineHeight="100%"
-          color="white"
-        >
+          fontSize='16px'
+          lineHeight='100%'
+          color='white'>
           {new Date().getFullYear()}. All rights reserved.
         </Text>
       </Box>

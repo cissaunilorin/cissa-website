@@ -1,70 +1,24 @@
-import { FC } from "react";
-import { Box, Heading, Text, Flex, Button, Grid } from "@chakra-ui/react";
-import { mainBoxStyle, heading2Style } from "../../../styles/common";
-import { featureText, EventProps, flexProp, boxFlexProp } from "./styles";
-import Card from "./Card";
-const events: EventProps[] = [
-  {
-    id: 1,
-    mainImage: "/assets/events-1.png",
-    title: "CISSA Dinner",
-    price: "₦5000",
-    date: "22 Jun, 2022",
-    location: "M & M’s Event Center",
-    attending: false,
-  },
-  {
-    id: 2,
-    mainImage: "/assets/events-2.png",
-    title: "CISSA Dinner",
-    price: "₦5000",
-    date: "22 Jun, 2022",
-    location: "M & M’s Event Center",
-    attending: true,
-  },
-  {
-    id: 3,
-    mainImage: "/assets/events-3.png",
-    title: "CISSA Dinner",
-    price: "₦5000",
-    date: "22 Jun, 2022",
-    location: "M & M’s Event Center",
-    attending: false,
-  },
-  {
-    id: 4,
-    mainImage: "/assets/events-3.png",
-    title: "CISSA Dinner",
-    price: "₦5000",
-    date: "22 Jun, 2022",
-    location: "M & M’s Event Center",
-    attending: false,
-  },
-  {
-    id: 5,
-    mainImage: "/assets/events-3.png",
-    title: "CISSA Dinner",
-    price: "₦5000",
-    date: "22 Jun, 2022",
-    location: "M & M’s Event Center",
-    attending: false,
-  },
-  {
-    id: 6,
-    mainImage: "/assets/events-3.png",
-    title: "CISSA Dinner",
-    price: "₦5000",
-    date: "22 Jun, 2022",
-    location: "M & M’s Event Center",
-    attending: false,
-  },
-];
+import { FC, useEffect, useRef, useState } from 'react';
+import { Box, Heading, Text, Flex, Button, Grid } from '@chakra-ui/react';
+import { mainBoxStyle, heading2Style } from '../../../styles/common';
+import { featureText } from './styles';
+import Card from './Card';
+import { Event } from '@prisma/client';
 
-const Event: FC = () => {
+const Event: FC<{ events: Event[] }> = ({ events }) => {
+  const [margin, setMargin] = useState('');
+
+  const mlRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (mlRef.current)
+      setMargin(window.getComputedStyle(mlRef.current).marginLeft);
+  }, []);
+
   return (
-    <Box as="section" my={"24"}>
-      <Box {...mainBoxStyle}>
-        <Heading as={"h2"} {...heading2Style} textAlign="center" mb={"8px"}>
+    <Box as='section' my={'24'}>
+      <Box {...mainBoxStyle} ref={mlRef}>
+        <Heading as={'h2'} {...heading2Style} textAlign='center' mb={'8px'}>
           Latest Events
         </Heading>
         <Text {...featureText}>
@@ -72,9 +26,13 @@ const Event: FC = () => {
         </Text>
       </Box>
 
-      <Box {...boxFlexProp}>
-        <Flex {...flexProp}>
-          {events?.map((event) => (
+      <Box
+        overflowX={'auto'}
+        ml={margin}
+        py='20px'
+        css={{ '::-webkit-scrollbar': { display: 'none' } }}>
+        <Flex mt={'12'} gap={5}>
+          {events?.slice(5).map((event) => (
             <Card {...event} key={event.id} />
           ))}
         </Flex>

@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `executives` ADD COLUMN `type` ENUM('CISSA', 'SRC', 'STAFF') NOT NULL DEFAULT 'CISSA';

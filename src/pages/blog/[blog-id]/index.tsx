@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import {
+  Avatar,
   Box,
   Button,
   Flex,
@@ -38,78 +38,52 @@ import {
   listProps,
   mainBlogWrapper,
 } from '../../../styles/blog';
+import {
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+  NextPage,
+  PreviewData,
+} from 'next';
+import { ParsedUrlQuery } from 'querystring';
+import { prisma } from '../../../server/lib/prisma';
+import moment from 'moment';
 
 const bottomButtons = ['Life as a student', 'Ilorin', 'Hustle', 'Stress'];
-const listItems = [
-  {
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris, faucibus ac mollis a cras. Nec nec mi facilisis vel erat porttitor integer ultricies habitant.',
-  },
-  {
-    content:
-      'Nec pulvinar eleifend pellentesque vel, habitant aliquam. Venenatis ullamcorper mi mauris nisi, a ultricies gravida eget ac. Purus, dolor tempor luctus leo.',
-  },
-  {
-    content:
-      'Volutpat ac sed luctus mauris, malesuada lectus eros ultricies nisi. Congue sapien hendrerit dui iaculis tortor nec sagittis, morbi. Vehicula cras sed tortor nisl, amet sed. Habitant felis tempor vitae nam massa.',
-  },
-];
 
-const BlogPost: FC = () => {
+const BlogPost: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ blog }) => {
   return (
     <Box {...mainBlogWrapper}>
       <Text {...headerText} fontSize={{ base: '22px', md: '34px' }}>
-        The hustle and stress of the streets of Ilorin
+        {blog?.heading}
       </Text>
       <Flex {...headerOptions}>
         <Flex {...blogDetailsFlex}>
-          <ChakraNextImage src="/assets/blogavatar.png" {...blogAvatarProps} />
-          <Flex flexDir="column" marginInlineStart="4">
-            <Text {...blogAuthorProps}>Rukayah Bisi</Text>
-            <Text {...blogDateProps}>Aug 21, 2015. 1 min read</Text>
+          <Avatar name={blog?.author.name} {...blogAvatarProps} />
+          <Flex flexDir='column' marginInlineStart='4'>
+            <Text {...blogAuthorProps}>{blog?.author.name}</Text>
+            <Text {...blogDateProps}>
+              {moment(blog?.createdAt).format('MMM Do, YYYY')}
+            </Text>
           </Flex>
         </Flex>
         <Flex {...blogIconsFlex} my={{ base: '5', md: '0' }}>
-          <FaTwitter size="26" />
-          <FaLinkedin size="26" />
-          <FaFacebook size="26" />
-          <FaBookmark size="26" />
-          <FaEllipsisH size="26" />
+          <FaTwitter size='26' />
+          <FaLinkedin size='26' />
+          <FaFacebook size='26' />
+          <FaBookmark size='26' />
+          {/* <FaEllipsisH size='26' /> */}
         </Flex>
       </Flex>
 
-      <ChakraNextImage src="/assets/blogdetailsimg.png" {...blogimageProps} />
+      <ChakraNextImage src={blog?.imageUrl || ''} {...blogimageProps} />
 
-      <Text {...blogContentProps}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris,
-        faucibus ac mollis a cras. Nec nec mi facilisis vel erat porttitor
-        integer ultricies habitant. Convallis amet donec eget vitae at tincidunt
-        in natoque. Massa id at habitasse sit. Id augue curabitur nunc elementum
-        orci donec sagittis quam. Nibh vestibulum nulla eu habitasse egestas sit
-        dolor. A, aliquam ut nulla libero, morbi id porttitor. Urna at
-        pellentesque varius parturient id sit nunc id. Lacus nulla lorem ante at
-        viverra id. Neque nisi, auctor odio dis libero, scelerisque. Nec
-        pulvinar eleifend pellentesque vel, habitant aliquam. Venenatis
-        ullamcorper mi mauris nisi, a ultricies gravida eget ac. Purus, dolor
-        tempor luctus leo. Quam diam mi amet, tincidunt consectetur nulla cursus
-        arcu cursus. Varius ultrices integer morbi lorem urna, amet sit egestas.
-        Interdum elementum purus elementum orci nulla sociis sit elit.
-      </Text>
-      <UnorderedList {...listProps}>
-        {listItems.map((item, index) => (
-          <ListItem key={index} {...listItemProps}>
-            {item.content}
-          </ListItem>
-        ))}
-      </UnorderedList>
+      <Text
+        {...blogContentProps}
+        dangerouslySetInnerHTML={{ __html: blog?.content || '' }}
+      />
 
-      <ChakraNextImage src="/assets/blogdetailsimg2.png" {...blogimageProps} />
-
-      <Text {...blogContentProps}>
-        Volutpat ac sed luctus mauris, malesuada lectus eros ultricies nisi.
-        Congue sapien hendrerit dui iaculis tortor nec sagittis, morbi. Vehicula
-        cras sed tortor nisl, amet sed. Habitant felis tempor vitae nam massa.
-      </Text>
       <Flex {...buttonFlex}>
         {bottomButtons.map((button, index) => (
           <Button {...blogButton} key={index}>
@@ -120,27 +94,61 @@ const BlogPost: FC = () => {
       <Flex {...bottomDetails}>
         <Flex {...bottomDetailsWrapper}>
           <Flex {...blogDetailsFlex}>
-            <FaHandshake size="30" />
+            <FaHandshake size='30' />
             <Text {...bottomTextWrapper}>2 claps</Text>
           </Flex>
           <Flex {...bottomIconsWrapper}>
-            <FaTwitter size="26" />
-            <FaLinkedin size="26" />
-            <FaFacebook size="26" />
-            <FaBookmark size="26" />
-            <FaEllipsisH size="26" />
+            <FaTwitter size='26' />
+            <FaLinkedin size='26' />
+            <FaFacebook size='26' />
+            <FaBookmark size='26' />
+            {/* <FaEllipsisH size='26' /> */}
           </Flex>
         </Flex>
       </Flex>
       <Flex {...blogAuthorDetailsWrapper}>
-        <ChakraNextImage src="/assets/blogavatar.png" w="14" h="14" />
+        <Avatar name={blog?.author.name} {...blogAvatarProps} />
+
         <Flex {...bottomDetailsProps}>
           <Text {...blogDateProps}>WRITTEN BY</Text>
-          <Text {...blogAuthorProps}>Rukayat Bisi</Text>
+          <Text {...blogAuthorProps}>{blog?.author.name}</Text>
         </Flex>
       </Flex>
     </Box>
   );
+};
+
+export const getServerSideProps = async (
+  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+) => {
+  const id = ctx.query['blog-id'] as string;
+  const preview = ctx.query['preview'] as string;
+
+  console.log(ctx.req.headers.referer);
+
+  if (preview === 'true' && ctx.req.headers.referer?.includes(`/write/${id}`)) {
+    const blogRes = await prisma.blog.findFirst({
+      include: { author: true },
+      where: { id },
+    });
+    const blog: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
+    return {
+      props: {
+        blog,
+      },
+    };
+  }
+  const blogRes = await prisma.blog.findFirst({
+    include: { author: true },
+    where: { slug: id, published: true, draft: false },
+  });
+  const blog: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
+
+  return {
+    props: {
+      blog,
+    },
+  };
 };
 
 export default BlogPost;

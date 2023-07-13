@@ -44,9 +44,10 @@ model User {
 model Department {
   id        String   @id @default(uuid())
   name      String   @db.VarChar(255)
-  shortName String   @db.VarChar(3)
+  shortName String   @unique @db.VarChar(3)
   matric    String   @db.VarChar(255)
   HOD       String   @db.VarChar(255)
+  about     String?
   Course    Course[]
 
   @@map("departments")
@@ -76,9 +77,13 @@ model Executive {
 }
 
 model Event {
-  id    String   @id @default(uuid())
-  date  DateTime
-  venue String   @db.VarChar(255)
+  id       String   @id @default(uuid())
+  date     DateTime
+  title    String   @db.VarChar(255)
+  imageUrl String   @db.VarChar(255)
+  price    String   @db.VarChar(255)
+  link     String   @db.VarChar(255)
+  venue    String   @db.VarChar(255)
 
   @@map("events")
 }
@@ -87,15 +92,15 @@ model Blog {
   id        String    @id @default(uuid())
   heading   String    @db.VarChar(255)
   imageUrl  String    @db.VarChar(255)
-  slug      String    @db.VarChar(255)
+  slug      String    @unique @db.VarChar(255)
   published Boolean   @default(false)
   draft     Boolean   @default(false)
-  content   String
+  content   String    @db.LongText
   author    User      @relation(fields: [authorId], references: [id])
-  authorId  String    @unique
+  authorId  String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  blog      BlogTag[]
+  blogTag   BlogTag[]
 
   @@map("blogs")
 }
