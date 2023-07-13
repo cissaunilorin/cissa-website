@@ -77,9 +77,13 @@ model Executive {
 }
 
 model Event {
-  id    String   @id @default(uuid())
-  date  DateTime
-  venue String   @db.VarChar(255)
+  id       String   @id @default(uuid())
+  date     DateTime
+  title    String   @db.VarChar(255)
+  imageUrl String   @db.VarChar(255)
+  price    String   @db.VarChar(255)
+  link     String   @db.VarChar(255)
+  venue    String   @db.VarChar(255)
 
   @@map("events")
 }
@@ -91,9 +95,9 @@ model Blog {
   slug      String    @unique @db.VarChar(255)
   published Boolean   @default(false)
   draft     Boolean   @default(false)
-  content   String
+  content   String    @db.LongText
   author    User      @relation(fields: [authorId], references: [id])
-  authorId  String    @unique
+  authorId  String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   blogTag   BlogTag[]

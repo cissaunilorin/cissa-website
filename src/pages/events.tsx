@@ -1,69 +1,24 @@
-import { GetServerSideProps, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  NextPage,
+  PreviewData,
+  InferGetServerSidePropsType,
+} from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { Box, Flex } from '@chakra-ui/react';
 import Card from '../components/Home/Event/Card';
-import { EventProps } from '../components/Home/Event/styles';
+
 import { mainBoxStyle } from '../styles/common';
 
-const events: EventProps[] = [
-  {
-    id: 1,
-    mainImage: '/assets/events-1.png',
-    title: 'CISSA Dinner',
-    price: '₦5000',
-    date: '22 Jun, 2022',
-    location: 'M & M’s Event Center',
-    attending: false,
-  },
-  {
-    id: 2,
-    mainImage: '/assets/events-2.png',
-    title: 'CISSA Dinner',
-    price: '₦5000',
-    date: '22 Jun, 2022',
-    location: 'M & M’s Event Center',
-    attending: true,
-  },
-  {
-    id: 3,
-    mainImage: '/assets/events-3.png',
-    title: 'CISSA Dinner',
-    price: '₦5000',
-    date: '22 Jun, 2022',
-    location: 'M & M’s Event Center',
-    attending: false,
-  },
-  {
-    id: 4,
-    mainImage: '/assets/events-3.png',
-    title: 'CISSA Dinner',
-    price: '₦5000',
-    date: '22 Jun, 2022',
-    location: 'M & M’s Event Center',
-    attending: false,
-  },
-  {
-    id: 5,
-    mainImage: '/assets/events-3.png',
-    title: 'CISSA Dinner',
-    price: '₦5000',
-    date: '22 Jun, 2022',
-    location: 'M & M’s Event Center',
-    attending: false,
-  },
-  {
-    id: 6,
-    mainImage: '/assets/events-3.png',
-    title: 'CISSA Dinner',
-    price: '₦5000',
-    date: '22 Jun, 2022',
-    location: 'M & M’s Event Center',
-    attending: false,
-  },
-];
+import { ParsedUrlQuery } from 'querystring';
+import { prisma } from '../server/lib/prisma';
+import { useRouter } from 'next/router';
 
-const Gallery: NextPage = () => {
+const EventsPage: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ events }) => {
   return (
     <>
       <Head>
@@ -81,14 +36,20 @@ const Gallery: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
+export const getServerSideProps = async (
+  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+) => {
+  const eventsRes = await prisma.event.findMany();
 
-  // console.log(session.user);
+  const events: Readonly<typeof eventsRes> = JSON.parse(
+    JSON.stringify(eventsRes)
+  );
 
   return {
-    props: {},
+    props: {
+      events,
+    },
   };
 };
 
-export default Gallery;
+export default EventsPage;
