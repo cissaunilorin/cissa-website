@@ -4,8 +4,10 @@ import {
   CloseButton,
   Flex,
   FormLabel,
+  IconButton,
   Input,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import {
   GetServerSidePropsContext,
@@ -21,13 +23,15 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import { imageHandler, videoHandler } from '../../utils/editorHandler';
 import { editorBox, headingInputStyle } from '../../styles/pages/write';
-import { PlusSquareIcon } from '@chakra-ui/icons';
+import { AddIcon, PlusSquareIcon } from '@chakra-ui/icons';
 import ChakraNextImage from '../../components/chakra-nextimage';
 import axios from 'axios';
 import { trpc } from '../../utils/trpc';
 import { useRouter } from 'next/router';
 import { prisma } from '../../server/lib/prisma';
-import { Blog } from '@prisma/client';
+import { Blog, Tag } from '@prisma/client';
+import BlogTag from '../../components/BlogTag/BlogTag';
+import { blogButton } from '../../styles/blog';
 
 const Editor = dynamic(() => import('../../components/Editor/Editor'), {
   ssr: false,
@@ -39,9 +43,12 @@ const Write: NextPage<
   const [value, setValue] = useState('');
   const [heading, setHeading] = useState('');
   const [photo, setPhoto] = useState('');
+  const [tags, setTags] = useState<Tag[]>();
   const quill = useRef<ReactQuill>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [save, setSave] = useState(true);
+
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const blogImgHandler = async (p?: File) => {
     if (p) {
@@ -106,6 +113,7 @@ const Write: NextPage<
       imageUrl: photo,
       draft,
       heading,
+      tags: tags?.map((cur) => cur.id),
     });
   };
 
@@ -114,6 +122,10 @@ const Write: NextPage<
       setValue(blog.content);
       setPhoto(blog.imageUrl);
       setHeading(blog.heading);
+
+      if (blog.blogTag) {
+        setTags(blog.blogTag.map((cur) => cur.tag));
+      }
     }
   }, [blog]);
 
@@ -130,6 +142,16 @@ const Write: NextPage<
       <Head>
         <title>CIS - write</title>
       </Head>
+
+      <BlogTag
+        isOpen={isOpen}
+        onClose={onClose}
+        onClick={(stags) => {
+          setTags(stags);
+          onClose();
+        }}
+        selectedTags={tags}
+      />
 
       <Box {...mainBoxStyle} my='100px'>
         <Flex justify={'space-between'} gap='52px' align={'flex-start'}>
@@ -218,26 +240,55 @@ const Write: NextPage<
             </Box>
           </Box>
 
-          <Flex gap='10px' direction={'column'}>
-            {save && (
-              <Button
-                variant={'outline'}
-                onClick={() => {
-                  router.push(`/blog/${blog?.id}?preview=true`);
-                }}>
-                Preview
-              </Button>
-            )}
+          <Box>
+            <Box mb='30px'>
+              <Text mb='10px'>
+                Tags{' '}
+                <IconButton
+                  icon={<AddIcon />}
+                  size={'xs'}
+                  variant={'outline'}
+                  aria-label='add tag'
+                  onClick={onOpen}
+                />
+              </Text>
 
-            <Button
-              variant={'dark'}
-              onClick={() => {
-                publish(false);
-              }}
-              isLoading={isLoading}>
-              Save
-            </Button>
-          </Flex>
+              <Flex gap='10px' wrap='wrap' overflowY={'auto'}>
+                {tags?.map((tag) => (
+                  <Button
+                    {...blogButton}
+                    key={tag.id}
+                    onClick={() => {
+                      const allt = tags.filter((cur) => cur.id !== tag.id);
+                      setTags(allt);
+                    }}>
+                    {tag.title}
+                  </Button>
+                ))}
+              </Flex>
+            </Box>
+
+            <Flex gap='10px'>
+              {save && (
+                <Button
+                  variant={'outline'}
+                  onClick={() => {
+                    router.push(`/blog/${blog?.id}?preview=true`);
+                  }}>
+                  Preview
+                </Button>
+              )}
+
+              <Button
+                variant={'dark'}
+                onClick={() => {
+                  publish(false);
+                }}
+                isLoading={isLoading}>
+                Save
+              </Button>
+            </Flex>
+          </Box>
         </Flex>
       </Box>
     </>
@@ -250,9 +301,16 @@ export const getServerSideProps = async (
   const blogId = ctx.query['blog-id'] as string;
   const blogRes = await prisma.blog.findUnique({
     where: { id: blogId },
+    include: {
+      blogTag: {
+        include: {
+          tag: true,
+        },
+      },
+    },
   });
 
-  const blog: Blog = JSON.parse(JSON.stringify(blogRes));
+  const blog: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
 
   return {
     props: {

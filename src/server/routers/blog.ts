@@ -15,6 +15,26 @@ export const blogRouter = router({
 
     return blog;
   }),
+  getAllTags: editorProcedure.query(async ({ ctx }) => {
+    const tag = await ctx.prisma.tag.findMany();
+
+    return tag;
+  }),
+  createTag: editorProcedure
+    .input(
+      z.object({
+        title: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const tag = await ctx.prisma.tag.create({
+        data: {
+          title: input.title,
+        },
+      });
+
+      return tag;
+    }),
   createBlogPost: editorProcedure.mutation(async ({ ctx }) => {
     const blog = await ctx.prisma.blog.create({
       data: {
@@ -38,7 +58,7 @@ export const blogRouter = router({
         content: z.string(),
         imageUrl: z.string(),
         draft: z.boolean(),
-        // tags: z.string().array(),
+        tags: z.string().array().optional(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -56,14 +76,16 @@ export const blogRouter = router({
         },
       });
 
-      // const blogTag = input.tags.map((cur) => ({
-      //   blogId: blog.id,
-      //   tagId: cur,
-      // }));
+      if (input.tags && input.tags.length > 0) {
+        const blogTag = input.tags.map((cur) => ({
+          blogId: blog.id,
+          tagId: cur,
+        }));
 
-      // await ctx.prisma.blogTag.createMany({
-      //   data: blogTag,
-      // });
+        await ctx.prisma.blogTag.createMany({
+          data: blogTag,
+        });
+      }
 
       return blog;
     }),
