@@ -1,5 +1,4 @@
 import {
-  GetServerSideProps,
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
   NextPage,
@@ -13,8 +12,8 @@ import About from './../components/Home/About/About';
 import ContactDetails from '../components/Home/ContactDetails/ContactDetails';
 import Events from '../components/Home/Event/Event';
 import Facts from '../components/Home/Facts/Facts';
-import Gallery from '../components/Home/Gallery/Gallery';
-import Map from '../components/Home/Map/Map';
+// import Gallery from '../components/Home/Gallery/Gallery';
+// import Map from '../components/Home/Map/Map';
 import Overview from '../components/Home/Overview/Overview';
 import Recourses from '../components/Home/Recourses/Recourses';
 import { ParsedUrlQuery } from 'querystring';
@@ -28,7 +27,7 @@ const Home: NextPage<
   return (
     <>
       <Head>
-        <title>CISSA - home</title>
+        <title>CISSA - Home</title>
       </Head>
 
       <Overview />
@@ -39,8 +38,8 @@ const Home: NextPage<
       <Blog />
       {events.length > 0 && <Events events={events} />}
       {/* <Alumni /> */}
-      <Gallery />
-      <Map />
+      {/* <Gallery /> */}
+      {/* <Map /> */}
     </>
   );
 };

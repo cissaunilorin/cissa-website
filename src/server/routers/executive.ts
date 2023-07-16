@@ -31,9 +31,10 @@ export const excoRouter = router({
       z.object({
         name: z.string(),
         email: z.string(),
+        imageUrl: z.string(),
         position: z.string(),
         description: z.string(),
-        order: z.number(),
+        order: z.string(),
         type: z.nativeEnum(ExcoType),
       })
     )
@@ -47,10 +48,11 @@ export const excoRouter = router({
           password,
           executive: {
             create: {
+              imageUrl: input.imageUrl,
               position: input.position,
               type: input.type,
               description: input.description,
-              order: input.order,
+              order: +input.order,
             },
           },
         },
@@ -87,7 +89,8 @@ export const excoRouter = router({
         email: z.string(),
         position: z.string(),
         description: z.string(),
-        order: z.number(),
+        order: z.string(),
+        imageUrl: z.string(),
         type: z.nativeEnum(ExcoType),
       })
     )
@@ -100,7 +103,8 @@ export const excoRouter = router({
           position: input.position,
           description: input.description,
           type: input.type,
-          order: input.order,
+          order: +input.order,
+          imageUrl: input.imageUrl,
           user: {
             update: {
               name: input.name,
