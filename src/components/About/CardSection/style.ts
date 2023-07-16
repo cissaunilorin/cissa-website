@@ -7,8 +7,8 @@ export const cardSectionWrapper: FlexProps = {
 
 export const cardSectionImage: IChakraNextImageProps = {
   w: '300px',
-  h: '300px',
-  borderTopRadius: '3xl',
+  borderTopRadius: 'xl',
+  css: { aspectRatio: '1/1' },
   src: '',
 };
 

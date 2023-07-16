@@ -48,8 +48,6 @@ import { ParsedUrlQuery } from 'querystring';
 import { prisma } from '../../../server/lib/prisma';
 import moment from 'moment';
 
-const bottomButtons = ['Life as a student', 'Ilorin', 'Hustle', 'Stress'];
-
 const BlogPost: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ blog }) => {
@@ -85,9 +83,9 @@ const BlogPost: NextPage<
       />
 
       <Flex {...buttonFlex}>
-        {bottomButtons.map((button, index) => (
-          <Button {...blogButton} key={index}>
-            {button}
+        {blog?.blogTag.map((tag) => (
+          <Button {...blogButton} key={tag.tag.id}>
+            {tag.tag.title}
           </Button>
         ))}
       </Flex>
@@ -128,7 +126,14 @@ export const getServerSideProps = async (
 
   if (preview === 'true' && ctx.req.headers.referer?.includes(`/write/${id}`)) {
     const blogRes = await prisma.blog.findFirst({
-      include: { author: true },
+      include: {
+        author: true,
+        blogTag: {
+          include: {
+            tag: true,
+          },
+        },
+      },
       where: { id },
     });
     const blog: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
@@ -139,7 +144,14 @@ export const getServerSideProps = async (
     };
   }
   const blogRes = await prisma.blog.findFirst({
-    include: { author: true },
+    include: {
+      author: true,
+      blogTag: {
+        include: {
+          tag: true,
+        },
+      },
+    },
     where: { slug: id, published: true, draft: false },
   });
   const blog: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));

@@ -20,66 +20,59 @@ const CardSection: FC<ICardSection> = ({ heading, description, cards }) => {
 
   return (
     <Box {...mainBoxStyle}>
-      <Box {...mainTextBox} mb="30px">
-        <Heading {...heading2Style} mb="20px">
+      <Box {...mainTextBox} mb='30px'>
+        <Heading {...heading2Style} mb='20px'>
           {heading}
         </Heading>
         <Text {...featureText}>{description}</Text>
       </Box>
 
-      <Flex wrap="wrap" justify="center" gap="30px">
+      <Flex wrap='wrap' justify='center' gap='30px'>
         {!!cards
-          ? cards?.map(leader => (
+          ? cards?.map((leader) => (
               <Box
                 key={leader.id}
                 {...cardSectionWrapper}
                 onClick={() => {
                   router.push(`/user/${leader.id}`);
-                }}
-              >
-                <ChakraNextImage
-                  {...cardSectionImage}
-                  src={'/assets/placeholder.png'}
-                />
+                }}>
+                <ChakraNextImage {...cardSectionImage} src={leader.imageUrl} />
                 <Flex {...cardSectionFlex}>
-                  <Box w="100%">
-                    <Heading fontSize="1.2rem">{leader?.user?.name}</Heading>
-                    <Text fontSize=".8rem" mt="2">
+                  <Box w='100%'>
+                    <Heading fontSize='1.2rem'>{leader?.user?.name}</Heading>
+                    <Text fontSize='.8rem' mt='2'>
                       {leader?.position}
                     </Text>
-                    <Flex mt="4">
+                    {/* <Flex mt='4'>
                       <Link
                         _hover={{ bg: '#814226', _first: { color: '#F3F2F2' } }}
-                        {...leaderLink}
-                      >
-                        <FaTwitter size="20px" />
+                        {...leaderLink}>
+                        <FaTwitter size='20px' />
                       </Link>
                       <Link
                         _hover={{
                           bg: '#814226',
                           _notFirst: { color: '#F3F2F2' },
                         }}
-                        {...leaderLink}
-                      >
-                        <FaFacebook size="20px" />
+                        {...leaderLink}>
+                        <FaFacebook size='20px' />
                       </Link>
                       <Link
                         _hover={{ bg: '#814226', _last: { color: '#F3F2F2' } }}
-                        {...leaderLink}
-                      >
-                        <FaLinkedin size="20px" />
+                        {...leaderLink}>
+                        <FaLinkedin size='20px' />
                       </Link>
-                    </Flex>
+                    </Flex> */}
                   </Box>
                 </Flex>
               </Box>
             ))
-          : [1, 2, 3].map(cur => (
+          : [1, 2, 3].map((cur) => (
               <Box key={cur} {...cardSectionWrapper}>
                 <Skeleton {...cardSectionImage} />
-                <Skeleton h="30px" mb="10px" />
-                <Skeleton h="30px" mb="10px" />
-                <Skeleton h="30px" mb="10px" />
+                <Skeleton h='30px' mb='10px' />
+                <Skeleton h='30px' mb='10px' />
+                <Skeleton h='30px' mb='10px' />
               </Box>
             ))}
       </Flex>

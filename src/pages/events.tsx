@@ -7,7 +7,7 @@ import {
 } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import Card from '../components/Home/Event/Card';
 
 import { mainBoxStyle } from '../styles/common';
@@ -25,13 +25,23 @@ const EventsPage: NextPage<
         <title>CIS - home</title>
       </Head>
 
-      <Box {...mainBoxStyle} my={'120px'}>
-        <Flex wrap={'wrap'} gap={'20px 10px'} justify={'center'}>
-          {events?.map((event) => (
-            <Card {...event} key={event.id} />
-          ))}
-        </Flex>
-      </Box>
+      {events.length > 0 && (
+        <Box {...mainBoxStyle} my={'120px'}>
+          <Flex wrap={'wrap'} gap={'20px 10px'} justify={'center'}>
+            {events?.map((event) => (
+              <Card {...event} key={event.id} />
+            ))}
+          </Flex>
+        </Box>
+      )}
+
+      {events.length === 0 && (
+        <Box {...mainBoxStyle} mb='200px' mt='250px'>
+          <Text textAlign={'center'} fontSize={'4xl'}>
+            No Content
+          </Text>
+        </Box>
+      )}
     </>
   );
 };

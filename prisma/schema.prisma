@@ -47,7 +47,7 @@ model Department {
   shortName String   @unique @db.VarChar(3)
   matric    String   @db.VarChar(255)
   HOD       String   @db.VarChar(255)
-  about     String?
+  about     String   @db.LongText
   Course    Course[]
 
   @@map("departments")
@@ -67,7 +67,8 @@ model Course {
 model Executive {
   id          String   @id @default(uuid())
   position    String   @db.VarChar(255)
-  description String
+  imageUrl    String   @db.VarChar(255)
+  description String   @db.LongText
   type        ExcoType @default(CISSA)
   order       Int      @default(1)
   user        User     @relation(fields: [userId], references: [id])

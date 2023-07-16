@@ -1,6 +1,12 @@
-import { AddIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import {
+  AddIcon,
+  DeleteIcon,
+  EditIcon,
+  PlusSquareIcon,
+} from '@chakra-ui/icons';
 import {
   Box,
+  CloseButton,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -31,24 +37,27 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useMemo, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
 import { excoSchema, IExcoForm } from '../../forms/exco.form';
 import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import dynamic from 'next/dynamic';
 import ReactQuill from 'react-quill';
+import ChakraNextImage from '../../components/chakra-nextimage';
+import axios from 'axios';
 
 const Editor = dynamic(() => import('../../components/Editor/Editor'), {
   ssr: false,
 });
 
 const defaultValues: IExcoForm = {
+  imageUrl: '',
   name: '',
   description: '',
   email: '',
   position: '',
-  order: 0,
+  order: '',
   type: ExcoType.CISSA,
 };
 
@@ -78,11 +87,17 @@ const Executive: NextPage<
       setIsLoading(false);
       router.reload();
     },
+    onError() {
+      setIsLoading(false);
+    },
   });
   const updateExco = trpc.exco.updateExco.useMutation({
     onSuccess(res) {
       setIsLoading(false);
       router.reload();
+    },
+    onError() {
+      setIsLoading(false);
     },
   });
   const deleteExco = trpc.exco.deleteExco.useMutation({
@@ -101,8 +116,11 @@ const Executive: NextPage<
     },
   });
 
+  const [photo, setPhoto] = useState('');
+
   const onSubmit = () => {
     setIsLoading(true);
+    setValue('imageUrl', photo);
     const data = getValues();
 
     if (isNew) {
@@ -131,6 +149,25 @@ const Executive: NextPage<
     }),
     []
   );
+
+  const blogImgHandler = async (p?: File) => {
+    if (p) {
+      const formData = new FormData();
+      formData.append('type', 'image');
+      formData.append('upload', p);
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_BUCKET}/upload`,
+          formData
+        );
+
+        setPhoto(`${process.env.NEXT_PUBLIC_BUCKET}${res.data.fileUrl}`);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   return (
     <>
       <Head>
@@ -144,6 +181,56 @@ const Executive: NextPage<
         isSubmitting={isLoading}
         onClick={onSubmit}
         w='800px'>
+        {photo ? (
+          <Box position={'relative'} mb='20px'>
+            <CloseButton
+              position={'absolute'}
+              right={'10px'}
+              top={'10px'}
+              zIndex={10}
+              onClick={async () => {
+                const splitStr = photo.split('org/image/');
+                // console.log(photo, splitStr);
+
+                if (splitStr[1]) {
+                  try {
+                    await axios.post(
+                      `${process.env.NEXT_PUBLIC_BUCKET}/delete`,
+                      {
+                        url: splitStr[1],
+                        type: 'image',
+                      }
+                    );
+                    setPhoto('');
+                  } catch (err) {
+                    console.error(err);
+                  }
+                } else {
+                  setPhoto('');
+                }
+              }}
+            />
+            <ChakraNextImage src={photo} w='25%' css={{ aspectRatio: '1/1' }} />
+          </Box>
+        ) : (
+          <>
+            <FormLabel htmlFor='thumbnail'>
+              <PlusSquareIcon fontSize={'30px'} color='brown.deep' /> add image
+            </FormLabel>
+            <Input
+              type={'file'}
+              accept='image/*'
+              id='thumbnail'
+              display={'none'}
+              onChange={async (e) => {
+                if (e.target.files) {
+                  setPhoto(URL.createObjectURL(e.target.files[0]));
+                  await blogImgHandler(e.target.files[0]);
+                }
+              }}
+            />
+          </>
+        )}
         <FormControl isRequired isInvalid={!!errors.name?.message} mb={'25px'}>
           <FormLabel htmlFor='name'>Name</FormLabel>
           <Input
@@ -243,6 +330,7 @@ const Executive: NextPage<
                           setValue<any>(key, val)
                         );
                         setEdValue('');
+                        setPhoto('');
                         setIsNew(true);
                         onOpen();
                       }}
@@ -273,11 +361,10 @@ const Executive: NextPage<
                           setValue('description', exco.description);
                           setEdValue(exco.description);
                           setValue('type', exco.type);
-                          setValue('order', exco.order);
+                          setValue('order', `${exco.order}`);
+                          setValue('imageUrl', exco.imageUrl);
+                          setPhoto(exco.imageUrl);
 
-                          // Object.entries(each).forEach(([key, val]) =>
-                          //   setValue<any>(key, val)
-                          // );
                           setIsNew(false);
                           onOpen();
                         }}

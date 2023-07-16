@@ -16,47 +16,49 @@ import { prisma } from '../../server/lib/prisma';
 const excosMembers: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ user }) => {
-  console.log(user);
   return (
-    <Box {...mainBoxStyle} my="150px">
-      <Flex flexDirection="column">
-        <Flex alignItems="center" flexDirection="row" gap="5rem">
+    <Box {...mainBoxStyle} my='150px'>
+      <Flex flexDirection='column'>
+        <Flex
+          alignItems='center'
+          flexDirection={['column', 'column', 'row']}
+          gap='1rem 5rem'>
           <ChakraNextImage
-            w="100%"
-            h="400px"
-            src={'/assets/placeholder.png'}
-            borderRadius="20px"
+            flex='0 0 300px'
+            css={{ aspectRatio: '1/1' }}
+            src={user?.imageUrl || ''}
+            borderRadius='10px'
           />
-          <Box w="100%">
+          <Box>
             <Box>
-              <Heading {...heading2Style} fontSize="30px">
+              <Heading {...heading2Style} fontSize='30px'>
                 {user?.user.name}
               </Heading>
-              <Text color="#B4A097" fontSize="20px" fontWeight="600">
+              <Text color='#B4A097' fontSize='20px' fontWeight='600'>
                 {user?.position}
               </Text>
             </Box>
-            <Flex mt=".7rem" gap=".6rem">
-              <Link {...leaderLink} bg="none" border="1px solid #814226">
-                <RiFacebookFill size="16px" color="#814226" />
+            <Flex mt='.7rem' gap='.6rem'>
+              {/* <Link {...leaderLink} bg='none' border='1px solid #814226'>
+                <RiFacebookFill size='16px' color='#814226' />
               </Link>
-              <Link {...leaderLink} bg="none" border="1px solid #814226">
-                <FaTwitter size="16px" color="#814226" />
+              <Link {...leaderLink} bg='none' border='1px solid #814226'>
+                <FaTwitter size='16px' color='#814226' />
               </Link>
-              <Link {...leaderLink} bg="none" border="1px solid #814226">
-                <RiLinkedinFill size="16px" color="#814226" />
-              </Link>
+              <Link {...leaderLink} bg='none' border='1px solid #814226'>
+                <RiLinkedinFill size='16px' color='#814226' />
+              </Link> */}
             </Flex>
           </Box>
         </Flex>
-        <Box mt="2rem">
-          <Text fontSize="27px" mb=".3rem" fontWeight="600">
+        <Box mt='2rem'>
+          <Text fontSize='27px' mb='.3rem' fontWeight='600'>
             About
           </Text>
           <Text
-            w="100%"
-            fontSize="18px"
-            color="#676767"
+            w='100%'
+            fontSize='18px'
+            color='#676767'
             dangerouslySetInnerHTML={{ __html: user?.description || '' }}
           />
         </Box>

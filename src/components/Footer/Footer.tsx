@@ -29,16 +29,25 @@ import Logo from '../Logo/Logo';
 
 const pageLinks = [
   {
+    name: 'About',
+    href: '/about',
+  },
+
+  {
     name: 'Blog',
     href: '/blog',
   },
   {
-    name: 'About CIS',
-    href: '/about',
+    name: 'Events',
+    href: '/events',
   },
   {
-    name: 'Contact us',
+    name: 'Contact',
     href: '/contact',
+  },
+  {
+    name: 'CGPA calculator',
+    href: '/calculate-cgpa',
   },
 ];
 
@@ -91,11 +100,11 @@ const Footer: FC = () => {
             <Heading {...linkHeading}>Connect</Heading>
 
             <Flex gap={'20px'}>
-              {/* {social.map((link, i) => (
+              {social.map((link, i) => (
                 <NextLink key={i} href={link.href} passHref>
-                  <Icon as={link.name} h="30px" w="30px" color={'white'} />
+                  <Icon as={link.name} h='30px' w='30px' color={'white'} />
                 </NextLink>
-              ))} */}
+              ))}
             </Flex>
           </Box>
         </Flex>
