@@ -32,6 +32,10 @@ const links = [
     name: 'Contact',
     href: '/contact',
   },
+  {
+    name: 'CGPA calculator',
+    href: '/calculate-cgpa',
+  },
 ];
 
 const Header: FC = () => {
