@@ -19,6 +19,7 @@ const AppModal: FC<{
   actionBtn?: string;
   w?: string;
   isSubmitting: boolean;
+  closeOnOverlayClick?: boolean;
 }> = ({
   isOpen,
   onClose,
@@ -28,9 +29,13 @@ const AppModal: FC<{
   isSubmitting,
   w,
   actionBtn,
+  closeOnOverlayClick,
 }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      closeOnOverlayClick={closeOnOverlayClick}>
       <ModalOverlay />
       <ModalContent w={w || '500px'} maxW={'90%'}>
         <ModalHeader>{heading}</ModalHeader>
