@@ -1,6 +1,8 @@
 import { ViewIcon } from '@chakra-ui/icons';
 import {
   Box,
+  Button,
+  Flex,
   IconButton,
   Table,
   TableCaption,
@@ -28,6 +30,7 @@ import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import ChakraNextImage from '../../components/chakra-nextimage';
 import moment from 'moment';
+import { blogButton } from '../../styles/blog';
 
 const Blog: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -54,7 +57,7 @@ const Blog: NextPage<
   return (
     <>
       <Head>
-        <title>blogs - CIS</title>
+        <title>Blogs - CISSA</title>
       </Head>
 
       <AppModal
@@ -79,6 +82,14 @@ const Blog: NextPage<
           px='30px'
           mb='30px'
         />
+
+        <Flex gap='10px' wrap='wrap'>
+          {blogData.blogTag?.map((tag) => (
+            <Button {...blogButton} key={tag.tag.id}>
+              {tag.tag.title}
+            </Button>
+          ))}
+        </Flex>
 
         <Text>written by {blogData?.author.name}</Text>
         <Text>time {moment(blogData?.createdAt).format('MMM Do, YYYY')}</Text>
@@ -129,7 +140,16 @@ const Blog: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const blogRes = await prisma.blog.findMany({ include: { author: true } });
+  const blogRes = await prisma.blog.findMany({
+    include: {
+      author: true,
+      blogTag: {
+        include: {
+          tag: true,
+        },
+      },
+    },
+  });
 
   const blogs: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
 

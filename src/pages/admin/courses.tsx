@@ -108,32 +108,31 @@ const Courses: NextPage<
   return (
     <>
       <Head>
-        <title>courses - CIS</title>
+        <title>Courses - CISSA</title>
       </Head>
 
       <AppModal
         isOpen={isOpen}
         onClose={onClose}
-        heading="Add New Course"
+        heading='Add New Course'
         isSubmitting={isLoading}
-        onClick={onSubmit}
-      >
+        onClick={onSubmit}>
         <FormControl isRequired isInvalid={!!errors.code?.message} mb={'25px'}>
-          <FormLabel htmlFor="courseCode">Course code</FormLabel>
+          <FormLabel htmlFor='courseCode'>Course code</FormLabel>
           <Input
-            id="courseCode"
+            id='courseCode'
             type={'text'}
-            placeholder="Course code"
+            placeholder='Course code'
             {...register('code')}
           />
           <FormErrorMessage>{errors.code?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.title?.message} mb={'25px'}>
-          <FormLabel htmlFor="title">Title</FormLabel>
+          <FormLabel htmlFor='title'>Title</FormLabel>
           <Input
-            id="title"
+            id='title'
             type={'text'}
-            placeholder="Title"
+            placeholder='Title'
             {...register('title')}
           />
           <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
@@ -142,35 +141,33 @@ const Courses: NextPage<
         <FormControl
           isRequired
           isInvalid={!!errors.credit?.message}
-          mb={'25px'}
-        >
-          <FormLabel htmlFor="credit">Course credit</FormLabel>
+          mb={'25px'}>
+          <FormLabel htmlFor='credit'>Course credit</FormLabel>
           <Input
-            id="credit"
+            id='credit'
             type={'number'}
-            placeholder="Course credit"
+            placeholder='Course credit'
             defaultValue={2}
             {...register('credit')}
           />
           <FormErrorMessage>{errors.credit?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.status?.message}>
-          <FormLabel htmlFor="status">Status</FormLabel>
-          <Select placeholder="Status" {...register('status')}>
-            <option value="R">Required</option>
-            <option value="E">Elective</option>
-            <option value="C">Compulsory</option>
+          <FormLabel htmlFor='status'>Status</FormLabel>
+          <Select placeholder='Status' {...register('status')}>
+            <option value='R'>Required</option>
+            <option value='E'>Elective</option>
+            <option value='C'>Compulsory</option>
           </Select>
           <FormErrorMessage>{errors.status?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.departmentId?.message}>
-          <FormLabel htmlFor="department">Department</FormLabel>
+          <FormLabel htmlFor='department'>Department</FormLabel>
           <Select
-            id="department"
-            placeholder="Department"
-            {...register('departmentId')}
-          >
-            {departments.map(cur => (
+            id='department'
+            placeholder='Department'
+            {...register('departmentId')}>
+            {departments.map((cur) => (
               <option value={cur.id} key={cur.shortName}>
                 {cur.shortName}
               </option>
@@ -180,10 +177,10 @@ const Courses: NextPage<
         </FormControl>
       </AppModal>
 
-      <Box py="50px">
-        <Box width={'1200px'} maxW={'100%'} m="0 auto">
+      <Box py='50px'>
+        <Box width={'1200px'} maxW={'100%'} m='0 auto'>
           <TableContainer>
-            <Table variant="striped" colorScheme="brown">
+            <Table variant='striped' colorScheme='brown'>
               <TableCaption>Courses</TableCaption>
               <Thead>
                 <Tr>
@@ -194,8 +191,8 @@ const Courses: NextPage<
                   <Th>Department</Th>
                   <Th>
                     <IconButton
-                      aria-label="add new"
-                      variant="outline"
+                      aria-label='add new'
+                      variant='outline'
                       icon={<AddIcon />}
                       onClick={() => {
                         Object.entries(defaultValues).forEach(([key, val]) =>
@@ -209,7 +206,7 @@ const Courses: NextPage<
                 </Tr>
               </Thead>
               <Tbody>
-                {courses.map(each => (
+                {courses.map((each) => (
                   <Tr key={each.code}>
                     <Td>{each.code}</Td>
                     <Td>{each.title}</Td>
@@ -218,9 +215,9 @@ const Courses: NextPage<
                     <Td>{each.department.name}</Td>
                     <Td>
                       <IconButton
-                        aria-label="add new"
-                        variant="outline"
-                        mr="10px"
+                        aria-label='add new'
+                        variant='outline'
+                        mr='10px'
                         icon={<EditIcon />}
                         onClick={() => {
                           // setCourseCode(each.code);
@@ -232,8 +229,8 @@ const Courses: NextPage<
                         }}
                       />
                       <IconButton
-                        aria-label="delete"
-                        variant="outline"
+                        aria-label='delete'
+                        variant='outline'
                         icon={<DeleteIcon />}
                         onClick={() => {
                           const confirm = window.confirm(

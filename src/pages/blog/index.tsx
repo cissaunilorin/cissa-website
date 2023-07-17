@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { IoMdOptions } from 'react-icons/io';
 import {
   Text,
@@ -36,36 +36,23 @@ import {
 import { ParsedUrlQuery } from 'querystring';
 import { prisma } from '../../server/lib/prisma';
 import { useRouter } from 'next/router';
-
-const blogBtns = [
-  {
-    variant: 'dark',
-    text: 'All',
-  },
-  {
-    variant: 'outline',
-    text: 'Design',
-  },
-  {
-    variant: 'outline',
-    text: 'Fashion',
-  },
-  {
-    variant: 'outline',
-    text: 'Development',
-  },
-  {
-    variant: 'outline',
-    text: 'Latest Gist',
-  },
-];
+import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
+import Head from 'next/head';
 
 const Blog: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ blogs }) => {
+> = ({ blogs, tags, count, nextPage, page }) => {
   const router = useRouter();
+  const [query, setQuery] = useState('');
+
+  console.log(nextPage);
+
   return (
     <>
+      <Head>
+        <title>Blog - CISSA</title>
+      </Head>
+
       <Box {...blogHeaderContainer}>
         <Box {...mainBoxStyle}>
           <Box
@@ -81,11 +68,18 @@ const Blog: NextPage<
             </Text>
 
             <Flex maxW={'435px'} mx='auto'>
-              <Input placeholder='Search' />
+              <Input
+                placeholder='Search'
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
               <IconButton
                 variant={'dark'}
                 aria-label='Search database'
                 marginLeft={'-40px'}
+                onClick={() => {
+                  if (query) router.replace(`/blog?query=${query}`);
+                }}
                 icon={<IoMdOptions size={24} />}
               />
             </Flex>
@@ -95,9 +89,14 @@ const Blog: NextPage<
               gap={'20px'}
               flexWrap={'wrap'}
               mt={'50px'}>
-              {blogBtns.map((blogBtn, i) => (
-                <Button variant={blogBtn.variant} key={i}>
-                  {blogBtn.text}
+              {tags.map((tag) => (
+                <Button
+                  variant={'outline'}
+                  key={tag.id}
+                  onClick={() => {
+                    router.replace(`/blog?tagId=${tag.id}`);
+                  }}>
+                  {tag.title}
                 </Button>
               ))}
             </Flex>
@@ -140,7 +139,7 @@ const Blog: NextPage<
       {blogs && blogs.length > 0 && (
         <Box {...blogComponentsContainer}>
           <Box {...mainBoxStyle} mb='50px'>
-            <Flex wrap='wrap' gap='30px' justify={'center'}>
+            <Flex wrap='wrap' gap='30px' mb='50px' justify={'center'}>
               {blogs.map((blogPost, i) => (
                 <Box flex='0 0 300px' key={i} w='100%'>
                   <ChakraNextImage
@@ -161,6 +160,29 @@ const Blog: NextPage<
                 </Box>
               ))}
             </Flex>
+
+            <Flex
+              {...mainBoxStyle}
+              align='center'
+              gap='20px'
+              justify={'center'}>
+              <IconButton
+                aria-label='previous page'
+                isDisabled={page === 1}
+                onClick={() => {
+                  router.replace(`/blog?page=${page - 1}`);
+                }}
+                icon={<ArrowLeftIcon />}
+              />
+              <IconButton
+                aria-label='next page'
+                isDisabled={!nextPage}
+                onClick={() => {
+                  router.replace(`/blog?page=${page + 1}`);
+                }}
+                icon={<ArrowRightIcon />}
+              />
+            </Flex>
           </Box>
         </Box>
       )}
@@ -179,10 +201,31 @@ const Blog: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
+  const tagId = ctx.query['tagId'] as string;
+  const query = ctx.query['query'] as string;
+  const page = ctx.query['page'] as string;
+  const pg = page ? +page : 1;
+
+  const count = await prisma.blog.count({
+    where: {
+      published: true,
+      draft: false,
+      ...(tagId && { blogTag: { every: { tagId } } }),
+      ...(query && { heading: { contains: query } }),
+    },
+    orderBy: { createdAt: 'desc' },
+  });
   const blogRes = await prisma.blog.findMany({
-    where: { published: true, draft: false },
+    where: {
+      published: true,
+      draft: false,
+      ...(tagId && { blogTag: { every: { tagId } } }),
+      ...(query && { heading: { contains: query } }),
+    },
     include: { author: true, blogTag: { include: { tag: true } } },
     orderBy: { createdAt: 'desc' },
+    take: 20,
+    skip: 20 * (pg - 1),
   });
 
   const tagRes = await prisma.tag.findMany();
@@ -194,6 +237,9 @@ export const getServerSideProps = async (
     props: {
       blogs,
       tags,
+      count,
+      page: pg,
+      nextPage: count / pg > 20,
     },
   };
 };

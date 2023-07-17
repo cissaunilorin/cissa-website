@@ -171,7 +171,7 @@ const Executive: NextPage<
   return (
     <>
       <Head>
-        <title>faculty - CIS</title>
+        <title>Executives - CISSA</title>
       </Head>
 
       <AppModal
