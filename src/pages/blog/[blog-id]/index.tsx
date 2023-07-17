@@ -47,55 +47,32 @@ import {
 import { ParsedUrlQuery } from 'querystring';
 import { prisma } from '../../../server/lib/prisma';
 import moment from 'moment';
+import Head from 'next/head';
 
 const BlogPost: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ blog }) => {
   return (
-    <Box {...mainBlogWrapper}>
-      <Text {...headerText} fontSize={{ base: '22px', md: '34px' }}>
-        {blog?.heading}
-      </Text>
-      <Flex {...headerOptions}>
-        <Flex {...blogDetailsFlex}>
-          <Avatar name={blog?.author.name} {...blogAvatarProps} />
-          <Flex flexDir='column' marginInlineStart='4'>
-            <Text {...blogAuthorProps}>{blog?.author.name}</Text>
-            <Text {...blogDateProps}>
-              {moment(blog?.createdAt).format('MMM Do, YYYY')}
-            </Text>
-          </Flex>
-        </Flex>
-        <Flex {...blogIconsFlex} my={{ base: '5', md: '0' }}>
-          <FaTwitter size='26' />
-          <FaLinkedin size='26' />
-          <FaFacebook size='26' />
-          <FaBookmark size='26' />
-          {/* <FaEllipsisH size='26' /> */}
-        </Flex>
-      </Flex>
+    <>
+      <Head>
+        <title>{blog?.heading} - CISSA</title>
+      </Head>
 
-      <ChakraNextImage src={blog?.imageUrl || ''} {...blogimageProps} />
-
-      <Text
-        {...blogContentProps}
-        dangerouslySetInnerHTML={{ __html: blog?.content || '' }}
-      />
-
-      <Flex {...buttonFlex}>
-        {blog?.blogTag.map((tag) => (
-          <Button {...blogButton} key={tag.tag.id}>
-            {tag.tag.title}
-          </Button>
-        ))}
-      </Flex>
-      <Flex {...bottomDetails}>
-        <Flex {...bottomDetailsWrapper}>
+      <Box {...mainBlogWrapper}>
+        <Text {...headerText} fontSize={{ base: '22px', md: '34px' }}>
+          {blog?.heading}
+        </Text>
+        <Flex {...headerOptions}>
           <Flex {...blogDetailsFlex}>
-            <FaHandshake size='30' />
-            <Text {...bottomTextWrapper}>2 claps</Text>
+            <Avatar name={blog?.author.name} {...blogAvatarProps} />
+            <Flex flexDir='column' marginInlineStart='4'>
+              <Text {...blogAuthorProps}>{blog?.author.name}</Text>
+              <Text {...blogDateProps}>
+                {moment(blog?.createdAt).format('MMM Do, YYYY')}
+              </Text>
+            </Flex>
           </Flex>
-          <Flex {...bottomIconsWrapper}>
+          <Flex {...blogIconsFlex} my={{ base: '5', md: '0' }}>
             <FaTwitter size='26' />
             <FaLinkedin size='26' />
             <FaFacebook size='26' />
@@ -103,16 +80,46 @@ const BlogPost: NextPage<
             {/* <FaEllipsisH size='26' /> */}
           </Flex>
         </Flex>
-      </Flex>
-      <Flex {...blogAuthorDetailsWrapper}>
-        <Avatar name={blog?.author.name} {...blogAvatarProps} />
 
-        <Flex {...bottomDetailsProps}>
-          <Text {...blogDateProps}>WRITTEN BY</Text>
-          <Text {...blogAuthorProps}>{blog?.author.name}</Text>
+        <ChakraNextImage src={blog?.imageUrl || ''} {...blogimageProps} />
+
+        <Text
+          {...blogContentProps}
+          dangerouslySetInnerHTML={{ __html: blog?.content || '' }}
+        />
+
+        <Flex {...buttonFlex}>
+          {blog?.blogTag.map((tag) => (
+            <Button {...blogButton} key={tag.tag.id}>
+              {tag.tag.title}
+            </Button>
+          ))}
         </Flex>
-      </Flex>
-    </Box>
+        <Flex {...bottomDetails}>
+          <Flex {...bottomDetailsWrapper}>
+            <Flex {...blogDetailsFlex}>
+              <FaHandshake size='30' />
+              <Text {...bottomTextWrapper}>2 claps</Text>
+            </Flex>
+            <Flex {...bottomIconsWrapper}>
+              <FaTwitter size='26' />
+              <FaLinkedin size='26' />
+              <FaFacebook size='26' />
+              <FaBookmark size='26' />
+              {/* <FaEllipsisH size='26' /> */}
+            </Flex>
+          </Flex>
+        </Flex>
+        <Flex {...blogAuthorDetailsWrapper}>
+          <Avatar name={blog?.author.name} {...blogAvatarProps} />
+
+          <Flex {...bottomDetailsProps}>
+            <Text {...blogDateProps}>WRITTEN BY</Text>
+            <Text {...blogAuthorProps}>{blog?.author.name}</Text>
+          </Flex>
+        </Flex>
+      </Box>
+    </>
   );
 };
 

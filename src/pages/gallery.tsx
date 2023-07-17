@@ -7,7 +7,7 @@ const Gallery: NextPage = () => {
   return (
     <>
       <Head>
-        <title>CIS - home</title>
+        <title>Gallery - CISSA</title>
       </Head>
 
       <Overview />
@@ -16,7 +16,7 @@ const Gallery: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getSession(ctx);
 
   // console.log(session.user);

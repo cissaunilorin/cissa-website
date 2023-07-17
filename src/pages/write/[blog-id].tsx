@@ -140,7 +140,7 @@ const Write: NextPage<
   return (
     <>
       <Head>
-        <title>CIS - write</title>
+        <title>write - CISSA</title>
       </Head>
 
       <BlogTag

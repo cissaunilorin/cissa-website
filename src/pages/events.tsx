@@ -22,7 +22,7 @@ const EventsPage: NextPage<
   return (
     <>
       <Head>
-        <title>CIS - home</title>
+        <title>Events - CISSA</title>
       </Head>
 
       {events.length > 0 && (
