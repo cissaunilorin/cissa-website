@@ -119,9 +119,11 @@ const Footer: FC = () => {
           lineHeight='100%'
           color='white'>
           developed by{' '}
+          {/* please do not remove this line ************************** */}
           <NextLink href={'https://pherwerz.dev'} target='_blank'>
             <a style={{ textDecorationLine: 'underline' }}>Adebayo Fawaz</a>
           </NextLink>
+          {/* *************************************************************** */}
           <br />
           <br />
           {new Date().getFullYear()}. All rights reserved.
