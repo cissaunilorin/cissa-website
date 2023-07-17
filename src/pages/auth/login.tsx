@@ -59,7 +59,7 @@ const Login: FC = () => {
   return (
     <>
       <Head>
-        <title>cissa - login</title>
+        <title>Login - CISSA</title>
       </Head>
 
       <Box w={'100%'}>

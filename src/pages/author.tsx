@@ -21,7 +21,7 @@ const Author: NextPage<
   return (
     <>
       <Head>
-        <title>CIS - Author</title>
+        <title>Author - CISSA</title>
       </Head>
 
       <Box {...mainBoxStyle}>

@@ -92,7 +92,7 @@ const Editor: NextPage<
   return (
     <>
       <Head>
-        <title>Editor - CIS</title>
+        <title>Editors - CISSA</title>
       </Head>
 
       <AppModal
