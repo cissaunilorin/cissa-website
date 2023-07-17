@@ -2,10 +2,11 @@ import nodemailer from 'nodemailer';
 
 class Email {
   newTransport() {
+    console.log(process.env.NODE_ENV);
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: Number(process.env.EMAIL_PORT) || 0,
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
       auth: {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,
