@@ -12,7 +12,6 @@ export const aboutHistoryText: TextProps = {
   fontSize: '18px',
   lineHeight: '25.2px',
   mb: '40px',
-  maxW: { base: ' 100%', md: '100%', lg: ' 434px' },
 };
 export const aboutHistoryPlayCircle: BoxProps = {
   pos: 'absolute',

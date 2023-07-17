@@ -1,17 +1,18 @@
 import { FC } from 'react';
-import { ExcoType } from '@prisma/client';
-import { trpc } from '../../../utils/trpc';
+import { Executive, User } from '@prisma/client';
 import CardSection from '../CardSection/CardSection';
 
-const SRC: FC = () => {
-  const src = trpc.exco.getExcos.useQuery({ type: ExcoType.SRC });
-
+const SRC: FC<{
+  src: (Executive & {
+    user: User;
+  })[];
+}> = ({ src }) => {
   return (
     <CardSection
-      heading="Student Representative council"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et."
-      cards={src?.data}
+      heading='Student Representative council'
+      description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et.'
+      cards={src}
     />
   );
 };
