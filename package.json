@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "prisma generate && next dev",
+    "prebuild": "prisma generate",
     "build": "next build",
     "vercel-build": "prisma generate && prisma migrate deploy && next build && next-sitemap",
     "postbuild": "next-sitemap",
-    "start": "prisma generate && prisma migrate deploy && NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "studio": "prisma studio",
     "migrate": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
+    "generate": "prisma generate",
     "pushDB": "prisma db push"
   },
   "dependencies": {
