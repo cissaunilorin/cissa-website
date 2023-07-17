@@ -5,7 +5,7 @@ class Email {
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: Number(process.env.EMAIL_PORT) || 0,
-      secure: process.env.NODE_ENV === 'production' ? true : false,
+      secure: process.env.NODE_ENV === 'production',
       auth: {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,
@@ -16,11 +16,12 @@ class Email {
   // Send the actual email
   async send(subject: string, text: string, name: string, from: string) {
     const mailOptions = {
-      from,
+      from: process.env.EMAIL_USERNAME,
       to: 'cissa@students.unilorin.edu.ng',
       subject,
-      text: `${name}
+      text: `${from}
       ${text}`,
+      name,
     };
 
     // 3) Create a transport and send email
