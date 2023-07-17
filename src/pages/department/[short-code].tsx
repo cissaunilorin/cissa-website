@@ -7,7 +7,7 @@ import {
 import About from '../../components/DepartmentDetails/About/About';
 import Overview from '../../components/DepartmentDetails/Overview/Overview';
 import Courses from '../../components/DepartmentDetails/Courses/Courses';
-import HOD from '../../components/DepartmentDetails/HOD/HOD';
+// import HOD from '../../components/DepartmentDetails/HOD/HOD';
 import { ParsedUrlQuery } from 'querystring';
 import { prisma } from '../../server/lib/prisma';
 import Head from 'next/head';
@@ -20,8 +20,8 @@ const DDP: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
       <title>{department?.name} - CISSA</title>
     </Head>
 
-    <Overview />
-    <HOD />
+    <Overview name={department?.name || ''} />
+    {/* <HOD /> */}
     <About text={department?.about || ''} />
     <Courses courses={department?.Course || []} />
   </>
