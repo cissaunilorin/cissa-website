@@ -151,7 +151,7 @@ export const getServerSideProps = async (
     },
   });
 
-  const blogs: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
+  const blogs: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
 
   return {
     props: {

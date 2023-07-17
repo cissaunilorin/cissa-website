@@ -9,7 +9,7 @@ import {
 
 export const aboutSectionHistory: BoxProps = {
   as: 'section',
-  m: '100px 0',
+  m: '210px 0',
 };
 
 export const leaderLink: LinkProps = {
