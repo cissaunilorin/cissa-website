@@ -51,9 +51,7 @@ export const getServerSideProps = async (
 ) => {
   const eventsRes = await prisma.event.findMany();
 
-  const events: Readonly<typeof eventsRes> = JSON.parse(
-    JSON.stringify(eventsRes)
-  );
+  const events: typeof eventsRes = JSON.parse(JSON.stringify(eventsRes));
 
   return {
     props: {
