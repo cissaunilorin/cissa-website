@@ -28,22 +28,22 @@ const CardSection: FC<ICardSection> = ({ heading, description, cards }) => {
       </Box>
 
       <Flex wrap='wrap' justify='center' gap='30px'>
-        {!!cards &&
-          cards?.map((leader) => (
-            <Box
-              key={leader.id}
-              {...cardSectionWrapper}
-              onClick={() => {
-                router.push(`/user/${leader.id}`);
-              }}>
-              <ChakraNextImage {...cardSectionImage} src={leader.imageUrl} />
-              <Flex {...cardSectionFlex}>
-                <Box w='100%'>
-                  <Heading fontSize='1.2rem'>{leader?.user?.name}</Heading>
-                  <Text fontSize='.8rem' mt='2'>
-                    {leader?.position}
-                  </Text>
-                  {/* <Flex mt='4'>
+        {!!cards
+          ? cards?.map((leader) => (
+              <Box
+                key={leader.id}
+                {...cardSectionWrapper}
+                onClick={() => {
+                  router.push(`/user/${leader.id}`);
+                }}>
+                <ChakraNextImage {...cardSectionImage} src={leader.imageUrl} />
+                <Flex {...cardSectionFlex}>
+                  <Box w='100%'>
+                    <Heading fontSize='1.2rem'>{leader?.user?.name}</Heading>
+                    <Text fontSize='.8rem' mt='2'>
+                      {leader?.position}
+                    </Text>
+                    {/* <Flex mt='4'>
                       <Link
                         _hover={{ bg: '#814226', _first: { color: '#F3F2F2' } }}
                         {...leaderLink}>
@@ -63,10 +63,18 @@ const CardSection: FC<ICardSection> = ({ heading, description, cards }) => {
                         <FaLinkedin size='20px' />
                       </Link>
                     </Flex> */}
-                </Box>
-              </Flex>
-            </Box>
-          ))}
+                  </Box>
+                </Flex>
+              </Box>
+            ))
+          : [1, 2, 3].map((cur) => (
+              <Box key={cur} {...cardSectionWrapper}>
+                <Skeleton {...cardSectionImage} />
+                <Skeleton h='30px' mb='10px' />
+                <Skeleton h='30px' mb='10px' />
+                <Skeleton h='30px' mb='10px' />
+              </Box>
+            ))}
       </Flex>
     </Box>
   );

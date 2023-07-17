@@ -1,76 +1,82 @@
-import { ArrowForwardIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Flex,
   Heading,
   Icon,
+  IconButton,
+  Link,
   List,
   ListItem,
-} from '@chakra-ui/react';
-import NextLink from 'next/link';
-import { FC } from 'react';
-import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
-import { mainBoxStyle } from '../../../styles/common';
-import { heading, listStyle } from './styles';
-import { useRouter } from 'next/router';
+  Text,
+} from "@chakra-ui/react";
+import NextLink from "next/link";
+import { FC } from "react";
+import { FaFacebookF, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { mainBoxStyle } from "../../../styles/common";
+import {
+  annoucementHeading,
+  annoucementLink,
+  annoucementText,
+  heading,
+  iconButton,
+  listStyle,
+  NewsTextBox,
+} from "./styles";
 
 const links = [
   {
     icon: FaLinkedinIn,
-    href: '#',
+    href: "#",
   },
   {
     icon: FaFacebookF,
-    href: '#',
+    href: "#",
   },
   {
     icon: FaTwitter,
-    href: '#',
+    href: "#",
   },
 ];
 
 const Overview: FC = () => {
-  const router = useRouter();
   return (
-    <Box as='section'>
+    <Box as="section">
       <Box
-        pt='265px'
-        pb='40px'
-        w={'100%'}
+        pt="265px"
+        pb="40px"
+        w={"100%"}
         bgImg={
-          'linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/assets/ov-1.png)'
+          "linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/assets/ov-1.png)"
         }
-        bgPos={'center'}
-        backgroundRepeat={'no-repeat'}
-        backgroundSize={'cover'}>
+        bgPos={"center"}
+        backgroundRepeat={"no-repeat"}
+        backgroundSize={"cover"}
+      >
         <Box {...mainBoxStyle}>
           <Flex
-            mb='160px'
-            justify={'space-between'}
-            direction={{ base: 'column', lg: 'row' }}
-            align={{ base: 'flex-start', lg: 'center' }}
-            gap='30px'>
-            <Box width='508px' maxW={'100%'}>
+            mb="160px"
+            justify={"space-between"}
+            direction={{ base: "column", lg: "row" }}
+            align={{ base: "flex-start", lg: "center" }}
+            gap="30px"
+          >
+            <Box width="508px" maxW={"100%"}>
               <Heading {...heading}>
                 Welcome to Faculty of Communication and Information Sciences,
                 Unilorin.
               </Heading>
-              <Button
-                rightIcon={<ArrowForwardIcon />}
-                variant='outlineWhite'
-                onClick={() => {
-                  router.push('/about');
-                }}>
+              <Button rightIcon={<ArrowForwardIcon />} variant="outlineWhite">
                 Take a Tour
               </Button>
             </Box>
 
-            <List display={'flex'} flexDir={{ lg: 'column' }} gap='40px'>
+            <List display={"flex"} flexDir={{ lg: "column" }} gap="40px">
               {links.map((link, i) => (
                 <ListItem key={i} {...listStyle}>
                   <NextLink href={link.href} passHref>
-                    <Icon as={link.icon} color='#FFF2EC' fontSize={'24px'} />
+                    <Icon as={link.icon} color="#FFF2EC" fontSize={"24px"} />
                   </NextLink>
                 </ListItem>
               ))}
