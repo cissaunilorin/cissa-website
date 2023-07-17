@@ -1,4 +1,4 @@
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
