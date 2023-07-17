@@ -136,7 +136,7 @@ const Events: NextPage<
   return (
     <>
       <Head>
-        <title>events - CIS</title>
+        <title>Events - CISSA</title>
       </Head>
 
       <AppModal

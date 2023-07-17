@@ -131,37 +131,35 @@ const Faculty: NextPage<
   return (
     <>
       <Head>
-        <title>faculty - CIS</title>
+        <title>Departments - CISSA</title>
       </Head>
 
       <AppModal
         isOpen={isOpen}
         onClose={onClose}
-        heading="Add New Department"
+        heading='Add New Department'
         isSubmitting={isLoading}
         onClick={onSubmit}
-        w="800px"
-      >
+        w='800px'>
         <FormControl
           isRequired
           isInvalid={!!errors.shortName?.message}
-          mb={'25px'}
-        >
-          <FormLabel htmlFor="shortname">Short Name</FormLabel>
+          mb={'25px'}>
+          <FormLabel htmlFor='shortname'>Short Name</FormLabel>
           <Input
-            id="shortname"
+            id='shortname'
             type={'text'}
-            placeholder="short name"
+            placeholder='short name'
             {...register('shortName')}
           />
           <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.name?.message} mb={'25px'}>
-          <FormLabel htmlFor="name">name</FormLabel>
+          <FormLabel htmlFor='name'>name</FormLabel>
           <Input
-            id="name"
+            id='name'
             type={'text'}
-            placeholder="name"
+            placeholder='name'
             {...register('name')}
           />
           <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
@@ -169,38 +167,37 @@ const Faculty: NextPage<
         <FormControl
           isRequired
           isInvalid={!!errors.matric?.message}
-          mb={'25px'}
-        >
-          <FormLabel htmlFor="matric">Maric</FormLabel>
+          mb={'25px'}>
+          <FormLabel htmlFor='matric'>Maric</FormLabel>
           <Input
-            id="matric"
+            id='matric'
             type={'text'}
-            placeholder="matric"
+            placeholder='matric'
             {...register('matric')}
           />
           <FormErrorMessage>{errors.matric?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors.HOD?.message} mb={'25px'}>
-          <FormLabel htmlFor="subDean">Head of department</FormLabel>
+          <FormLabel htmlFor='subDean'>Head of department</FormLabel>
           <Input
-            id="subDean"
+            id='subDean'
             type={'text'}
-            placeholder="Head of department"
+            placeholder='Head of department'
             {...register('HOD')}
           />
           <FormErrorMessage>{errors.HOD?.message}</FormErrorMessage>
         </FormControl>
 
         <FormControl isRequired isInvalid={!!errors.about?.message}>
-          <FormLabel htmlFor="about">About</FormLabel>
+          <FormLabel htmlFor='about'>About</FormLabel>
 
           <Editor
             editorRef={quill}
             modules={modules}
-            theme="snow"
+            theme='snow'
             value={value}
-            placeholder="Enter your post content here"
-            onChange={val => {
+            placeholder='Enter your post content here'
+            onChange={(val) => {
               setEdValue(val);
               setValue('about', val);
             }}
@@ -209,10 +206,10 @@ const Faculty: NextPage<
         </FormControl>
       </AppModal>
 
-      <Box py="50px">
-        <Box width={'1200px'} maxW={'100%'} m="0 auto">
+      <Box py='50px'>
+        <Box width={'1200px'} maxW={'100%'} m='0 auto'>
           <TableContainer>
-            <Table variant="striped" colorScheme="brown">
+            <Table variant='striped' colorScheme='brown'>
               <TableCaption>Departments</TableCaption>
               <Thead>
                 <Tr>
@@ -222,8 +219,8 @@ const Faculty: NextPage<
                   <Th>Sub Dean</Th>
                   <Th>
                     <IconButton
-                      aria-label="add new"
-                      variant="outline"
+                      aria-label='add new'
+                      variant='outline'
                       icon={<AddIcon />}
                       onClick={() => {
                         Object.entries(defaultValues).forEach(([key, val]) =>
@@ -238,7 +235,7 @@ const Faculty: NextPage<
                 </Tr>
               </Thead>
               <Tbody>
-                {departments.map(dep => (
+                {departments.map((dep) => (
                   <Tr key={dep.id}>
                     <Td>{dep.shortName}</Td>
                     <Td>{dep.name}</Td>
@@ -246,9 +243,9 @@ const Faculty: NextPage<
                     <Td>{dep.HOD}</Td>
                     <Td>
                       <IconButton
-                        aria-label="add new"
-                        variant="outline"
-                        mr="10px"
+                        aria-label='add new'
+                        variant='outline'
+                        mr='10px'
                         icon={<EditIcon />}
                         onClick={() => {
                           setDepId(dep.id);
@@ -261,8 +258,8 @@ const Faculty: NextPage<
                         }}
                       />
                       <IconButton
-                        aria-label="delete"
-                        variant="outline"
+                        aria-label='delete'
+                        variant='outline'
                         icon={<DeleteIcon />}
                         onClick={() => {
                           const confirm = window.confirm(

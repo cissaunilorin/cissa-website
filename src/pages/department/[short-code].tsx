@@ -10,11 +10,16 @@ import Courses from '../../components/DepartmentDetails/Courses/Courses';
 import HOD from '../../components/DepartmentDetails/HOD/HOD';
 import { ParsedUrlQuery } from 'querystring';
 import { prisma } from '../../server/lib/prisma';
+import Head from 'next/head';
 
 const DDP: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   department,
 }) => (
   <>
+    <Head>
+      <title>{department?.name} - CISSA</title>
+    </Head>
+
     <Overview />
     <HOD />
     <About text={department?.about || ''} />
