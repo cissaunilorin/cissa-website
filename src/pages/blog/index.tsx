@@ -230,8 +230,8 @@ export const getServerSideProps = async (
 
   const tagRes = await prisma.tag.findMany();
 
-  const blogs: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
-  const tags: Readonly<typeof tagRes> = JSON.parse(JSON.stringify(tagRes));
+  const blogs: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
+  const tags: typeof tagRes = JSON.parse(JSON.stringify(tagRes));
 
   return {
     props: {

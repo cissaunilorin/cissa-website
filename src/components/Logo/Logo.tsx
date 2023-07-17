@@ -21,7 +21,7 @@ const Logo: FC<{ white?: boolean }> = ({ white }) => {
           fontSize={'20px'}
           fontWeight={700}
           color={white ? 'white' : 'brown.deep'}>
-          CIS
+          CISSA
         </Text>
       </Link>
     </NextLink>

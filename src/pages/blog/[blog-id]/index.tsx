@@ -143,7 +143,7 @@ export const getServerSideProps = async (
       },
       where: { id },
     });
-    const blog: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
+    const blog: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
     return {
       props: {
         blog,
@@ -161,7 +161,7 @@ export const getServerSideProps = async (
     },
     where: { slug: id, published: true, draft: false },
   });
-  const blog: Readonly<typeof blogRes> = JSON.parse(JSON.stringify(blogRes));
+  const blog: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
 
   return {
     props: {

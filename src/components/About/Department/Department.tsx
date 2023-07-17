@@ -14,10 +14,9 @@ import {
   departmentBoxSummary,
   iconDepartmentBoxProps,
 } from './style';
+import { Department } from '@prisma/client';
 
-const Department: FC = () => {
-  const { data, isLoading } = trpc.department.getAllDepartments.useQuery();
-
+const Department: FC<{ data: Department[] }> = ({ data }) => {
   return (
     <Box {...aboutSectionHistory}>
       <Box {...mainBoxStyle}>
@@ -32,36 +31,29 @@ const Department: FC = () => {
         </Box>
 
         <Flex wrap={'wrap'} justify='center' gap='40px'>
-          {!!data
-            ? data.map((department) => (
-                <Box {...departmentBoxProps} key={department.id}>
-                  <Flex {...iconDepartmentBoxProps}>
-                    <ChakraNextImage
-                      src='/assets/Workbag.png'
-                      h={'30px'}
-                      w={'30px'}
-                    />
-                  </Flex>
-                  <Heading {...departmentBoxHeading}>{department.name}</Heading>
-                  {/* <Text {...departmentBoxSummary}>{department.summary}</Text> */}
+          {!!data &&
+            data.map((department) => (
+              <Box {...departmentBoxProps} key={department.id}>
+                <Flex {...iconDepartmentBoxProps}>
+                  <ChakraNextImage
+                    src='/assets/Workbag.png'
+                    h={'30px'}
+                    w={'30px'}
+                  />
+                </Flex>
+                <Heading {...departmentBoxHeading}>{department.name}</Heading>
+                {/* <Text {...departmentBoxSummary}>{department.summary}</Text> */}
 
-                  <Link
-                    href={`/department/${department.shortName.toLowerCase()}`}
-                    passHref>
-                    <Text>
-                      Learn More
-                      <ArrowForwardIcon />
-                    </Text>
-                  </Link>
-                </Box>
-              ))
-            : [1, 2, 3].map((cur) => (
-                <Box key={cur} {...departmentBoxProps}>
-                  <Skeleton {...iconDepartmentBoxProps} />
-                  <Skeleton h='50px' mb='20px' />
-                  <Skeleton h='30px' />
-                </Box>
-              ))}
+                <Link
+                  href={`/department/${department.shortName.toLowerCase()}`}
+                  passHref>
+                  <Text>
+                    Learn More
+                    <ArrowForwardIcon />
+                  </Text>
+                </Link>
+              </Box>
+            ))}
         </Flex>
       </Box>
     </Box>
