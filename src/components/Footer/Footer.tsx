@@ -118,6 +118,12 @@ const Footer: FC = () => {
           fontSize='16px'
           lineHeight='100%'
           color='white'>
+          developed by{' '}
+          <NextLink href={'https://pherwerz.dev'} target='_blank'>
+            <a style={{ textDecorationLine: 'underline' }}>Adebayo Fawaz</a>
+          </NextLink>
+          <br />
+          <br />
           {new Date().getFullYear()}. All rights reserved.
         </Text>
       </Box>
