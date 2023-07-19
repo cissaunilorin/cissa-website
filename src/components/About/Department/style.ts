@@ -2,7 +2,7 @@ import { BoxProps, HeadingProps, TextProps } from '@chakra-ui/react';
 
 export const aboutDepartmentProps: BoxProps = {
   textAlign: 'center',
-  mb: '110px',
+  mb: '50px',
 };
 export const departmentBoxProps: BoxProps = {
   padding: { base: '12px', md: '30px' },
