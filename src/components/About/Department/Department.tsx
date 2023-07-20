@@ -14,7 +14,7 @@ import {
   departmentBoxSummary,
   iconDepartmentBoxProps,
 } from './style';
-import { Department } from '@prisma/client';
+import { Department } from '../../../../prisma/generated/prisma-client-js';
 
 const Department: FC<{ data: Department[] }> = ({ data }) => {
   return (

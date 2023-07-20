@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { Executive, User } from '@prisma/client';
+
 import CardSection from '../CardSection/CardSection';
+import { Executive, User } from '../../../../prisma/generated/prisma-client-js';
 
 const CISSA: FC<{
   cissa: (Executive & {

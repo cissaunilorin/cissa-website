@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Executive, User } from '@prisma/client';
+import { Executive, User } from '../../../../prisma/generated/prisma-client-js';
 import CardSection from '../CardSection/CardSection';
 
 const SRC: FC<{

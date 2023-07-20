@@ -1,4 +1,3 @@
-import { Event } from '@prisma/client';
 import * as z from 'zod';
 
 export type IEventForm = {

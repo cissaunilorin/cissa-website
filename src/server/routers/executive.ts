@@ -1,7 +1,7 @@
-import { ExcoType, Role } from '@prisma/client';
 import { z } from 'zod';
 import { hashPassword } from '../../utils/authHandler';
 import { router, publicProcedure, adminProcedure } from '../trpc';
+import { ExcoType, Role } from '../../../prisma/generated/prisma-client-js';
 
 export const excoRouter = router({
   getExcos: publicProcedure

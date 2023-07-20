@@ -19,7 +19,6 @@ import Recourses from '../components/Home/Recourses/Recourses';
 import { ParsedUrlQuery } from 'querystring';
 // import { trpc } from '../utils/trpc';
 import { prisma } from '../server/lib/prisma';
-import { Event } from '@prisma/client';
 
 const Home: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -49,7 +48,7 @@ export const getServerSideProps = async (
 ) => {
   const eventsRes = await prisma.event.findMany();
 
-  const events: Event[] = JSON.parse(JSON.stringify(eventsRes));
+  const events: typeof eventsRes = JSON.parse(JSON.stringify(eventsRes));
 
   return {
     props: {

@@ -13,7 +13,6 @@ import { getServerAuthSession } from '../server/common/get-server-auth-session';
 import { Session } from 'next-auth';
 import AuthorDetails from '../components/Author/Author-Details/Author-Details';
 import AuthorBlog from '../components/Author/Author-Blog/Author-Blog';
-import { Blog } from '@prisma/client';
 
 const Author: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -43,7 +42,7 @@ export const getServerSideProps = async (
     where: { authorId: session?.user.id },
   });
 
-  const blogs: Blog[] = JSON.parse(JSON.stringify(blogRes));
+  const blogs: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
   const user: Session['user'] = JSON.parse(JSON.stringify(session?.user));
 
   return {

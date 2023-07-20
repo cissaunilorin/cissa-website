@@ -10,13 +10,13 @@ import {
   Tabs,
   Text,
 } from '@chakra-ui/react';
-import { Blog } from '@prisma/client';
 import { FC } from 'react';
 import ChakraNextImage from '../../chakra-nextimage';
 import moment from 'moment';
 import { EditIcon } from '@chakra-ui/icons';
-import { router } from '../../../server/trpc';
+// import { router } from '../../../server/trpc';
 import { useRouter } from 'next/router';
+import { Blog } from '../../../../prisma/generated/prisma-client-js';
 
 const AuthorBlog: FC<{ blogs: Blog[] }> = ({ blogs }) => {
   const router = useRouter();

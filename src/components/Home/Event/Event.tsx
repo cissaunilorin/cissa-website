@@ -3,7 +3,7 @@ import { Box, Heading, Text, Flex, Button, Grid } from '@chakra-ui/react';
 import { mainBoxStyle, heading2Style } from '../../../styles/common';
 import { featureText } from './styles';
 import Card from './Card';
-import { Event } from '@prisma/client';
+import { Event } from '../../../../prisma/generated/prisma-client-js';
 
 const Event: FC<{ events: Event[] }> = ({ events }) => {
   const [margin, setMargin] = useState('');

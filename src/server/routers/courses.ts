@@ -1,7 +1,7 @@
-import { CourseStatus } from '@prisma/client';
 import { z } from 'zod';
 
 import { router, publicProcedure, adminProcedure } from '../trpc';
+import { CourseStatus } from '../../../prisma/generated/prisma-client-js';
 
 export const coursesRouter = router({
   getAllCourses: publicProcedure.query(async ({ ctx }) => {

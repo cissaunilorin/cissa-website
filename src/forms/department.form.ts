@@ -1,5 +1,5 @@
-import { Department } from '@prisma/client';
 import * as z from 'zod';
+import { Department } from '../../prisma/generated/prisma-client-js';
 
 export type IDepartmentForm = Omit<Department, 'id'>;
 

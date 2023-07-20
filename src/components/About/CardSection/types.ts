@@ -1,4 +1,4 @@
-import { Executive, User } from '@prisma/client';
+import { Executive, User } from '../../../../prisma/generated/prisma-client-js';
 
 export interface ICardSection {
   heading: string;

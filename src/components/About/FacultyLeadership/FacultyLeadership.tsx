@@ -1,7 +1,7 @@
-import { ExcoType, Executive, User } from '@prisma/client';
 import { FC } from 'react';
 import { trpc } from '../../../utils/trpc';
 import CardSection from '../CardSection/CardSection';
+import { Executive, User } from '../../../../prisma/generated/prisma-client-js';
 
 const FacultyLeadership: FC<{
   staff: (Executive & {

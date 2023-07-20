@@ -18,7 +18,6 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Department } from '@prisma/client';
 import {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,

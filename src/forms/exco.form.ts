@@ -1,5 +1,5 @@
-import { ExcoType } from '@prisma/client';
 import * as z from 'zod';
+import { ExcoType } from '../../prisma/generated/prisma-client-js';
 
 export type IExcoForm = {
   name: string;
