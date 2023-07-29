@@ -23,19 +23,19 @@ const Overview = () => {
       <Box {...aboutSectionHistory}>
         <Box {...mainBoxStyle}>
           <Box position={'relative'} w={{ base: '100%' }}>
-            <Heading {...aboutPrimaryHeading}>Our History</Heading>
+            <Heading {...aboutPrimaryHeading}>About Us</Heading>
             <Text {...aboutHistoryText}>
-              Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam
-              suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum
-              quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris
-              posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At
-              feugiat sapien varius id.Eget quis mi enim, leo lacinia pharetra,
-              semper. Eget in volutpat mollis at volutpat lectus velit, sed
-              auctor. Porttitor fames arcu quis fusce augue enim. Quis at
-              habitant diam at. Suscipit tristique risus, at donec. In turpis
-              vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac
-              volutpat. enim. Quis at habitant diam at. Suscipit tristique
-              risus, at donec. In turpis vel et q.
+              The Faculty of Communication and Information Sciences is a
+              distinguished faculty in the University of Ilorin, established in
+              the year 2008. It offers comprehensive programmes in various
+              communication disciplines including: Library and Information
+              sciences, Mass communication, Computer Science, Information
+              Technology, and Telecommunication science. The faculty houses some
+              of the best and students who collaboratively share knowledge and
+              skills to advance the information gathering and sharing process in
+              society. It is committed to actively producing well-seasoned and
+              up-to-date graduates who will contribute to creating a faster,
+              efficient, seamless, and more advanced communication process.
             </Text>
           </Box>
         </Box>

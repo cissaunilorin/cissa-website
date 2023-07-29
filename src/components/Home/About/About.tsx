@@ -14,12 +14,12 @@ import { useRouter } from 'next/router';
 
 const about = [
   {
-    heading: '800 Lecturers',
-    text: 'Course materials, past questions, qui quiquiquiquiv',
+    heading: '5 departments',
+    text: 'The faculty has 5 deparments.',
   },
   {
     heading: 'Conducive Lecture rooms',
-    text: 'Course materials, past questions, qui quiquiquiquiv',
+    text: 'Course materials, past questions and learning facilities',
   },
 ];
 
@@ -68,7 +68,7 @@ const About: FC = () => {
           <Heading {...heading2Style}>About Us</Heading>
           <Text {...aboutText}>
             The faculty of communication and information sciences was
-            established in the year 2002,It as 5 deartments with
+            established in the year 2008,It as 5 deartments with
           </Text>
 
           {about.map((cur, i) => (
