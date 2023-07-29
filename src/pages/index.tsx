@@ -33,8 +33,8 @@ const Home: NextPage<
       <Facts />
       <About />
       <Recourses />
-      <ContactDetails />
-      <Blog />
+      {/* <ContactDetails /> */}
+      {/* <Blog /> */}
       {events.length > 0 && <Events events={events} />}
       {/* <Alumni /> */}
       {/* <Gallery /> */}

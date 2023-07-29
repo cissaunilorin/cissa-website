@@ -10,23 +10,23 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { FC } from 'react';
-import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
+import { FaInstagram, FaEnvelope, FaTwitter } from 'react-icons/fa';
 import { mainBoxStyle } from '../../../styles/common';
 import { heading, listStyle } from './styles';
 import { useRouter } from 'next/router';
 
 const links = [
   {
-    icon: FaLinkedinIn,
-    href: '#',
-  },
-  {
-    icon: FaFacebookF,
-    href: '#',
-  },
-  {
     icon: FaTwitter,
-    href: '#',
+    href: 'https://twitter.com/cissa_unilorin',
+  },
+  {
+    icon: FaInstagram,
+    href: 'https://www.instagram.com/cissa_unilorin/',
+  },
+  {
+    icon: FaEnvelope,
+    href: 'mailto:cissa@students.unilorin.edu.ng',
   },
 ];
 
