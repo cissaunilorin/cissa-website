@@ -32,8 +32,6 @@ const Login: FC = () => {
   const toast = useToast();
 
   const onSubmit: SubmitHandler<ILoginForm> = (data) => {
-    console.log(data);
-
     signIn('credentials', {
       redirect: false,
       email: data.email.toLowerCase(),
