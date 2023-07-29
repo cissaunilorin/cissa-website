@@ -14,7 +14,7 @@ const facts = [
   {
     img: 'fact-clock.png',
     heading: 'Students',
-    text: 'Since inception about 2,500+ students have graduated',
+    text: 'The faculty’s regular clean up exercises earns it the title of one of the cleanest in UNILORIN',
   },
   {
     img: 'fact-grad.png',
@@ -24,24 +24,23 @@ const facts = [
   {
     img: 'fact-dep.png',
     heading: 'Departments',
-    text: 'An interactive map, so you never miss your way in the faculty',
+    text: 'The faculty hosts five of the most technologically driven disciplines in society and all departments in the faculty are communication, information, and media centric',
   },
   {
     img: 'fact-event.png',
     heading: 'Events',
-    text: 'Keep your mind active with entertaining and educating content',
+    text: 'Laykon led administration of 2021/22 academic session produced the first CISSA magazine, CISSA mock exam, facilitator of CISSA Library, CISSA file jacket and creation of this website',
   },
 ];
 
 const Facts: FC = () => {
   return (
     <Box
-      as="section"
+      as='section'
       mt={{ base: '100px', md: '198px' }}
-      mb={{ base: '54px', md: '104px' }}
-    >
+      mb={{ base: '54px', md: '104px' }}>
       <Box {...mainBoxStyle}>
-        <Heading as={'h2'} {...heading2Style} textAlign="center" mb={'8px'}>
+        <Heading as={'h2'} {...heading2Style} textAlign='center' mb={'8px'}>
           Amazing Facts
         </Heading>
         <Text {...featureText}>
@@ -51,7 +50,7 @@ const Facts: FC = () => {
 
       <Box {...factsInnerBox}>
         <Box {...mainBoxStyle}>
-          <Flex justify={'center'} gap="32px" wrap={'wrap'}>
+          <Flex justify={'center'} gap='32px' wrap={'wrap'}>
             {facts.map((fact, i) => (
               <Box {...factsBox} key={i}>
                 <ChakraNextImage
