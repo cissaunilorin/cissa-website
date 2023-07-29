@@ -52,21 +52,21 @@ const pageLinks = [
 ];
 
 const social = [
-  {
-    name: FaFacebook,
-    href: '#',
-  },
+  // {
+  //   name: FaFacebook,
+  //   href: '#',
+  // },
   {
     name: FaTwitter,
-    href: '#',
+    href: 'https://twitter.com/cissa_unilorin',
   },
   {
     name: FaInstagram,
-    href: '#',
+    href: 'https://www.instagram.com/cissa_unilorin/',
   },
   {
     name: FaEnvelope,
-    href: '#',
+    href: 'mailto:cissa@students.unilorin.edu.ng',
   },
 ];
 

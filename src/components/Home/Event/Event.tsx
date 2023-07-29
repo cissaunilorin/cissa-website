@@ -22,7 +22,9 @@ const Event: FC<{ events: Event[] }> = ({ events }) => {
           Latest Events
         </Heading>
         <Text {...featureText}>
-          Here are some amazing things said by our past students
+          The faculty of Communication and Information science showcases
+          it&apos;s academic, empowerment and entertaining strength in the
+          annual events that focuses on the growth of the students.
         </Text>
       </Box>
 
