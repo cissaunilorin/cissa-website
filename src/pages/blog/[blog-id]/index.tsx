@@ -45,7 +45,6 @@ import {
   PreviewData,
 } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { prisma } from '../../../server/lib/prisma';
 import moment from 'moment';
 import Head from 'next/head';
 

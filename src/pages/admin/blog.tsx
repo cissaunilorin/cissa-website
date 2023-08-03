@@ -26,7 +26,6 @@ import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
 import AppModal from '../../components/AppModal/AppModal';
-import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import ChakraNextImage from '../../components/chakra-nextimage';
 import moment from 'moment';

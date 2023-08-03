@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import { hashPassword } from '../../utils/authHandler';
 import { router, publicProcedure, adminProcedure } from '../trpc';
-import { ExcoType, Role } from '../../types/types';
+import { ExcoType, Executive, Role, User } from '../../types/types';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../../utils/axiosConfig';
 
 export const excoRouter = router({
   getExcos: publicProcedure
@@ -11,18 +13,16 @@ export const excoRouter = router({
       })
     )
     .query(async ({ input, ctx }) => {
-      const exco = await ctx.prisma.executive.findMany({
-        include: { user: true },
-        where: { type: input.type },
-        orderBy: [{ order: 'asc' }],
-      });
+      const res: AxiosResponse<{ exco: Executive[] }, any> =
+        await axiosInstance.get(`/api/user/executive/${input.type}`);
+      const exco = res.data.exco;
 
       return exco;
     }),
   getAllExco: publicProcedure.query(async ({ ctx }) => {
-    const exco = await ctx.prisma.executive.findMany({
-      include: { user: true },
-    });
+    const res: AxiosResponse<{ exco: Executive[] }, any> =
+      await axiosInstance.get(`/api/user/executive`);
+    const exco = res.data.exco;
 
     return exco;
   }),
@@ -41,22 +41,24 @@ export const excoRouter = router({
     .mutation(async ({ input, ctx }) => {
       const password = await hashPassword('admin1234$');
 
-      const exco = await ctx.prisma.user.create({
-        data: {
-          name: input.name,
-          email: input.email,
-          password,
-          executive: {
-            create: {
-              imageUrl: input.imageUrl,
-              position: input.position,
-              type: input.type,
-              description: input.description,
-              order: +input.order,
-            },
+      const res: AxiosResponse<{ exco: User }, any> = await axiosInstance.post(
+        `/api/user/executive`,
+        {
+          user: {
+            name: input.name,
+            email: input.email,
+            password,
           },
-        },
-      });
+          exco: {
+            imageUrl: input.imageUrl,
+            position: input.position,
+            type: input.type,
+            description: input.description,
+            order: +input.order,
+          },
+        }
+      );
+      const exco = res.data.exco;
 
       return exco;
     }),
@@ -70,14 +72,12 @@ export const excoRouter = router({
     .mutation(async ({ input, ctx }) => {
       const password = await hashPassword('editor1234$');
 
-      const editor = await ctx.prisma.user.create({
-        data: {
-          name: input.name,
-          email: input.email,
-          password,
-          role: Role.EDITOR,
-        },
-      });
+      const res: AxiosResponse<{ user: User }, any> = await axiosInstance.post(
+        `/api/user/`,
+        { name: input.name, email: input.email, password, role: Role.EDITOR }
+      );
+
+      const editor = res.data.user;
 
       return editor;
     }),
@@ -95,24 +95,18 @@ export const excoRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const exco = await ctx.prisma.executive.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          position: input.position,
-          description: input.description,
-          type: input.type,
-          order: +input.order,
-          imageUrl: input.imageUrl,
-          user: {
-            update: {
-              name: input.name,
-              email: input.email,
-            },
+      const res: AxiosResponse<{ exco: Executive }, any> =
+        await axiosInstance.patch(`/api/user/executive/${input.id}`, {
+          user: { name: input.name, email: input.email },
+          exco: {
+            position: input.position,
+            description: input.description,
+            type: input.type,
+            order: +input.order,
+            imageUrl: input.imageUrl,
           },
-        },
-      });
+        });
+      const exco = res.data.exco;
 
       return exco;
     }),
@@ -123,13 +117,8 @@ export const excoRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      await ctx.prisma.user.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          isActive: false,
-        },
+      await axiosInstance.patch(`/api/user/${input.id}`, {
+        isActive: false,
       });
 
       return `done`;
@@ -142,15 +131,14 @@ export const excoRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const editor = await ctx.prisma.user.update({
-        where: {
-          id: input.id,
-        },
-        data: {
+      const res: AxiosResponse<{ user: User }, any> = await axiosInstance.patch(
+        `/api/user/${input.id}`,
+        {
           isActive: input.isActive,
-        },
-      });
+        }
+      );
+      const user = res.data.user;
 
-      return editor.isActive;
+      return user.isActive;
     }),
 });

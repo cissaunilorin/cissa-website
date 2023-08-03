@@ -28,7 +28,6 @@ import ChakraNextImage from '../../components/chakra-nextimage';
 import axios from 'axios';
 import { trpc } from '../../utils/trpc';
 import { useRouter } from 'next/router';
-import { prisma } from '../../server/lib/prisma';
 import BlogTag from '../../components/BlogTag/BlogTag';
 import { blogButton } from '../../styles/blog';
 import { Tag } from '../../types/types';

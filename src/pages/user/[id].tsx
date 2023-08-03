@@ -11,7 +11,6 @@ import { RiFacebookFill, RiLinkedinFill } from 'react-icons/ri';
 import { leaderLink } from '../../styles/pages/about';
 import ChakraNextImage from '../../components/chakra-nextimage';
 import { ParsedUrlQuery } from 'querystring';
-import { prisma } from '../../server/lib/prisma';
 import Head from 'next/head';
 
 const excosMembers: NextPage<

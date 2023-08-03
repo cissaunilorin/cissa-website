@@ -39,7 +39,6 @@ import { useMemo, useRef, useState } from 'react';
 import { set, useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
 import { excoSchema, IExcoForm } from '../../forms/exco.form';
-import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import dynamic from 'next/dynamic';
 import ReactQuill from 'react-quill';

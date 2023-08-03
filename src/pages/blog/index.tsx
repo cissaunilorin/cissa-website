@@ -34,7 +34,6 @@ import {
   PreviewData,
 } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { prisma } from '../../server/lib/prisma';
 import { useRouter } from 'next/router';
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import Head from 'next/head';

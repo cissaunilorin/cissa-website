@@ -38,7 +38,6 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
 import { EventSchema, IEventForm } from '../../forms/event.form';
-import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import ChakraNextImage from '../../components/chakra-nextimage';
 import axios from 'axios';
@@ -329,9 +328,7 @@ export const getServerSideProps = async (
 ) => {
   const eventsRes = await prisma.event.findMany();
 
-  const events: typeof eventsRes = JSON.parse(
-    JSON.stringify(eventsRes)
-  );
+  const events: typeof eventsRes = JSON.parse(JSON.stringify(eventsRes));
 
   return {
     props: {

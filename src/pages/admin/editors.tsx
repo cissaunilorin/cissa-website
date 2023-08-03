@@ -32,7 +32,6 @@ import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
-import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import { IEditorForm, editorSchema } from '../../forms/editor.form';
 import { Role } from '../../types/types';
