@@ -18,7 +18,6 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Department } from '@prisma/client';
 import {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -32,7 +31,6 @@ import { useMemo, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
 import { departmentSchema, IDepartmentForm } from '../../forms/department.form';
-import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import ReactQuill from 'react-quill';
 import dynamic from 'next/dynamic';

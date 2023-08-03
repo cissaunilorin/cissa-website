@@ -26,7 +26,6 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ExcoType } from '@prisma/client';
 import {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -46,6 +45,7 @@ import dynamic from 'next/dynamic';
 import ReactQuill from 'react-quill';
 import ChakraNextImage from '../../components/chakra-nextimage';
 import axios from 'axios';
+import { ExcoType } from '../../types/types';
 
 const Editor = dynamic(() => import('../../components/Editor/Editor'), {
   ssr: false,

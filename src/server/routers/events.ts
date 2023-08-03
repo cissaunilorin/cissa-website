@@ -1,10 +1,17 @@
 import { z } from 'zod';
+import { Event } from '../../types/types';
 
 import { router, publicProcedure, adminProcedure } from '../trpc';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../../utils/axiosConfig';
 
 export const eventsRouter = router({
   getAllEvents: publicProcedure.query(async ({ ctx }) => {
-    const events = await ctx.prisma.event.findMany();
+    const res: AxiosResponse<{ event: Event[] }, any> = await axiosInstance.get(
+      `/api/event/`
+    );
+    const events = res.data.event;
+
     return events;
   }),
   createEvent: adminProcedure
@@ -19,16 +26,16 @@ export const eventsRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const event = await ctx.prisma.event.create({
-        data: {
+      const res: AxiosResponse<{ event: Event }, any> =
+        await axiosInstance.post(`/api/event/`, {
           date: new Date(input.date),
           venue: input.venue,
           imageUrl: input.imageUrl,
           link: input.link,
           price: input.price,
           title: input.title,
-        },
-      });
+        });
+      const event = res.data.event;
 
       return event;
     }),
@@ -45,19 +52,16 @@ export const eventsRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const event = await ctx.prisma.event.update({
-        where: {
-          id: input.id,
-        },
-        data: {
+      const res: AxiosResponse<{ event: Event }, any> =
+        await axiosInstance.patch(`/api/event/${input.id}`, {
           date: new Date(input.date),
           venue: input.venue,
           imageUrl: input.imageUrl,
           link: input.link,
           price: input.price,
           title: input.title,
-        },
-      });
+        });
+      const event = res.data.event;
 
       return event;
     }),
@@ -68,11 +72,7 @@ export const eventsRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      await ctx.prisma.event.delete({
-        where: {
-          id: input.id,
-        },
-      });
+      await axiosInstance.delete(`/api/event/${input.id}`);
 
       return `done`;
     }),

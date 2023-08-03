@@ -1,12 +1,8 @@
 import { FC } from 'react';
-import { Executive, User } from '@prisma/client';
 import CardSection from '../CardSection/CardSection';
+import { Executive } from '../../../types/types';
 
-const SRC: FC<{
-  src: (Executive & {
-    user: User;
-  })[];
-}> = ({ src }) => {
+const SRC: FC<{ src: Executive[] }> = ({ src }) => {
   return (
     <CardSection
       heading='Student Representative council'

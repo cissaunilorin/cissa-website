@@ -29,9 +29,9 @@ import axios from 'axios';
 import { trpc } from '../../utils/trpc';
 import { useRouter } from 'next/router';
 import { prisma } from '../../server/lib/prisma';
-import { Blog, Tag } from '@prisma/client';
 import BlogTag from '../../components/BlogTag/BlogTag';
 import { blogButton } from '../../styles/blog';
+import { Tag } from '../../types/types';
 
 const Editor = dynamic(() => import('../../components/Editor/Editor'), {
   ssr: false,

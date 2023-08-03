@@ -15,8 +15,8 @@ import {
   cardAttendInfo,
   cardAttendInfoAttendance,
 } from './styles';
-import { Event } from '@prisma/client';
 import moment from 'moment';
+import { Event } from '../../../types/types';
 
 const Card: FC = (props: Event) => {
   return (

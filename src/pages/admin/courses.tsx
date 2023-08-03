@@ -19,8 +19,6 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CourseStatus } from '@prisma/client';
-// import { Course } from '@prisma/client';
 import {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -34,8 +32,8 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
 import { courseSchema, ICourseForm } from '../../forms/course.form';
-import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
+import { CourseStatus } from '../../types/types';
 
 const defaultValues: ICourseForm = {
   code: '',

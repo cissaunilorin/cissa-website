@@ -8,15 +8,24 @@ import {
 } from '../trpc';
 import slugify from 'slugify';
 import uniqid from 'uniqid';
+import { AxiosResponse } from 'axios';
+import { Blog, Tag } from '../../types/types';
+import axiosInstance from '../../utils/axiosConfig';
 
 export const blogRouter = router({
   getAllblogs: publicProcedure.query(async ({ ctx }) => {
-    const blog = await ctx.prisma.blog.findMany();
+    const res: AxiosResponse<{ blog: Blog[] }, any> = await axiosInstance.get(
+      `/api/blog/`
+    );
+    const blog = res.data.blog;
 
     return blog;
   }),
   getAllTags: editorProcedure.query(async ({ ctx }) => {
-    const tag = await ctx.prisma.tag.findMany();
+    const res: AxiosResponse<{ tag: Tag[] }, any> = await axiosInstance.get(
+      `/api/tag/`
+    );
+    const tag = res.data.tag;
 
     return tag;
   }),
@@ -27,17 +36,18 @@ export const blogRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const tag = await ctx.prisma.tag.create({
-        data: {
-          title: input.title,
-        },
-      });
+      const res: AxiosResponse<{ tag: Tag }, any> = await axiosInstance.post(
+        `/api/tag/`,
+        { title: input.title }
+      );
+      const tag = res.data.tag;
 
       return tag;
     }),
   createBlogPost: editorProcedure.mutation(async ({ ctx }) => {
-    const blog = await ctx.prisma.blog.create({
-      data: {
+    const res: AxiosResponse<{ blog: Blog }, any> = await axiosInstance.post(
+      `/api/blog/`,
+      {
         imageUrl: '',
         heading: '',
         content: '',
@@ -45,8 +55,9 @@ export const blogRouter = router({
         draft: false,
         published: false,
         authorId: ctx.session.user.id,
-      },
-    });
+      }
+    );
+    const blog = res.data.blog;
 
     return blog;
   }),
@@ -62,19 +73,18 @@ export const blogRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const blog = await ctx.prisma.blog.update({
-        where: {
-          id: input.id,
-        },
-        data: {
+      const res: AxiosResponse<{ blog: Blog }, any> = await axiosInstance.patch(
+        `/api/blog/${input.id}`,
+        {
           imageUrl: input.imageUrl,
           heading: input.heading,
           content: input.content,
           draft: input.draft,
           published: false,
           slug: `${slugify(input.heading)}-${uniqid()}`,
-        },
-      });
+        }
+      );
+      const blog = res.data.blog;
 
       if (input.tags && input.tags.length > 0) {
         const blogTag = input.tags.map((cur) => ({
@@ -82,8 +92,8 @@ export const blogRouter = router({
           tagId: cur,
         }));
 
-        await ctx.prisma.blogTag.createMany({
-          data: blogTag,
+        await axiosInstance.post(`/api/blog/blog-tag`, {
+          tag: blogTag,
         });
       }
 
@@ -97,14 +107,13 @@ export const blogRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const blog = await ctx.prisma.blog.update({
-        where: {
-          id: input.id,
-        },
-        data: {
+      const res: AxiosResponse<{ blog: Blog }, any> = await axiosInstance.patch(
+        `/api/blog/${input.id}`,
+        {
           published: input.published,
-        },
-      });
+        }
+      );
+      const blog = res.data.blog;
 
       return blog;
     }),

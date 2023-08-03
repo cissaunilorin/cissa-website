@@ -1,11 +1,14 @@
-import { CourseStatus } from '@prisma/client';
 import { z } from 'zod';
-
 import { router, publicProcedure, adminProcedure } from '../trpc';
+import { Course, CourseStatus } from '../../types/types';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../../utils/axiosConfig';
 
 export const coursesRouter = router({
   getAllCourses: publicProcedure.query(async ({ ctx }) => {
-    const course = await ctx.prisma.course.findMany();
+    const res: AxiosResponse<{ course: Course[] }, any> =
+      await axiosInstance.get(`/api/course/`);
+    const course = res.data.course;
 
     return course;
   }),
@@ -20,15 +23,15 @@ export const coursesRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const course = await ctx.prisma.course.create({
-        data: {
+      const res: AxiosResponse<{ course: Course }, any> =
+        await axiosInstance.post(`/api/course/`, {
           code: input.code,
           title: input.title,
           credit: +input.credit,
           status: CourseStatus[input.status],
           departmentId: input.departmentId,
-        },
-      });
+        });
+      const course = res.data.course;
 
       return course;
     }),
@@ -43,17 +46,14 @@ export const coursesRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const course = await ctx.prisma.course.update({
-        where: {
-          code: input.code,
-        },
-        data: {
+      const res: AxiosResponse<{ course: Course }, any> =
+        await axiosInstance.patch(`/api/course/${input.code}`, {
           title: input.title,
           credit: +input.credit,
           status: CourseStatus[input.status],
           departmentId: input.departmentId,
-        },
-      });
+        });
+      const course = res.data.course;
 
       return course;
     }),
@@ -64,11 +64,7 @@ export const coursesRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      await ctx.prisma.course.delete({
-        where: {
-          code: input.code,
-        },
-      });
+      await axiosInstance.delete(`/api/course/${input.code}`);
 
       return `done`;
     }),

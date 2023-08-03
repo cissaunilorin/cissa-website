@@ -1,5 +1,4 @@
 import {
-  GetServerSideProps,
   GetServerSidePropsContext,
   NextPage,
   PreviewData,
@@ -13,8 +12,10 @@ import Card from '../components/Home/Event/Card';
 import { mainBoxStyle } from '../styles/common';
 
 import { ParsedUrlQuery } from 'querystring';
-import { prisma } from '../server/lib/prisma';
 import { useRouter } from 'next/router';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../utils/axiosConfig';
+import { Event } from '../types/types';
 
 const EventsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -49,9 +50,13 @@ const EventsPage: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const eventsRes = await prisma.event.findMany();
+  const res: AxiosResponse<{ event: Event[] }, any> = await axiosInstance.get(
+    `/api/event`
+  );
 
-  const events: typeof eventsRes = JSON.parse(JSON.stringify(eventsRes));
+  const events: typeof res.data.event = JSON.parse(
+    JSON.stringify(res.data.event)
+  );
 
   return {
     props: {

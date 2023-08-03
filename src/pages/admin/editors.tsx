@@ -20,7 +20,6 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Role } from '@prisma/client';
 import {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -36,6 +35,7 @@ import AppModal from '../../components/AppModal/AppModal';
 import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import { IEditorForm, editorSchema } from '../../forms/editor.form';
+import { Role } from '../../types/types';
 
 const Editor: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
