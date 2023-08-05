@@ -12,7 +12,6 @@ import {
   Input,
 } from '@chakra-ui/react';
 
-import { prisma } from '../../../server/lib/prisma';
 import { getServerAuthSession } from '../../../server/common/get-server-auth-session';
 import { trpc } from '../../../utils/trpc';
 import { useState } from 'react';

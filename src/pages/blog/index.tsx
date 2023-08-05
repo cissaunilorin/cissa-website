@@ -34,10 +34,12 @@ import {
   PreviewData,
 } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { prisma } from '../../server/lib/prisma';
 import { useRouter } from 'next/router';
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import Head from 'next/head';
+import axiosInstance from '../../utils/axiosConfig';
+import { Blog, Tag } from '../../types/types';
+import { AxiosResponse } from 'axios';
 
 const Blog: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -124,12 +126,12 @@ const Blog: NextPage<
 
               <Box pt={{ base: '50px', lg: 'unset' }} flex={2}>
                 <Heading {...blogSecondaryHeading}>
-                  {blogs[0].blogTag[0].tag.title}
+                  {blogs[0].blogTag ? blogs[0].blogTag[0].tag.title : ''}
                 </Heading>
                 <Text {...blogTrendingHeading}>{blogs[0].heading}</Text>
                 <Flex gap={'8px'} alignItems={'center'}>
-                  <Avatar h={'35px'} w={'35px'} name={blogs[0].author.name} />
-                  <Text {...blogSmText}>By {blogs[0].author.name}</Text>
+                  <Avatar h={'35px'} w={'35px'} name={blogs[0].author?.name} />
+                  <Text {...blogSmText}>By {blogs[0].author?.name}</Text>
                 </Flex>
               </Box>
             </Flex>
@@ -150,12 +152,16 @@ const Blog: NextPage<
                     mb={'24px'}
                   />
                   <Heading {...blogSecondaryHeading}>
-                    {blogPost.blogTag[0].tag.title}
+                    {blogPost.blogTag ? blogPost.blogTag[0].tag.title : ''}
                   </Heading>
                   <Text {...blogTrendingHeading}>{blogPost.heading}</Text>
                   <Flex gap={'8px'} alignItems={'center'}>
-                    <Avatar h={'35px'} w={'35px'} name={blogPost.author.name} />
-                    <Text {...blogSmText}>By {blogPost.author.name}</Text>
+                    <Avatar
+                      h={'35px'}
+                      w={'35px'}
+                      name={blogPost.author?.name}
+                    />
+                    <Text {...blogSmText}>By {blogPost.author?.name}</Text>
                   </Flex>
                 </Box>
               ))}
@@ -206,32 +212,19 @@ export const getServerSideProps = async (
   const page = ctx.query['page'] as string;
   const pg = page ? +page : 1;
 
-  const count = await prisma.blog.count({
-    where: {
-      published: true,
-      draft: false,
-      ...(tagId && { blogTag: { every: { tagId } } }),
-      ...(query && { heading: { contains: query } }),
-    },
-    orderBy: { createdAt: 'desc' },
-  });
-  const blogRes = await prisma.blog.findMany({
-    where: {
-      published: true,
-      draft: false,
-      ...(tagId && { blogTag: { every: { tagId } } }),
-      ...(query && { heading: { contains: query } }),
-    },
-    include: { author: true, blogTag: { include: { tag: true } } },
-    orderBy: { createdAt: 'desc' },
-    take: 20,
-    skip: 20 * (pg - 1),
-  });
-
-  const tagRes = await prisma.tag.findMany();
-
-  const blogs: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
-  const tags: typeof tagRes = JSON.parse(JSON.stringify(tagRes));
+  const [res, tagRes]: [
+    AxiosResponse<{ blogs: Blog[]; count: number }, any>,
+    AxiosResponse<{ tag: Tag[] }, any>
+  ] = await Promise.all([
+    axiosInstance.get(
+      `/api/blog/user?take=20&skip=${
+        20 * (pg - 1)
+      }&heading=${query}&tag=${tagId}`
+    ),
+    axiosInstance.get(`/api/tag/`),
+  ]);
+  const { count, blogs } = res.data;
+  const tags = tagRes.data.tag;
 
   return {
     props: {

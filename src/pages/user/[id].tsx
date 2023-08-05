@@ -11,8 +11,10 @@ import { RiFacebookFill, RiLinkedinFill } from 'react-icons/ri';
 import { leaderLink } from '../../styles/pages/about';
 import ChakraNextImage from '../../components/chakra-nextimage';
 import { ParsedUrlQuery } from 'querystring';
-import { prisma } from '../../server/lib/prisma';
 import Head from 'next/head';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../../utils/axiosConfig';
+import { Executive } from '../../types/types';
 
 const excosMembers: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -20,7 +22,7 @@ const excosMembers: NextPage<
   return (
     <>
       <Head>
-        <title>{user?.user.name} - CISSA</title>
+        <title>{user?.user?.name} - CISSA</title>
       </Head>
 
       <Box {...mainBoxStyle} my='150px'>
@@ -38,7 +40,7 @@ const excosMembers: NextPage<
             <Box>
               <Box>
                 <Heading {...heading2Style} fontSize='30px'>
-                  {user?.user.name}
+                  {user?.user?.name}
                 </Heading>
                 <Text color='#B4A097' fontSize='20px' fontWeight='600'>
                   {user?.position}
@@ -79,10 +81,10 @@ export const getServerSideProps = async (
 ) => {
   const id = ctx.query['id'] as string;
 
-  const user = await prisma.executive.findUnique({
-    include: { user: true },
-    where: { id },
-  });
+  const res: AxiosResponse<{ user: Executive }, any> = await axiosInstance.get(
+    `/api/user/executive/user/${id}`
+  );
+  const user = res.data.user;
 
   return {
     props: {

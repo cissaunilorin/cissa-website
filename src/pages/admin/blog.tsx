@@ -26,11 +26,13 @@ import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
 import AppModal from '../../components/AppModal/AppModal';
-import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import ChakraNextImage from '../../components/chakra-nextimage';
 import moment from 'moment';
 import { blogButton } from '../../styles/blog';
+import { Blog } from '../../types/types';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../../utils/axiosConfig';
 
 const Blog: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -91,7 +93,7 @@ const Blog: NextPage<
           ))}
         </Flex>
 
-        <Text>written by {blogData?.author.name}</Text>
+        <Text>written by {blogData?.author?.name}</Text>
         <Text>time {moment(blogData?.createdAt).format('MMM Do, YYYY')}</Text>
       </AppModal>
 
@@ -113,7 +115,7 @@ const Blog: NextPage<
                   <Tr key={each.id}>
                     <Td>{moment(each.createdAt).format('MMMM Do, Y')}</Td>
                     <Td>{each.heading}</Td>
-                    <Td>{each.author.name}</Td>
+                    <Td>{each.author?.name}</Td>
                     <Td>
                       <IconButton
                         aria-label='add new'
@@ -140,18 +142,10 @@ const Blog: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const blogRes = await prisma.blog.findMany({
-    include: {
-      author: true,
-      blogTag: {
-        include: {
-          tag: true,
-        },
-      },
-    },
-  });
-
-  const blogs: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
+  const res: AxiosResponse<{ blogs: Blog[] }, any> = await axiosInstance.get(
+    `/api/blog/admin`
+  );
+  const blogs = res.data.blogs;
 
   return {
     props: {

@@ -1,13 +1,9 @@
-import { ExcoType, Executive, User } from '@prisma/client';
 import { FC } from 'react';
 import { trpc } from '../../../utils/trpc';
 import CardSection from '../CardSection/CardSection';
+import { Executive } from '../../../types/types';
 
-const FacultyLeadership: FC<{
-  staff: (Executive & {
-    user: User;
-  })[];
-}> = ({ staff }) => {
+const FacultyLeadership: FC<{ staff: Executive[] }> = ({ staff }) => {
   return (
     <CardSection
       heading='Faculty Leadership'

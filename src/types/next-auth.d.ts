@@ -1,4 +1,4 @@
-import { User as PrismaUSer } from '@prisma/client';
+import { User as PrismaUSer } from './types';
 import NextAuth from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 
