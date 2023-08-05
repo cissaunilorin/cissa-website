@@ -28,7 +28,7 @@ export const coursesRouter = router({
           code: input.code,
           title: input.title,
           credit: +input.credit,
-          status: CourseStatus[input.status],
+          status: input.status,
           departmentId: input.departmentId,
         });
       const course = res.data.course;
@@ -50,7 +50,7 @@ export const coursesRouter = router({
         await axiosInstance.patch(`/api/course/${input.code}`, {
           title: input.title,
           credit: +input.credit,
-          status: CourseStatus[input.status],
+          status: input.status,
           departmentId: input.departmentId,
         });
       const course = res.data.course;

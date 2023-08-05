@@ -9,7 +9,7 @@ export const excoRouter = router({
   getExcos: publicProcedure
     .input(
       z.object({
-        type: z.nativeEnum(ExcoType),
+        type: z.string(),
       })
     )
     .query(async ({ input, ctx }) => {
@@ -35,7 +35,7 @@ export const excoRouter = router({
         position: z.string(),
         description: z.string(),
         order: z.string(),
-        type: z.nativeEnum(ExcoType),
+        type: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -74,7 +74,7 @@ export const excoRouter = router({
 
       const res: AxiosResponse<{ user: User }, any> = await axiosInstance.post(
         `/api/user/`,
-        { name: input.name, email: input.email, password, role: Role.EDITOR }
+        { name: input.name, email: input.email, password, role: 'EDITOR' }
       );
 
       const editor = res.data.user;
@@ -91,7 +91,7 @@ export const excoRouter = router({
         description: z.string(),
         order: z.string(),
         imageUrl: z.string(),
-        type: z.nativeEnum(ExcoType),
+        type: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {

@@ -34,6 +34,9 @@ import { departmentSchema, IDepartmentForm } from '../../forms/department.form';
 import { trpc } from '../../utils/trpc';
 import ReactQuill from 'react-quill';
 import dynamic from 'next/dynamic';
+import { AxiosResponse } from 'axios';
+import { Department } from '../../types/types';
+import axiosInstance from '../../utils/axiosConfig';
 
 const Editor = dynamic(() => import('../../components/Editor/Editor'), {
   ssr: false,
@@ -281,9 +284,9 @@ const Faculty: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const departments = await prisma.department.findMany();
-
-  // console.log(departments);
+  const res: AxiosResponse<{ department: Department[] }, any> =
+    await axiosInstance.get(`/api/department/`);
+  const departments = res.data.department;
 
   return {
     props: {

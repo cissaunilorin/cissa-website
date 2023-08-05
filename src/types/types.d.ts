@@ -1,23 +1,8 @@
-export const Role: {
-  USER: 'USER';
-  ADMIN: 'ADMIN';
-  EDITOR: 'EDITOR';
-};
-export type Role = (typeof Role)[keyof typeof Role];
+export type Role = 'USER' | 'ADMIN' | 'EDITOR';
 
-export const CourseStatus: {
-  C: 'C';
-  E: 'E';
-  R: 'R';
-};
-export type CourseStatus = (typeof CourseStatus)[keyof typeof CourseStatus];
+export type CourseStatus = 'C' | 'E' | 'R';
 
-export const ExcoType: {
-  CISSA: 'CISSA';
-  SRC: 'SRC';
-  STAFF: 'STAFF';
-};
-export type ExcoType = (typeof ExcoType)[keyof typeof ExcoType];
+export type ExcoType = 'CISSA' | 'SRC' | 'STAFF';
 
 export type Blog = {
   id: string;
@@ -31,6 +16,7 @@ export type Blog = {
   createdAt: Date;
   updatedAt: Date;
   author?: User;
+  blogTag?: BlogTag[];
 };
 
 export type Executive = {
@@ -76,6 +62,7 @@ export type BlogTag = {
   id: string;
   blogId: string;
   tagId: string;
+  tag: Tag;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -87,6 +74,7 @@ export type Department = {
   matric: string;
   HOD: string;
   about: string;
+  course?: Course[];
 };
 
 export type Course = {
@@ -95,4 +83,5 @@ export type Course = {
   credit: number;
   status: CourseStatus;
   departmentId: string;
+  department?: Department;
 };

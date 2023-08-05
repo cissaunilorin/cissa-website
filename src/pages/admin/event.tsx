@@ -40,8 +40,10 @@ import AppModal from '../../components/AppModal/AppModal';
 import { EventSchema, IEventForm } from '../../forms/event.form';
 import { trpc } from '../../utils/trpc';
 import ChakraNextImage from '../../components/chakra-nextimage';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import moment from 'moment';
+import axiosInstance from '../../utils/axiosConfig';
+import { Event } from '../../types/types';
 
 const defaultValues: IEventForm = {
   date: '',
@@ -326,9 +328,10 @@ const Events: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const eventsRes = await prisma.event.findMany();
-
-  const events: typeof eventsRes = JSON.parse(JSON.stringify(eventsRes));
+  const res: AxiosResponse<{ event: Event[] }, any> = await axiosInstance.get(
+    `/api/event/`
+  );
+  const events = res.data.event;
 
   return {
     props: {

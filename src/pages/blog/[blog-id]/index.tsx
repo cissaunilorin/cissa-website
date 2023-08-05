@@ -47,6 +47,9 @@ import {
 import { ParsedUrlQuery } from 'querystring';
 import moment from 'moment';
 import Head from 'next/head';
+import { AxiosResponse } from 'axios';
+import { Blog } from '../../../types/types';
+import axiosInstance from '../../../utils/axiosConfig';
 
 const BlogPost: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -63,9 +66,9 @@ const BlogPost: NextPage<
         </Text>
         <Flex {...headerOptions}>
           <Flex {...blogDetailsFlex}>
-            <Avatar name={blog?.author.name} {...blogAvatarProps} />
+            <Avatar name={blog?.author?.name} {...blogAvatarProps} />
             <Flex flexDir='column' marginInlineStart='4'>
-              <Text {...blogAuthorProps}>{blog?.author.name}</Text>
+              <Text {...blogAuthorProps}>{blog?.author?.name}</Text>
               <Text {...blogDateProps}>
                 {moment(blog?.createdAt).format('MMM Do, YYYY')}
               </Text>
@@ -88,7 +91,7 @@ const BlogPost: NextPage<
         />
 
         <Flex {...buttonFlex}>
-          {blog?.blogTag.map((tag) => (
+          {blog?.blogTag?.map((tag) => (
             <Button {...blogButton} key={tag.tag.id}>
               {tag.tag.title}
             </Button>
@@ -110,11 +113,11 @@ const BlogPost: NextPage<
           </Flex>
         </Flex>
         <Flex {...blogAuthorDetailsWrapper}>
-          <Avatar name={blog?.author.name} {...blogAvatarProps} />
+          <Avatar name={blog?.author?.name} {...blogAvatarProps} />
 
           <Flex {...bottomDetailsProps}>
             <Text {...blogDateProps}>WRITTEN BY</Text>
-            <Text {...blogAuthorProps}>{blog?.author.name}</Text>
+            <Text {...blogAuthorProps}>{blog?.author?.name}</Text>
           </Flex>
         </Flex>
       </Box>
@@ -131,36 +134,22 @@ export const getServerSideProps = async (
   console.log(ctx.req.headers.referer);
 
   if (preview === 'true' && ctx.req.headers.referer?.includes(`/write/${id}`)) {
-    const blogRes = await prisma.blog.findFirst({
-      include: {
-        author: true,
-        blogTag: {
-          include: {
-            tag: true,
-          },
-        },
-      },
-      where: { id },
-    });
-    const blog: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
+    const res: AxiosResponse<{ blog: Blog }, any> = await axiosInstance.get(
+      `/api/blog/${id}?preview=true`
+    );
+    const blog = res.data.blog;
+
     return {
       props: {
         blog,
       },
     };
   }
-  const blogRes = await prisma.blog.findFirst({
-    include: {
-      author: true,
-      blogTag: {
-        include: {
-          tag: true,
-        },
-      },
-    },
-    where: { slug: id, published: true, draft: false },
-  });
-  const blog: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
+
+  const res: AxiosResponse<{ blog: Blog }, any> = await axiosInstance.get(
+    `/api/blog/${id}`
+  );
+  const blog = res.data.blog;
 
   return {
     props: {

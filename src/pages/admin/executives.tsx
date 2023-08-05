@@ -43,8 +43,9 @@ import { trpc } from '../../utils/trpc';
 import dynamic from 'next/dynamic';
 import ReactQuill from 'react-quill';
 import ChakraNextImage from '../../components/chakra-nextimage';
-import axios from 'axios';
-import { ExcoType } from '../../types/types';
+import axios, { AxiosResponse } from 'axios';
+import { Executive } from '../../types/types';
+import axiosInstance from '../../utils/axiosConfig';
 
 const Editor = dynamic(() => import('../../components/Editor/Editor'), {
   ssr: false,
@@ -57,7 +58,7 @@ const defaultValues: IExcoForm = {
   email: '',
   position: '',
   order: '',
-  type: ExcoType.CISSA,
+  type: 'CISSA',
 };
 
 const Executive: NextPage<
@@ -279,7 +280,7 @@ const Executive: NextPage<
         <FormControl isRequired isInvalid={!!errors.type?.message} mb={'25px'}>
           <FormLabel htmlFor='Type'>Type</FormLabel>
           <Select placeholder='Type' {...register('type')}>
-            {Object.entries(ExcoType).map(([key, val]) => (
+            {['CISSA', 'SRC', 'STAFF'].map((val, key) => (
               <option key={key} value={val}>
                 {val}
               </option>
@@ -340,11 +341,11 @@ const Executive: NextPage<
               <Tbody>
                 {executives.map((exco) => (
                   <Tr key={exco.id}>
-                    <Td>{exco.user.name}</Td>
-                    <Td>{exco.user.email}</Td>
+                    <Td>{exco.user?.name}</Td>
+                    <Td>{exco.user?.email}</Td>
                     <Td>{exco.position}</Td>
                     <Td>{exco.type}</Td>
-                    <Td>{exco.user.role}</Td>
+                    <Td>{exco.user?.role}</Td>
                     <Td>{exco.order}</Td>
                     <Td>
                       <IconButton
@@ -354,8 +355,8 @@ const Executive: NextPage<
                         icon={<EditIcon />}
                         onClick={() => {
                           setExcoId(exco.id);
-                          setValue('name', exco.user.name);
-                          setValue('email', exco.user.email);
+                          setValue('name', exco.user?.name || '');
+                          setValue('email', exco.user?.email || '');
                           setValue('position', exco.position);
                           setValue('description', exco.description);
                           setEdValue(exco.description);
@@ -374,7 +375,7 @@ const Executive: NextPage<
                         icon={<DeleteIcon />}
                         onClick={() => {
                           const confirm = window.confirm(
-                            `you're about to deactivate ${exco.user.name}`
+                            `you're about to deactivate ${exco.user?.name}`
                           );
                           if (confirm) deleteExco.mutate({ id: exco.id });
                         }}
@@ -394,10 +395,9 @@ const Executive: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const executives = await prisma.executive.findMany({
-    include: { user: true },
-    orderBy: [{ type: 'asc' }, { order: 'asc' }],
-  });
+  const res: AxiosResponse<{ exco: Executive[] }, any> =
+    await axiosInstance.get(`/api/user/executive`);
+  const executives = res.data.exco;
 
   return {
     props: {

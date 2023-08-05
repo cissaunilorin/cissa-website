@@ -19,6 +19,6 @@ export const excoSchema = z
     position: z.string(),
     description: z.string(),
     order: z.string(),
-    type: z.nativeEnum(ExcoType),
+    type: z.string(),
   })
   .required();
