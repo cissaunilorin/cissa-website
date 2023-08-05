@@ -25,13 +25,13 @@ import { imageHandler, videoHandler } from '../../utils/editorHandler';
 import { editorBox, headingInputStyle } from '../../styles/pages/write';
 import { AddIcon, PlusSquareIcon } from '@chakra-ui/icons';
 import ChakraNextImage from '../../components/chakra-nextimage';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { trpc } from '../../utils/trpc';
 import { useRouter } from 'next/router';
-import { prisma } from '../../server/lib/prisma';
 import BlogTag from '../../components/BlogTag/BlogTag';
 import { blogButton } from '../../styles/blog';
-import { Tag } from '../../../prisma/generated/prisma-client-js';
+import { Blog, Tag } from '../../types/types';
+import axiosInstance from '../../utils/axiosConfig';
 
 const Editor = dynamic(() => import('../../components/Editor/Editor'), {
   ssr: false,
@@ -299,18 +299,12 @@ export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
   const blogId = ctx.query['blog-id'] as string;
-  const blogRes = await prisma.blog.findUnique({
-    where: { id: blogId },
-    include: {
-      blogTag: {
-        include: {
-          tag: true,
-        },
-      },
-    },
-  });
+  const res: AxiosResponse<{ blog: Blog }, any> = await axiosInstance.get(
+    `/api/blog/${blogId}?preview=true`
+  );
+  const blog = res.data.blog;
 
-  const blog: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
+  delete blog.author;
 
   return {
     props: {

@@ -16,7 +16,7 @@ import moment from 'moment';
 import { EditIcon } from '@chakra-ui/icons';
 // import { router } from '../../../server/trpc';
 import { useRouter } from 'next/router';
-import { Blog } from '../../../../prisma/generated/prisma-client-js';
+import { Blog } from '../../../types/types';
 
 const AuthorBlog: FC<{ blogs: Blog[] }> = ({ blogs }) => {
   const router = useRouter();

@@ -1,13 +1,8 @@
 import { FC } from 'react';
-
 import CardSection from '../CardSection/CardSection';
-import { Executive, User } from '../../../../prisma/generated/prisma-client-js';
+import { Executive } from '../../../types/types';
 
-const CISSA: FC<{
-  cissa: (Executive & {
-    user: User;
-  })[];
-}> = ({ cissa }) => {
+const CISSA: FC<{ cissa: Executive[] }> = ({ cissa }) => {
   return (
     <CardSection
       heading='Cissa Executives'

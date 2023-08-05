@@ -1,9 +1,7 @@
-import { Executive, User } from '../../../../prisma/generated/prisma-client-js';
+import { Executive } from '../../../types/types';
 
 export interface ICardSection {
   heading: string;
   description: string;
-  cards?: (Executive & {
-    user: User;
-  })[];
+  cards?: Executive[];
 }

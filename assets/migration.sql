@@ -113,3 +113,42 @@ ALTER TABLE `blogTags` ADD CONSTRAINT `blogTags_blogId_fkey` FOREIGN KEY (`blogI
 
 -- AddForeignKey
 ALTER TABLE `blogTags` ADD CONSTRAINT `blogTags_tagId_fkey` FOREIGN KEY (`tagId`) REFERENCES `tags`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+/*
+  Warnings:
+
+  - You are about to drop the column `slug` on the `blogs` table. All the data in the column will be lost.
+
+*/
+-- DropIndex
+DROP INDEX `blogs_slug_key` ON `blogs`;
+
+-- AlterTable
+ALTER TABLE `blogs` DROP COLUMN `slug`;
+
+/*
+  Warnings:
+
+  - A unique constraint covering the columns `[slug]` on the table `blogs` will be added. If there are existing duplicate values, this will fail.
+  - Added the required column `slug` to the `blogs` table without a default value. This is not possible if the table is not empty.
+
+*/
+-- AlterTable
+ALTER TABLE `blogs` ADD COLUMN `slug` VARCHAR(255) NOT NULL;
+
+-- CreateIndex
+CREATE UNIQUE INDEX `blogs_slug_key` ON `blogs`(`slug`);
+
+/*
+  Warnings:
+
+  - Made the column `about` on table `departments` required. This step will fail if there are existing NULL values in that column.
+  - Added the required column `imageUrl` to the `executives` table without a default value. This is not possible if the table is not empty.
+
+*/
+-- AlterTable
+ALTER TABLE `departments` MODIFY `about` LONGTEXT NOT NULL;
+
+-- AlterTable
+ALTER TABLE `executives` ADD COLUMN `imageUrl` VARCHAR(255) NOT NULL,
+    MODIFY `description` LONGTEXT NOT NULL;

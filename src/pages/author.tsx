@@ -8,11 +8,13 @@ import {
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import { mainBoxStyle } from '../styles/common';
-import { prisma } from '../server/lib/prisma';
 import { getServerAuthSession } from '../server/common/get-server-auth-session';
 import { Session } from 'next-auth';
 import AuthorDetails from '../components/Author/Author-Details/Author-Details';
 import AuthorBlog from '../components/Author/Author-Blog/Author-Blog';
+import { Blog } from '../types/types';
+import axiosInstance from '../utils/axiosConfig';
+import { AxiosResponse } from 'axios';
 
 const Author: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -38,11 +40,12 @@ export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
   const session = await getServerAuthSession(ctx);
-  const blogRes = await prisma.blog.findMany({
-    where: { authorId: session?.user.id },
-  });
 
-  const blogs: typeof blogRes = JSON.parse(JSON.stringify(blogRes));
+  const res: AxiosResponse<{ blog: Blog[] }, any> = await axiosInstance.get(
+    `/api/blog/author/${session?.user.id}`
+  );
+
+  const blogs: typeof res.data.blog = JSON.parse(JSON.stringify(res.data.blog));
   const user: Session['user'] = JSON.parse(JSON.stringify(session?.user));
 
   return {

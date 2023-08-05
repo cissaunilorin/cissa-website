@@ -3,7 +3,7 @@ import { coursesHeading, courseBoxes, courseLvl, courseList } from './style';
 import { mainBoxStyle } from '../../../styles/common';
 import { deptGeneralBoxSpacing } from '../Overview/style';
 import { FC } from 'react';
-import { Course } from '../../../../prisma/generated/prisma-client-js';
+import { Course } from '../../../types/types';
 
 const level = ['100', '200', '300', '400'];
 

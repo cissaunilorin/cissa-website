@@ -3,7 +3,7 @@ import NextAuth from 'next-auth';
 import CredentialProvider from 'next-auth/providers/credentials';
 import { correctPassword } from '../../../utils/authHandler';
 import { pattern } from '../../../utils/homeHandler';
-import { prisma } from '../../../server/lib/prisma';
+import axiosInstance from '../../../utils/axiosConfig';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -24,7 +24,8 @@ export const authOptions: NextAuthOptions = {
           throw new Error('please input email/username and password');
         if (!pattern.test(email)) throw new Error('invalid email');
 
-        const user = await prisma.user.findFirst({ where: { email } });
+        const res = await axiosInstance.get(`/api/user/${email}`);
+        const user = res.data.user;
 
         // 2) Check if user exists && password is correct
         if (!user || !(await correctPassword(password, user.password)))

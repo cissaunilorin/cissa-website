@@ -9,7 +9,7 @@ import Head from 'next/head';
 // import Alumni from '../components/Home/Alumni';
 import Blog from '../components/Home/Blog/Blog';
 import About from './../components/Home/About/About';
-import ContactDetails from '../components/Home/ContactDetails/ContactDetails';
+// import ContactDetails from '../components/Home/ContactDetails/ContactDetails';
 import Events from '../components/Home/Event/Event';
 import Facts from '../components/Home/Facts/Facts';
 // import Gallery from '../components/Home/Gallery/Gallery';
@@ -18,7 +18,9 @@ import Overview from '../components/Home/Overview/Overview';
 import Recourses from '../components/Home/Recourses/Recourses';
 import { ParsedUrlQuery } from 'querystring';
 // import { trpc } from '../utils/trpc';
-import { prisma } from '../server/lib/prisma';
+import axiosInstance from '../utils/axiosConfig';
+import { AxiosResponse } from 'axios';
+import { Event } from '../types/types';
 
 const Home: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -46,9 +48,13 @@ const Home: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const eventsRes = await prisma.event.findMany();
+  const res: AxiosResponse<{ event: Event[] }, any> = await axiosInstance.get(
+    `/api/event`
+  );
 
-  const events: typeof eventsRes = JSON.parse(JSON.stringify(eventsRes));
+  const events: typeof res.data.event = JSON.parse(
+    JSON.stringify(res.data.event)
+  );
 
   return {
     props: {

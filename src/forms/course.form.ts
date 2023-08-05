@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { Course } from '../../prisma/generated/prisma-client-js';
+import { Course } from '../types/types';
 
 export type ICourseForm = Course;
 

@@ -32,10 +32,11 @@ import { ParsedUrlQuery } from 'querystring';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
-import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
 import { IEditorForm, editorSchema } from '../../forms/editor.form';
-import { Role } from '../../../prisma/generated/prisma-client-js';
+import { Role, User } from '../../types/types';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../../utils/axiosConfig';
 
 const Editor: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -187,11 +188,10 @@ const Editor: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const editors = await prisma.user.findMany({
-    where: {
-      role: Role.EDITOR,
-    },
-  });
+  const res: AxiosResponse<{ user: User[] }, any> = await axiosInstance.get(
+    `/api/user/admin/EDITOR`
+  );
+  const editors = res.data.user;
 
   return {
     props: {
