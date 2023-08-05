@@ -1,5 +1,5 @@
-import { ExcoType } from '@prisma/client';
 import * as z from 'zod';
+import { ExcoType } from '../types/types';
 
 export type IExcoForm = {
   name: string;
@@ -19,6 +19,6 @@ export const excoSchema = z
     position: z.string(),
     description: z.string(),
     order: z.string(),
-    type: z.nativeEnum(ExcoType),
+    type: z.string(),
   })
   .required();

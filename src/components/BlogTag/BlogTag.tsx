@@ -3,7 +3,7 @@ import AppModal from '../AppModal/AppModal';
 import { trpc } from '../../utils/trpc';
 import { Box, Button, Flex, Input, Spinner, Text } from '@chakra-ui/react';
 import { blogButton } from '../../styles/blog';
-import { Tag } from '@prisma/client';
+import { Tag } from '../../types/types';
 
 const BlogTag: FC<{
   isOpen: boolean;

@@ -12,7 +12,9 @@ import SRC from '../components/About/SRCC/SRC';
 import { Box } from '@chakra-ui/react';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
-import { prisma } from '../server/lib/prisma';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../utils/axiosConfig';
+import { Executive } from '../types/types';
 
 const About: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -44,16 +46,15 @@ const About: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const excoRes = await prisma.executive.findMany({
-    include: { user: true },
-    orderBy: [{ order: 'asc' }],
-  });
-  const departmentRes = await prisma.department.findMany();
-
-  const exco: typeof excoRes = JSON.parse(JSON.stringify(excoRes));
-  const department: typeof departmentRes = JSON.parse(
-    JSON.stringify(departmentRes)
-  );
+  const [res, resDe]: [
+    AxiosResponse<{ exco: Executive[] }, any>,
+    AxiosResponse<{ department: Department[] }, any>
+  ] = await Promise.all([
+    axiosInstance.get(`/api/user/executive/`),
+    axiosInstance.get(`/api/department/`),
+  ]);
+  const exco = res.data.exco;
+  const department = resDe.data.department;
 
   return {
     props: {

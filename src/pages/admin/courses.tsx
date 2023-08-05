@@ -19,8 +19,6 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CourseStatus } from '@prisma/client';
-// import { Course } from '@prisma/client';
 import {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -34,14 +32,16 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import AppModal from '../../components/AppModal/AppModal';
 import { courseSchema, ICourseForm } from '../../forms/course.form';
-import { prisma } from '../../server/lib/prisma';
 import { trpc } from '../../utils/trpc';
+import { Course, Department } from '../../types/types';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../../utils/axiosConfig';
 
 const defaultValues: ICourseForm = {
   code: '',
   title: '',
   credit: 2,
-  status: CourseStatus.C,
+  status: 'C',
   departmentId: '',
 };
 
@@ -212,7 +212,7 @@ const Courses: NextPage<
                     <Td>{each.title}</Td>
                     <Td>{each.credit}</Td>
                     <Td>{each.status}</Td>
-                    <Td>{each.department.name}</Td>
+                    <Td>{each.department?.name}</Td>
                     <Td>
                       <IconButton
                         aria-label='add new'
@@ -254,12 +254,15 @@ const Courses: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const courses = await prisma.course.findMany({
-    include: { department: true },
-  });
-  const departments = await prisma.department.findMany();
-
-  // console.log(departments);
+  const [res, resDe]: [
+    AxiosResponse<{ courses: Course[] }, any>,
+    AxiosResponse<{ department: Department[] }, any>
+  ] = await Promise.all([
+    axiosInstance.get(`/api/course/admin/`),
+    axiosInstance.get(`/api/department/`),
+  ]);
+  const courses = res.data.courses;
+  const departments = resDe.data.department;
 
   return {
     props: {
