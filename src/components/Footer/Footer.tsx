@@ -118,11 +118,12 @@ const Footer: FC = () => {
           fontSize='16px'
           lineHeight='100%'
           color='white'>
-          developed by{' '}
+          developed by CISSA CEC 2022/23 session through
           {/* please do not remove this line ************************** */}
           <NextLink href={'https://pherwerz.dev'} target='_blank'>
             <a style={{ textDecorationLine: 'underline' }}>Adebayo Fawaz</a>
-          </NextLink>
+          </NextLink>{' '}
+          2022/23 software director
           {/* *************************************************************** */}
           <br />
           <br />
