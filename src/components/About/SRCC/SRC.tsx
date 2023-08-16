@@ -6,8 +6,7 @@ const SRC: FC<{ src: Executive[] }> = ({ src }) => {
   return (
     <CardSection
       heading='Student Representative council'
-      description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et.'
+      description='meet the SRC members'
       cards={src}
     />
   );
