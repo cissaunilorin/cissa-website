@@ -34,7 +34,7 @@ const Event: FC<{ events: Event[] }> = ({ events }) => {
         py='20px'
         css={{ '::-webkit-scrollbar': { display: 'none' } }}>
         <Flex mt={'12'} gap={5}>
-          {events?.slice(5).map((event) => (
+          {events?.slice(0, 5).map((event) => (
             <Card {...event} key={event.id} />
           ))}
         </Flex>
