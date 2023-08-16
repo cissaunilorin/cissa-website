@@ -298,6 +298,7 @@ const Events: NextPage<
                           Object.entries(each).forEach(([key, val]) =>
                             setValue<any>(key, val)
                           );
+                          setPhoto(each.imageUrl);
                           setIsNew(false);
                           onOpen();
                         }}
