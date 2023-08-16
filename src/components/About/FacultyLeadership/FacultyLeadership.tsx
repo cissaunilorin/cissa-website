@@ -7,8 +7,7 @@ const FacultyLeadership: FC<{ staff: Executive[] }> = ({ staff }) => {
   return (
     <CardSection
       heading='Faculty Leadership'
-      description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et.'
+      description='meet the faculty Leaders'
       cards={staff}
     />
   );
