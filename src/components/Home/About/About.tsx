@@ -68,7 +68,7 @@ const About: FC = () => {
           <Heading {...heading2Style}>About Us</Heading>
           <Text {...aboutText}>
             The faculty of communication and information sciences was
-            established in the year 2008,It as 5 deartments with
+            established in the year 2008,It has 5 departments
           </Text>
 
           {about.map((cur, i) => (
