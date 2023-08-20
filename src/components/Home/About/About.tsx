@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 const about = [
   {
     heading: '5 departments',
-    text: 'The faculty has 5 deparments.',
+    text: 'The faculty has 5 departments.',
   },
   {
     heading: 'Conducive Lecture rooms',
