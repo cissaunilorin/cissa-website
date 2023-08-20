@@ -118,7 +118,7 @@ const Footer: FC = () => {
           fontSize='16px'
           lineHeight='100%'
           color='white'>
-          developed by CISSA CEC 2022/23 session through{' '}
+          developed by CISSA CEC 2022/23 session by{' '}
           {/* please do not remove this line ************************** */}
           <NextLink href={'https://pherwerz.dev'} target='_blank'>
             <a style={{ textDecorationLine: 'underline' }}>Adebayo Fawaz</a>
