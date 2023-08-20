@@ -5,7 +5,7 @@ import { Executive } from '../../../types/types';
 const CISSA: FC<{ cissa: Executive[] }> = ({ cissa }) => {
   return (
     <CardSection
-      heading='Cissa Executives'
+      heading='CISSA Executives'
       description='meet your CEC members'
       cards={cissa}
     />
