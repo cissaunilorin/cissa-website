@@ -24,10 +24,6 @@ const Department: FC<{ data: Department[] }> = ({ data }) => {
           <Heading {...heading2Style} mb='20px'>
             5 Awesome Departments.
           </Heading>
-          <Text {...featureText}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et.
-          </Text>
         </Box>
 
         <Flex wrap={'wrap'} justify='center' gap='40px'>
