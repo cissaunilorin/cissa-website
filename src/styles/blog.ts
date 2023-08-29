@@ -117,7 +117,7 @@ export const bottomTextWrapper: TextProps = {
 
 export const blogimageProps = {
   marginY: '5',
-  h: ['250px', '400px'],
+  h: '250px',
   w: 'full',
   borderRadius: '14px',
 };

@@ -240,7 +240,7 @@ const Write: NextPage<
             </Box>
           </Box>
 
-          <Box>
+          <Box flexGrow={0}>
             <Box mb='30px'>
               <Text mb='10px'>
                 Tags{' '}
