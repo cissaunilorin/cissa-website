@@ -155,7 +155,7 @@ const Write: NextPage<
 
       <Box {...mainBoxStyle} my='100px'>
         <Flex justify={'space-between'} gap='52px' align={'flex-start'}>
-          <Box flex={1}>
+          <Box flex={'0 0 900px'}>
             {!save && isLoading && (
               <Text opacity={0.5} mb='10px'>
                 saving to draft
@@ -240,7 +240,7 @@ const Write: NextPage<
             </Box>
           </Box>
 
-          <Box flexGrow={0}>
+          <Box>
             <Box mb='30px'>
               <Text mb='10px'>
                 Tags{' '}
