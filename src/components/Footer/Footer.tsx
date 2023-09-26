@@ -123,7 +123,7 @@ const Footer: FC = () => {
           <NextLink href={'https://pherwerz.dev'} target='_blank'>
             <a style={{ textDecorationLine: 'underline' }}>Adebayo Fawaz</a>
           </NextLink>{' '}
-          2022/23 software director
+          software director and CISSA tech team 2021/22
           {/* *************************************************************** */}
           <br />
           <br />
