@@ -151,9 +151,9 @@ const Blog: NextPage<
                     w={'100'}
                     mb={'24px'}
                   />
-                  <Heading {...blogSecondaryHeading}>
+                  {/*<Heading {...blogSecondaryHeading}>
                     {blogPost.blogTag ? blogPost.blogTag[0].tag.title : ''}
-                  </Heading>
+                  </Heading>*/}
                   <Text {...blogTrendingHeading}>{blogPost.heading}</Text>
                   <Flex gap={'8px'} alignItems={'center'}>
                     <Avatar
