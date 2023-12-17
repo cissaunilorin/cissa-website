@@ -49,6 +49,12 @@ const Write: NextPage<
   const [save, setSave] = useState(true);
 
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { data, isLoading: isTagLoading } = trpc.blog.getAllTags.useQuery();
+
+  const [allTags, setAllTags] = useState<Tag[]>();
+  useEffect(() => {
+    if (!isTagLoading) setAllTags(data);
+  }, [data, isTagLoading]);
 
   const blogImgHandler = async (p?: File) => {
     if (p) {
@@ -146,11 +152,22 @@ const Write: NextPage<
       <BlogTag
         isOpen={isOpen}
         onClose={onClose}
-        onClick={(stags) => {
-          setTags(stags);
-          onClose();
-        }}
+        // onClick={(stags) => {
+        //   setTags(stags);
+        //   onClose();
+        // }}
         selectedTags={tags}
+        setSelectedTags={setTags}
+        isLoading={isTagLoading}
+        setAllTags={setAllTags}
+        allTags={
+          tags
+            ? allTags?.filter((cur) => {
+                const idx = tags.findIndex((cr) => cur.id === cr.id);
+                return !(idx >= 0);
+              })
+            : allTags
+        }
       />
 
       <Box {...mainBoxStyle} my='100px'>

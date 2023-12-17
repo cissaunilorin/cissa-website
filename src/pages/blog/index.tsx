@@ -126,7 +126,7 @@ const Blog: NextPage<
 
               <Box pt={{ base: '50px', lg: 'unset' }} flex={2}>
                 <Heading {...blogSecondaryHeading}>
-                  {blogs[0].blogTag ? blogs[0].blogTag[0].tag.title : ''}
+                  {blogs[0].blogTag ? blogs[0].blogTag[0]?.tag.title : ''}
                 </Heading>
                 <Text {...blogTrendingHeading}>{blogs[0].heading}</Text>
                 <Flex gap={'8px'} alignItems={'center'}>
@@ -143,7 +143,12 @@ const Blog: NextPage<
           <Box {...mainBoxStyle} mb='50px'>
             <Flex wrap='wrap' gap='30px' mb='50px' justify={'center'}>
               {blogs.map((blogPost, i) => (
-                <Box flex='0 0 300px' key={i} w='100%'>
+                <Box
+                  flex='0 0 300px'
+                  key={i}
+                  w='100%'
+                  cursor='pointer'
+                  onClick={() => router.push(`blog/${blogPost.slug}`)}>
                   <ChakraNextImage
                     src={blogPost.imageUrl}
                     borderRadius={'8px'}
@@ -151,9 +156,9 @@ const Blog: NextPage<
                     w={'100'}
                     mb={'24px'}
                   />
-                  {/*<Heading {...blogSecondaryHeading}>
-                    {blogPost.blogTag ? blogPost.blogTag[0].tag.title : ''}
-                  </Heading>*/}
+                  <Heading {...blogSecondaryHeading}>
+                    {blogPost.blogTag ? blogPost.blogTag[0]?.tag.title : ''}
+                  </Heading>
                   <Text {...blogTrendingHeading}>{blogPost.heading}</Text>
                   <Flex gap={'8px'} alignItems={'center'}>
                     <Avatar
