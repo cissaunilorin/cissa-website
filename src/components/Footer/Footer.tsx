@@ -124,18 +124,9 @@ const Footer: FC = () => {
           fontSize='16px'
           lineHeight='100%'
           color='white'>
-          developed by CISSA CEC 2021/22 session by{' '}
-          {/* please do not remove this line ************************** */}
-          <Link
-            href={'https://pherwerz.dev'}
-            isExternal
-            style={{ textDecorationLine: 'underline' }}
-          >
-            Adebayo Fawaz
-          </Link>{' '}
-          software director and CISSA tech team 2021/22         {/* *************************************************************** */}
+          Managed by the CISSA Software Director, CEC 2024/25 session        {/* *************************************************************** */}
           <br />
-   by        <br />
+          <br />
           {new Date().getFullYear()}. All rights reserved.
         </Text>
       </Box>
