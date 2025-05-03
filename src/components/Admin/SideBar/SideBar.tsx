@@ -49,13 +49,10 @@ const SideBar: FC = () => {
             _hover={{
               opacity: '1',
             }}>
-            <NextLink href={list.link} passHref>
-              <Link {...linkStyle}>
-                <ListIcon as={list.icon} />
-
-                {list.title}
-              </Link>
-            </NextLink>
+            <Link as={NextLink} href={list.link} {...linkStyle}>
+              <ListIcon as={list.icon} />
+              {list.title}
+            </Link>
           </ListItem>
         ))}
       </List>

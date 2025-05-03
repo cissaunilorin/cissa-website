@@ -36,6 +36,7 @@ const Gallery: FC = () => {
           w='98px'
           h='72.02px'
           pos='absolute'
+          alt='resourcedots'
           {...resourcedots1}
         />
       </Box>
@@ -73,11 +74,9 @@ const Gallery: FC = () => {
           />
         </Flex>
         <Flex>
-          <NextLink href='/gallery' passHref>
-            <Button rightIcon={<ArrowForwardIcon />} {...button}>
-              Explore Gallery
-            </Button>
-          </NextLink>
+          <Button as={NextLink} href='/gallery' rightIcon={<ArrowForwardIcon />} {...button}>
+            Explore Gallery
+          </Button>
         </Flex>
       </Box>
     </Box>

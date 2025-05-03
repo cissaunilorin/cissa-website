@@ -14,7 +14,7 @@ const facts = [
   {
     img: 'fact-clock.png',
     heading: 'Students',
-    text: 'The faculty’s regular clean up exercises earns it the title of one of the cleanest in UNILORIN',
+    text: "The faculty's regular clean up exercises earns it the title of one of the cleanest in UNILORIN",
   },
   {
     img: 'fact-grad.png',
@@ -54,11 +54,13 @@ const Facts: FC = () => {
             {facts.map((fact, i) => (
               <Box {...factsBox} key={i}>
                 <ChakraNextImage
+                  key={`fact-image-${i}`}
                   src={`/assets/${fact.img}`}
                   h={'78px'}
                   w={'78px'}
                   mx={'auto'}
                   mb={'32px'}
+                  alt='fact'
                 />
 
                 <Heading {...factsHeading}>{fact.heading}</Heading>

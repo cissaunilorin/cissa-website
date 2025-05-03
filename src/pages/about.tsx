@@ -46,22 +46,30 @@ const About: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  const [res, resDe]: [
-    AxiosResponse<{ exco: Executive[] }, any>,
-    AxiosResponse<{ department: Department[] }, any>
-  ] = await Promise.all([
-    axiosInstance.get(`/api/user/executive/`),
-    axiosInstance.get(`/api/department/`),
-  ]);
-  const exco = res.data.exco;
-  const department = resDe.data.department;
-
-  return {
-    props: {
-      exco,
-      department,
-    },
-  };
+  try {
+    const [res, resDe]: [
+      AxiosResponse<{ exco: Executive[] }, any>,
+      AxiosResponse<{ department: Department[] }, any>
+    ] = await Promise.all([
+      axiosInstance.get(`/api/user/executive/`),
+      axiosInstance.get(`/api/department/`),
+    ]);
+    
+    return {
+      props: {
+        exco: res.data.exco || [],
+        department: resDe.data.department || [],
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      props: {
+        exco: [],
+        department: [],
+      },
+    };
+  }
 };
 
 export default About;

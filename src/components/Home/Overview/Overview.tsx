@@ -7,6 +7,7 @@ import {
   Icon,
   List,
   ListItem,
+  Link,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { FC } from 'react';
@@ -69,9 +70,9 @@ const Overview: FC = () => {
             <List display={'flex'} flexDir={{ lg: 'column' }} gap='40px'>
               {links.map((link, i) => (
                 <ListItem key={i} {...listStyle}>
-                  <NextLink href={link.href} passHref>
+                  <Link href={link.href} isExternal>
                     <Icon as={link.icon} color='#FFF2EC' fontSize={'24px'} />
-                  </NextLink>
+                  </Link>
                 </ListItem>
               ))}
             </List>

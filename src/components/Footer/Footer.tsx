@@ -8,6 +8,7 @@ import {
   ListItem,
   Link,
   Icon,
+  Link as ChakraLink,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { FC } from 'react';
@@ -88,9 +89,9 @@ const Footer: FC = () => {
             <List>
               {pageLinks.map((link) => (
                 <ListItem key={link.name}>
-                  <NextLink href={link.href} passHref>
-                    <Link {...linkItems}>{link.name}</Link>
-                  </NextLink>
+                  <Link as={NextLink} href={link.href} {...linkItems}>
+                    {link.name}
+                  </Link>
                 </ListItem>
               ))}
             </List>
@@ -101,9 +102,14 @@ const Footer: FC = () => {
 
             <Flex gap={'20px'}>
               {social.map((link, i) => (
-                <NextLink key={i} href={link.href} passHref>
+                <Link
+                  key={i}
+                  href={link.href}
+                  isExternal
+                  _hover={{ opacity: 0.8 }}
+                >
                   <Icon as={link.name} h='30px' w='30px' color={'white'} />
-                </NextLink>
+                </Link>
               ))}
             </Flex>
           </Box>
@@ -120,13 +126,16 @@ const Footer: FC = () => {
           color='white'>
           developed by CISSA CEC 2021/22 session by{' '}
           {/* please do not remove this line ************************** */}
-          <NextLink href={'https://pherwerz.dev'} target='_blank'>
-            <a style={{ textDecorationLine: 'underline' }}>Adebayo Fawaz</a>
-          </NextLink>{' '}
-          software director and CISSA tech team 2021/22
-          {/* *************************************************************** */}
+          <Link
+            href={'https://pherwerz.dev'}
+            isExternal
+            style={{ textDecorationLine: 'underline' }}
+          >
+            Adebayo Fawaz
+          </Link>{' '}
+          software director and CISSA tech team 2021/22         {/* *************************************************************** */}
           <br />
-          <br />
+   by        <br />
           {new Date().getFullYear()}. All rights reserved.
         </Text>
       </Box>

@@ -1,4 +1,4 @@
-import { Box, Button, Flex, List, ListItem, Link } from '@chakra-ui/react';
+import { Box, Button, Flex, List, ListItem, Link as ChakraLink } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -57,11 +57,13 @@ const Header: FC = () => {
               <ListItem
                 {...listStyle(router.pathname === link.href)}
                 key={link.name}>
-                <NextLink href={link.href} passHref>
-                  <Link {...linkStyle(router.pathname === link.href)}>
-                    {link.name}
-                  </Link>
-                </NextLink>
+                <ChakraLink
+                  as={NextLink}
+                  href={link.href}
+                  {...linkStyle(router.pathname === link.href)}
+                >
+                  {link.name}
+                </ChakraLink>
               </ListItem>
             ))}
           </List>
@@ -83,11 +85,13 @@ const Header: FC = () => {
                 <ListItem
                   {...listStyle(router.pathname === link.href)}
                   key={link.name}>
-                  <NextLink href={link.href} passHref>
-                    <Link {...linkStyle(router.pathname === link.href)}>
-                      {link.name}
-                    </Link>
-                  </NextLink>
+                  <ChakraLink
+                    as={NextLink}
+                    href={link.href}
+                    {...linkStyle(router.pathname === link.href)}
+                  >
+                    {link.name}
+                  </ChakraLink>
                 </ListItem>
               ))}
             </List>

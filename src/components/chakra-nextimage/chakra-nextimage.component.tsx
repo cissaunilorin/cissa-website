@@ -34,8 +34,8 @@ export const ChakraNextImage: FC<IChakraNextImageProps> = (props) => {
         loader={myLoader}
         placeholder="blur"
         blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-        objectFit="cover"
-        layout="fill"
+        fill
+        style={{ objectFit: 'cover' }}
         src={src}
         alt={alt}
       />

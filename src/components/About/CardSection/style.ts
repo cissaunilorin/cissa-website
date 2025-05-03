@@ -9,7 +9,8 @@ export const cardSectionImage: IChakraNextImageProps = {
   w: '300px',
   borderTopRadius: 'xl',
   css: { aspectRatio: '1/1' },
-  src: '',
+  src: '/assets/About/Alumni.png',
+  alt: 'Alumni Image',
 };
 
 export const cardSectionFlex: FlexProps = {
