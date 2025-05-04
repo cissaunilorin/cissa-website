@@ -15,7 +15,12 @@ const HOD = () => {
       <Box>
         <Box {...mainBoxStyle}>
           <Flex {...hodAboutBox}>
-            <ChakraNextImage src="assets/blogimg2.png" h="210px" {...hodImg} />
+            <ChakraNextImage 
+              src="assets/blogimg2.png" 
+              h="210px" 
+              {...hodImg} 
+              alt="Head of Department"
+            />
             <Box>
               <Heading {...hodHeading}>Head of department</Heading>
               <Text {...hodName}>General Iroh west</Text>
