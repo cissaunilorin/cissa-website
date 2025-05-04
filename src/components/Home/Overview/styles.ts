@@ -17,12 +17,21 @@ export const heading: HeadingProps = {
 
 export const listStyle: ListItemProps = {
   w: '40px',
+  h: '40px',
   border: '1px solid #FFF2EC',
   borderRadius: '50%',
-  css: { aspectRatio: '1/1' },
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  padding: 0,
+};
+
+export const iconStyle: BoxProps = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '100%',
 };
 
 export const iconButton: ButtonProps = {

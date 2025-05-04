@@ -13,7 +13,7 @@ import NextLink from 'next/link';
 import { FC } from 'react';
 import { FaInstagram, FaEnvelope, FaTwitter } from 'react-icons/fa';
 import { mainBoxStyle } from '../../../styles/common';
-import { heading, listStyle } from './styles';
+import { heading, listStyle, iconStyle } from './styles';
 import { useRouter } from 'next/router';
 
 const links = [
@@ -71,7 +71,9 @@ const Overview: FC = () => {
               {links.map((link) => (
                 <ListItem key={link.href} {...listStyle}>
                   <Link href={link.href} isExternal>
-                    <Icon as={link.icon} color='#FFF2EC' fontSize={'24px'} />
+                    <Box {...iconStyle}>
+                      <Icon as={link.icon} color='#FFF2EC' fontSize={'24px'} />
+                    </Box>
                   </Link>
                 </ListItem>
               ))}
