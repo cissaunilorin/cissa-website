@@ -48,10 +48,10 @@ const Events = () => {
   return (
     <Box {...EventsProps}>
       <Flex {...NavsProps}>
-        {navs.map((each, index) => (
+        {navs.map((each) => (
           <Button
             {...(each?.active ? ActiveNavProps : NavProps)}
-            key={index}
+            key={each.name}
             onClick={() => handleChangeActiveNav(each?.name)}
           >
             {each.name}

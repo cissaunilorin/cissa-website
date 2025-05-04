@@ -24,7 +24,10 @@ const Courses: FC<{ courses: Course[] }> = ({ courses }) => {
                       <Flex {...courseList}>
                         <Flex {...courseList}>
                           {courses.map((course) => {
-                            if (course.code[3] === lvl[0]) return course.code;
+                            if (course.code[3] === lvl[0]) {
+                              return <Text key={course.code}>{course.code}</Text>;
+                            }
+                            return null;
                           })}
                         </Flex>
                       </Flex>

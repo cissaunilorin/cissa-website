@@ -68,8 +68,8 @@ const Overview: FC = () => {
             </Box>
 
             <List display={'flex'} flexDir={{ lg: 'column' }} gap='40px'>
-              {links.map((link, i) => (
-                <ListItem key={i} {...listStyle}>
+              {links.map((link) => (
+                <ListItem key={link.href} {...listStyle}>
                   <Link href={link.href} isExternal>
                     <Icon as={link.icon} color='#FFF2EC' fontSize={'24px'} />
                   </Link>
