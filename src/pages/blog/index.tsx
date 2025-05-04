@@ -38,7 +38,7 @@ import { useRouter } from 'next/router';
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import Head from 'next/head';
 import axiosInstance from '../../utils/axiosConfig';
-import { Blog, Tag } from '../../types/types';
+import type { Blog, Tag } from '../../types/types';
 import { AxiosResponse } from 'axios';
 
 const Blog: NextPage<
@@ -122,6 +122,7 @@ const Blog: NextPage<
                 h={'472.23px'}
                 w={{ base: '100%', md: '100%', lg: '664px' }}
                 borderRadius={'8px'}
+                alt={blogs[0].heading}
               />
 
               <Box pt={{ base: '50px', lg: 'unset' }} flex={2}>
@@ -155,6 +156,7 @@ const Blog: NextPage<
                     h={'273px'}
                     w={'100'}
                     mb={'24px'}
+                    alt={blogPost.heading}
                   />
                   <Heading {...blogSecondaryHeading}>
                     {blogPost.blogTag ? blogPost.blogTag[0]?.tag.title : ''}
