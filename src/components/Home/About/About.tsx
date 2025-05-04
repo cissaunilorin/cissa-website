@@ -46,6 +46,7 @@ const About: FC = () => {
               w={{ base: '118px', md: '148px', lg: '198px' }}
               borderRadius='14px'
               src={`/assets/about-img-1.png`}
+              alt="About section image 1"
             />
 
             <ChakraNextImage
@@ -53,6 +54,7 @@ const About: FC = () => {
               w={{ base: '153px', md: '193px', lg: '253px' }}
               borderRadius='14px'
               src={`/assets/about-img-2.png`}
+              alt="About section image 2"
             />
           </Flex>
 
@@ -61,6 +63,7 @@ const About: FC = () => {
             flex={{ base: '0 0 148px', md: '0 0 198px', lg: '0 0 258px' }}
             borderRadius='14px'
             src={`/assets/about-img-3.png`}
+            alt="About section image 3"
           />
         </Flex>
 
