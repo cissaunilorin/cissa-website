@@ -210,7 +210,12 @@ const Executive: NextPage<
                 }
               }}
             />
-            <ChakraNextImage src={photo} w='25%' css={{ aspectRatio: '1/1' }} />
+            <ChakraNextImage 
+              src={photo} 
+              w='25%' 
+              css={{ aspectRatio: '1/1' }} 
+              alt="Executive profile image"
+            />
           </Box>
         ) : (
           <>

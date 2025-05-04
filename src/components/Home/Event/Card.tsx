@@ -21,7 +21,11 @@ import { Event } from '../../../types/types';
 const Card: FC = (props: Event) => {
   return (
     <Box {...card}>
-      <ChakraNextImage src={props.imageUrl} {...cardImg} />
+      <ChakraNextImage 
+        src={props.imageUrl} 
+        {...cardImg} 
+        alt={`Event: ${props.title}`}
+      />
       <Box>
         <Box {...cardDetails}>
           <Flex {...cardDetailsTitle}>

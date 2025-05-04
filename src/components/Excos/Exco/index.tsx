@@ -23,6 +23,7 @@ const Exco: NextPage = (props: any) => {
         h='500px'
         src={'/assets/placeholder.png'}
         borderRadius='20px'
+        alt={`${props.exco.name} - ${props.exco.role}`}
       />
       <Box w='100%'>
         <Box mb='.8rem'>
