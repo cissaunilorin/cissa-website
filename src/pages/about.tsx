@@ -18,7 +18,7 @@ import { Executive } from '../types/types';
 
 const About: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ exco, department }) => {
+> = ({ exco, department }: { exco: Executive[], department: any[] }) => {
   const staff = exco.filter((cur) => cur.type === 'STAFF');
   const cissa = exco.filter((cur) => cur.type === 'CISSA');
   const src = exco.filter((cur) => cur.type === 'SRC');
