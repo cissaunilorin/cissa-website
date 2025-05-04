@@ -48,29 +48,12 @@ const Home: NextPage<
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
-  try {
-    const res: AxiosResponse<{ event: Event[] }, any> = await axiosInstance.get(
-      `/api/event`
-    );
-
-    const events: typeof res.data.event = JSON.parse(
-      JSON.stringify(res.data.event)
-    );
-
-    return {
-      props: {
-        events,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching events:', error);
-    // Return empty events array instead of failing
-    return {
-      props: {
-        events: [],
-      },
-    };
-  }
+  // Return empty events array since backend is not available
+  return {
+    props: {
+      events: [],
+    },
+  };
 };
 
 export default Home;
