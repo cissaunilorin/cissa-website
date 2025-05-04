@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['localhost', 'https://cissa-website-nu.vercel.app'],
+    domains: ['localhost', 'cissa-website-nu.vercel.app'],
   },
 };
 
