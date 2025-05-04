@@ -18,7 +18,9 @@ import {
 import moment from 'moment';
 import { Event } from '../../../types/types';
 
-const Card: FC = (props: Event) => {
+interface CardProps extends Event {}
+
+const Card: FC<CardProps> = (props) => {
   return (
     <Box {...card}>
       <ChakraNextImage 

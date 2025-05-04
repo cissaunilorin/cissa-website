@@ -44,7 +44,7 @@ import dynamic from 'next/dynamic';
 import ReactQuill from 'react-quill';
 import ChakraNextImage from '../../components/chakra-nextimage';
 import axios, { AxiosResponse } from 'axios';
-import { Executive } from '../../types/types';
+import type { Executive } from '../../types/types';
 import axiosInstance from '../../utils/axiosConfig';
 
 const Editor = dynamic(() => import('../../components/Editor/Editor'), {
