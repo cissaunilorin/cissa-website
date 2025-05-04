@@ -36,7 +36,7 @@ const Gallery: FC = () => {
           w='98px'
           h='72.02px'
           pos='absolute'
-          alt='resourcedots'
+          alt='Gallery section decoration dots'
           {...resourcedots1}
         />
       </Box>

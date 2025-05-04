@@ -46,7 +46,7 @@ const Card: FC = (props: Event) => {
               src={'/images/icons/pin_drop.svg'}
               width={20}
               height={20}
-              alt='calendar'
+              alt='location pin'
             />
             <Text>{props.venue}</Text>
           </Flex>

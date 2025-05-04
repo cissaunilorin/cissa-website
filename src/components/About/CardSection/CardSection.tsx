@@ -36,7 +36,11 @@ const CardSection: FC<ICardSection> = ({ heading, description, cards }) => {
               onClick={() => {
                 router.push(`/user/${leader.id}`);
               }}>
-              <ChakraNextImage {...cardSectionImage} src={leader.imageUrl} />
+              <ChakraNextImage 
+                {...cardSectionImage} 
+                src={leader.imageUrl} 
+                alt={`${leader?.user?.name} - ${leader?.position}`}
+              />
               <Flex {...cardSectionFlex}>
                 <Box w='100%'>
                   <Heading fontSize='1.2rem'>{leader?.user?.name}</Heading>

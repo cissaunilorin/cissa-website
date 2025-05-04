@@ -36,6 +36,7 @@ const excosMembers: NextPage<
               css={{ aspectRatio: '1/1' }}
               src={user?.imageUrl || ''}
               borderRadius='10px'
+              alt={`Profile photo of ${user?.user?.name}`}
             />
             <Box>
               <Box>
