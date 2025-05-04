@@ -47,6 +47,7 @@ const Recourses: FC = () => {
               pos="absolute"
               display={{ base: 'none', md: 'block' }}
               {...resourcedots1}
+              alt="Resource dots decoration"
             />
             <ChakraNextImage
               src="/assets/resourcedots.png"
@@ -55,6 +56,7 @@ const Recourses: FC = () => {
               display={{ base: 'none', md: 'block' }}
               pos="absolute"
               {...resourcedots2}
+              alt="Resource dots decoration"
             />
             <ChakraNextImage
               src="/assets/bookimg.png"
@@ -62,6 +64,7 @@ const Recourses: FC = () => {
               css={{ aspectRatio: '597.82/466.3' }}
               borderRadius="30px"
               position="relative"
+              alt="Resource book image"
             />
             <Flex dir="row" {...resourceImgTags} {...resourceImgTag1}>
               <Flex
@@ -69,7 +72,7 @@ const Recourses: FC = () => {
                 justifyContent={'center'}
                 {...resourceIcons}
               >
-                <ChakraNextImage src="/assets/head.png" w="15.99px" h="18px" />
+                <ChakraNextImage src="/assets/head.png" w="15.99px" h="18px" alt="Brain icon" />
               </Flex>
               <Text {...resourceSmallText}>
                 Take your brain for a mental hike with quiz!
@@ -81,7 +84,7 @@ const Recourses: FC = () => {
                 justifyContent={'center'}
                 {...resourceIcons}
               >
-                <ChakraNextImage src="/assets/paper.png" w="15.99px" h="18px" />
+                <ChakraNextImage src="/assets/paper.png" w="15.99px" h="18px" alt="Paper icon" />
               </Flex>
               <Text {...resourceSmallText}>1000+ Free Past Questions</Text>
             </Flex>
@@ -91,7 +94,7 @@ const Recourses: FC = () => {
                 justifyContent={'center'}
                 {...resourceIcons}
               >
-                <ChakraNextImage src="/assets/paper.png" w="15.99px" h="18px" />
+                <ChakraNextImage src="/assets/paper.png" w="15.99px" h="18px" alt="Paper icon" />
               </Flex>
               <Text {...resourceSmallText}>
                 Firsthand materials from lecturers
