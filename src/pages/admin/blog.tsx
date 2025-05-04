@@ -74,6 +74,7 @@ const Blog: NextPage<
           src={blogData?.imageUrl}
           w='100%'
           css={{ aspectRatio: '4/1' }}
+          alt={`Blog post: ${blogData?.heading}`}
         />
 
         <Box

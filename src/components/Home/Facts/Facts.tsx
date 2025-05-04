@@ -60,7 +60,7 @@ const Facts: FC = () => {
                   w={'78px'}
                   mx={'auto'}
                   mb={'32px'}
-                  alt='fact'
+                  alt={`${fact.heading} fact icon`}
                 />
 
                 <Heading {...factsHeading}>{fact.heading}</Heading>

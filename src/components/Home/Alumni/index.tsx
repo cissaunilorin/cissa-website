@@ -15,6 +15,7 @@ const Alumni = () => {
             h="72.02px"
             pos="absolute"
             {...resourcedots1}
+            alt="Alumni section decoration dots"
           />
           <Heading {...heading2Style} textAlign="center">
             Hear From Our Alumni
@@ -32,6 +33,7 @@ const Alumni = () => {
             pos="absolute"
             left="1%"
             top="0"
+            alt="Alumni section large decoration dots"
           />
 
           <Box
@@ -66,7 +68,7 @@ const Alumni = () => {
                   Elijah Oyindamola
                 </Text>
                 <Text color="#84736C">
-                  B.sc Mass communication, Class of 17’
+                  B.sc Mass communication, Class of 17'
                 </Text>
               </Box>
               <Flex columnGap=".5rem">
@@ -95,12 +97,14 @@ const Alumni = () => {
               w="300px"
               h="380px"
               borderRadius="5%"
+              alt="Alumni member photo 1"
             />
             <ChakraNextImage
               src="/assets/Alumni-2.png"
               w="200px"
               h="300px"
               borderRadius="5%"
+              alt="Alumni member photo 2"
             />
           </Flex>
         </Flex>

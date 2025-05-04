@@ -83,7 +83,11 @@ const BlogPost: NextPage<
           </Flex>
         </Flex>
 
-        <ChakraNextImage src={blog?.imageUrl || ''} {...blogimageProps} />
+        <ChakraNextImage 
+          src={blog?.imageUrl || ''} 
+          {...blogimageProps} 
+          alt={`Blog post: ${blog?.heading}`}
+        />
 
         <Text
           {...blogContentProps}

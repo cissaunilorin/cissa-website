@@ -211,6 +211,7 @@ const Write: NextPage<
                   src={photo}
                   w='100%'
                   css={{ aspectRatio: '4/1' }}
+                  alt={`Blog post thumbnail: ${heading}`}
                 />
               </Box>
             ) : (

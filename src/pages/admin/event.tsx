@@ -151,6 +151,7 @@ const Events: NextPage<
               src={photo}
               w='100%'
               css={{ aspectRatio: '2/1' }}
+              alt="Event thumbnail"
             />
             <CloseButton
               position={'absolute'}
