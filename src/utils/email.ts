@@ -17,7 +17,7 @@ class Email {
   async send(subject: string, text: string, name: string, from: string) {
     const mailOptions = {
       from: `"CISSA Contact Form" <${process.env.EMAIL_USERNAME}>`,
-      to: 'cissa@students.unilorin.edu.ng',
+      to: 'leocode425@gmail.com',
       subject: `[CISSA Contact] ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
