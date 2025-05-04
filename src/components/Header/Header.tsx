@@ -20,14 +20,14 @@ const links = [
   //   name: 'Resources',
   //   href: '#',
   // },
-  {
-    name: 'Blog',
-    href: '/blog',
-  },
-  {
-    name: 'Events',
-    href: '/events',
-  },
+  // {
+  //   name: 'Blog',
+  //   href: '/blog',
+  // },
+  // {
+  //   name: 'Events',
+  //   href: '/events',
+  // },
   {
     name: 'Contact',
     href: '/contact',

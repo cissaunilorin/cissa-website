@@ -14,9 +14,9 @@ import {
   departmentBoxSummary,
   iconDepartmentBoxProps,
 } from './style';
-import { Department } from '../../../types/types';
+import type { Department as DepartmentType } from '../../../types/types';
 
-const Department: FC<{ data: Department[] }> = ({ data }) => {
+const Department: FC<{ data: DepartmentType[] }> = ({ data }) => {
   return (
     <Box {...aboutSectionHistory}>
       <Box {...mainBoxStyle}>
@@ -35,6 +35,7 @@ const Department: FC<{ data: Department[] }> = ({ data }) => {
                     src='/assets/Workbag.png'
                     h={'30px'}
                     w={'30px'}
+                    alt="Department icon"
                   />
                 </Flex>
                 <Heading {...departmentBoxHeading}>{department.name}</Heading>
