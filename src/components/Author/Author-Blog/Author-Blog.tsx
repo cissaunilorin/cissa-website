@@ -49,6 +49,7 @@ const AuthorBlog: FC<{ blogs: Blog[] }> = ({ blogs }) => {
                     src={cur.imageUrl}
                     w='120px'
                     css={{ aspectRatio: '1/1' }}
+                    alt={`Blog post image for ${cur.heading}`}
                   />
 
                   <Box>
@@ -78,6 +79,7 @@ const AuthorBlog: FC<{ blogs: Blog[] }> = ({ blogs }) => {
                     src={cur.imageUrl}
                     w='120px'
                     css={{ aspectRatio: '1/1' }}
+                    alt={`Blog post image for ${cur.heading}`}
                   />
 
                   <Box>
@@ -107,6 +109,7 @@ const AuthorBlog: FC<{ blogs: Blog[] }> = ({ blogs }) => {
                     src={cur.imageUrl}
                     w='120px'
                     css={{ aspectRatio: '1/1' }}
+                    alt={`Blog post image for ${cur.heading}`}
                   />
 
                   <Box>
