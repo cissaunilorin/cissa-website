@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_BUCKET || 'http://localhost:5000';
 console.log('Axios baseURL:', baseURL); // Debug log
@@ -14,8 +14,10 @@ const axiosInstance = axios.create({
 
 // Add request interceptor for debugging
 axiosInstance.interceptors.request.use(
-  (config) => {
-    console.log('Making request to:', config.baseURL + config.url);
+  (config: InternalAxiosRequestConfig) => {
+    if (config.baseURL && config.url) {
+      console.log('Making request to:', config.baseURL + config.url);
+    }
     return config;
   },
   (error) => {

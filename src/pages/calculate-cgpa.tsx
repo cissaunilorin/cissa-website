@@ -192,7 +192,7 @@ const Calculator: NextPage = () => {
               mt='4'
               justify='center'
               alignItems='center'>
-              <p key={index} className='index'>
+              <p className='index'>
                 {' '}
                 {index + 1}
               </p>
@@ -212,7 +212,7 @@ const Calculator: NextPage = () => {
                 <option value='F'>F</option>
               </Select>
 
-              <Box fontSize='xl' mr='4' className='unit' placeholder='Unit'>
+              <Box fontSize='xl' mr='4' className='unit'>
                 {course.unit}
               </Box>
               <div className='counter'>

@@ -55,11 +55,11 @@ const Alumni = () => {
               w="40%"
             ></Box>
             <Text color="#B4A097" mb="2rem">
-              “Course materials, past questions, quizzes and other academic
+              &quot;Course materials, past questions, quizzes and other academic
               materials to help you become a star student are provided here by
               lecturers with essential resources that would help you grow along
               line your studied. Course materials, past questions, quizzes and
-              other academic materials to help.”{' '}
+              other academic materials to help.&quot;{' '}
             </Text>
 
             <Flex justifyContent="space-between">
@@ -68,7 +68,7 @@ const Alumni = () => {
                   Elijah Oyindamola
                 </Text>
                 <Text color="#84736C">
-                  B.sc Mass communication, Class of 17'
+                  B.sc Mass communication, Class of &apos;17
                 </Text>
               </Box>
               <Flex columnGap=".5rem">
