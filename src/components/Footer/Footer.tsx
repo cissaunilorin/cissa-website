@@ -123,7 +123,7 @@ const Footer: FC = () => {
           fontSize='16px'
           lineHeight='100%'
           color='white'>
-          Managed by the CISSA Software Director, CEC 2024/25 session        {/* *************************************************************** */}
+          Created by the CISSA Software Director, CEC 2022/23 session        {/* *************************************************************** */}
           <br />
           <br />
           {new Date().getFullYear()}. All rights reserved.
